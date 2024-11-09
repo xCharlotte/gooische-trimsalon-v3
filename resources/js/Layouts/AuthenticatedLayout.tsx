@@ -22,8 +22,6 @@ export default function Authenticated({
     setIsOpen(!isOpen);
   };
 
-  console.log(isOpen);
-
   return (
     <div className="flex flex-row">
       <Sidebar />

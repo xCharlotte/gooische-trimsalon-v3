@@ -11,12 +11,18 @@ export default function Sidebar() {
         </Link>
         <p className="uppercase text-xs font-medium">Admin dashboard</p>
       </div>
-      <div className="py-5">
+      <div className="flex flex-col space-y-3 py-5">
         <NavLink
           href={route("dashboard")}
           active={route().current("dashboard")}
         >
           Dashboard
+        </NavLink>
+        <NavLink
+          href={route("blogs.index")}
+          active={route().current("blogs.index")}
+        >
+          Blog
         </NavLink>
       </div>
     </div>
