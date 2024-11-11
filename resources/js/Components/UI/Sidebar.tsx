@@ -7,7 +7,7 @@ export default function Sidebar() {
     <div className="min-h-screen w-1/6 bg-gray-50 p-4">
       <div className="flex space-x-2 flex-row items-center pb-5">
         <Link href="/">
-          <ApplicationLogo className="w-16 h-16" />
+          <ApplicationLogo className="w-16" />
         </Link>
         <p className="uppercase text-xs font-medium">Admin dashboard</p>
       </div>
