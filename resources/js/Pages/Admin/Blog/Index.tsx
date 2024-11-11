@@ -1,12 +1,7 @@
-import Sidebar from "@/Components/UI/Sidebar";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import { PageProps } from "@/types";
 import { Head } from "@inertiajs/react";
 
-export type BlogProps = {
-  auth: PageProps;
-};
-export default function Index({ auth }: any) {
+export default function Index() {
   return (
     <>
       <AuthenticatedLayout>
