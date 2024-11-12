@@ -14,8 +14,7 @@ class BlogController extends Controller
      */
     public function index()
     {
-        $blogs = "Halloo";
-
+        $blogs = Blog::latest()->paginate(6);
         return Inertia::render('Admin/Blog/Index', [
             'blogs' => $blogs,
         ]);
@@ -26,7 +25,7 @@ class BlogController extends Controller
      */
     public function create()
     {
-        //
+        return inertia('Admin/Blog/Create');
     }
 
     /**

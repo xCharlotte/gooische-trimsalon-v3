@@ -1,0 +1,42 @@
+[
+  {
+    "id": "1",
+    "title": "Blogpost 1",
+    "slug": "blogpost-1",
+    "category": "Nieuws",
+    "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed quis condimentum turpis, vel scelerisque turpis. In hac habitasse platea dictumst.",
+    "image": "https://placecats.com/neo/300/200",
+    "created_at": "2023-11-19 09:00:00",
+    "updated_at": "2023-11-19 10:00:00"
+  },
+  {
+    "id": "2",
+    "title": "Blogpost 2",
+    "slug": "blogpost-2",
+    "category": "Emmi Pet",
+    "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed quis condimentum turpis, vel scelerisque turpis. In hac habitasse platea dictumst.",
+    "image": "https://placecats.com/neo_banana/300/200",
+    "created_at": "2024-06-08 09:00:00",
+    "updated_at": "2024-06-08 10:00:00"
+  },
+  {
+    "id": "3",
+    "title": "Blogpost 3",
+    "slug": "blogpost-3",
+    "category": "Website",
+    "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed quis condimentum turpis, vel scelerisque turpis. In hac habitasse platea dictumst.",
+    "image": "https://placecats.com/millie_neo/300/200",
+    "created_at": "2023-01-01 09:00:00",
+    "updated_at": "2023-01-01 10:00:00"
+  },
+  {
+    "id": "4",
+    "title": "Blogpost 4",
+    "slug": "blogpost-4",
+    "category": "Katten",
+    "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed quis condimentum turpis, vel scelerisque turpis. In hac habitasse platea dictumst.",
+    "image": "https://placecats.com/millie/300/150",
+    "created_at": "2024-02-05 09:00:00",
+    "updated_at": "2024-02-05 10:00:00"
+  }
+]
