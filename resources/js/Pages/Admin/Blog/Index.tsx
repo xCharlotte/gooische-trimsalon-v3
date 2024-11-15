@@ -1,20 +1,50 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import { Head, Link } from "@inertiajs/react";
+import { Head, Link, router } from "@inertiajs/react";
 import Table from "@/Components/UI/Table";
-import data from "./Data/TableData.json";
 import PrimaryButton from "@/Components/Buttons/PrimaryButton";
+import Pagination from "@/Components/UI/Pagination";
 
-export default function ReusableTable({ blogs }: any) {
+export type BlogType = {
+  blogs: {
+    data: {
+      id: number;
+      title: string;
+      image: string;
+      category: string;
+      created_at: string;
+    };
+    current_page: number;
+    last_page: number;
+    per_page: number;
+    total: number;
+  };
+};
+export default function Index({ blogs }: BlogType) {
   const columns = ["image", "title", "category", "created_at"];
+
+  const columnLabels = {
+    image: "Afbeelding",
+    title: "Titel",
+    category: "Categorie",
+    created_at: "Aangemaakt op",
+  };
 
   console.log("blogg", blogs);
 
-  const handleEdit = (row) => {
-    console.log("Edit:", row);
+  const handleEdit = (blog: BlogType) => {
+    router.get(route(`/admin/blogs/edit/${blog.id}`));
+    console.log("Edit:", blog.id);
   };
 
-  const handleDelete = (row) => {
-    console.log("Delete:", row);
+  const handleDelete = (blog: BlogType) => {
+    if (confirm("Are you sure you want to delete?")) {
+      router.delete(`/admin/blogs/${blog.id}`);
+    }
+    console.log("Delete:", blog.id);
+  };
+
+  const handlePageChange = (page: number) => {
+    router.get(route("admin/blogs.index"), { page });
   };
 
   return (
@@ -33,9 +63,18 @@ export default function ReusableTable({ blogs }: any) {
             <div className="bg-white overflow-hidden rounded-lg p-5">
               <Table
                 columns={columns}
+                columnLabels={columnLabels}
                 data={blogs.data}
                 onEdit={handleEdit}
                 onDelete={handleDelete}
+              />
+
+              <Pagination
+                currentPage={blogs.current_page}
+                lastPage={blogs.last_page}
+                total={blogs.total}
+                perPage={blogs.per_page}
+                onPageChange={handlePageChange}
               />
             </div>
           </div>

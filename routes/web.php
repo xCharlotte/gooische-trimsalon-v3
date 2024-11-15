@@ -35,9 +35,14 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->prefix('admin')->group(function () {
-    Route::get('/blogs', [BlogController::class, 'index'])->name('blogs.index');
-    Route::post('/blogs', [BlogController::class, 'store'])->name('blogs.store');
-    Route::get('/blogs/create', [BlogController::class, 'create'])->name('blogs.create');
+    Route::resource('/blogs', BlogController::class);
+
+    // Route::get('/blogs', [BlogController::class, 'index'])->name('blogs.index');
+    // Route::get('/blogs/create', [BlogController::class, 'create'])->name('blogs.create');
+    // Route::post('/blogs', [BlogController::class, 'store'])->name('blogs.store');
+    // Route::get('/blogs/edit', [BlogController::class, 'edit'])->name('blogs.edit');
+    // Route::patch('/blogs', [BlogController::class, 'edit'])->name('blogs.edit');
+    // Route::delete('/blogs', [BlogController::class, 'destroy'])->name('blogs.destroy');
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

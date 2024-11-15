@@ -14,7 +14,7 @@ class BlogController extends Controller
      */
     public function index()
     {
-        $blogs = Blog::latest()->paginate(6);
+        $blogs = Blog::latest()->paginate(3);
         return Inertia::render('Admin/Blog/Index', [
             'blogs' => $blogs,
         ]);
@@ -33,15 +33,9 @@ class BlogController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Blog $blog)
-    {
-        //
+        $blog = new Blog($request->all());
+        $blog->save();
+        return redirect()->route('blogs.index')->withSuccess('Blog created successfully.');
     }
 
     /**
@@ -49,7 +43,9 @@ class BlogController extends Controller
      */
     public function edit(Blog $blog)
     {
-        //
+        return Inertia::render('Admin/Blog/Edit', [
+            'blog' => $blog,
+        ]);
     }
 
     /**
@@ -57,7 +53,8 @@ class BlogController extends Controller
      */
     public function update(Request $request, Blog $blog)
     {
-        //
+        $blog->update($request->all());
+        return redirect()->route('blogs.index')->withSuccess('Blog updated successfully.');
     }
 
     /**
@@ -65,6 +62,7 @@ class BlogController extends Controller
      */
     public function destroy(Blog $blog)
     {
-        //
+        $blog->delete();
+        return redirect()->route('blogs.index')->withSuccess('Blog deleted successfully.');
     }
 }

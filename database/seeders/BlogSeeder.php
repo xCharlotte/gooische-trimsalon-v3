@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use App\Models\Blog;
+use Carbon\Carbon;
 
 class BlogSeeder extends Seeder
 {
@@ -20,8 +21,8 @@ class BlogSeeder extends Seeder
                 'category' => 'Nieuws',
                 'content' => 'Jump on human and sleep on her all night long be long in the bed, purr in the morning and then give a bite to every human.',
                 'image' => 'https://placecats.com/neo_banana/300/200',
-                'created_at' => now(),
-                'updated_at' => now(),
+                'created_at' => Carbon::now()->subDays(rand(1, 365)),
+                'updated_at' => Carbon::now()->subDays(rand(1, 365)),
             ],
             [
                 'title' => 'Blogpost 2',
@@ -29,8 +30,8 @@ class BlogSeeder extends Seeder
                 'category' => 'Katten',
                 'content' => 'Jump on human and sleep on her all night long be long in the bed, purr in the morning and then give a bite to every human.',
                 'image' => 'https://placecats.com/bella/300/200',
-                'created_at' => now(),
-                'updated_at' => now(),
+                'created_at' => Carbon::now()->subDays(rand(1, 365)),
+                'updated_at' => Carbon::now()->subDays(rand(1, 365)),
             ],
             [
                 'title' => 'Blogpost 3',
@@ -38,8 +39,8 @@ class BlogSeeder extends Seeder
                 'category' => 'Honden',
                 'content' => 'Jump on human and sleep on her all night long be long in the bed, purr in the morning and then give a bite to every human.',
                 'image' => 'https://placecats.com/bella/300/200',
-                'created_at' => now(),
-                'updated_at' => now(),
+                'created_at' => Carbon::now()->subDays(rand(1, 365)),
+                'updated_at' => Carbon::now()->subDays(rand(1, 365)),
             ],
             [
                 'title' => 'Blogpost 4',
@@ -47,8 +48,8 @@ class BlogSeeder extends Seeder
                 'category' => 'Klitten',
                 'content' => 'Jump on human and sleep on her all night long be long in the bed, purr in the morning and then give a bite to every human.',
                 'image' => 'https://placecats.com/millie_neo/300/200',
-                'created_at' => now(),
-                'updated_at' => now(),
+                'created_at' => Carbon::now()->subDays(rand(1, 365)),
+                'updated_at' => Carbon::now()->subDays(rand(1, 365)),
             ],
             [
                 'title' => 'Blogpost 5',
@@ -56,8 +57,8 @@ class BlogSeeder extends Seeder
                 'category' => 'Emmi Pet',
                 'content' => 'Jump on human and sleep on her all night long be long in the bed, purr in the morning and then give a bite to every human.',
                 'image' => 'https://placecats.com/bella/300/200',
-                'created_at' => now(),
-                'updated_at' => now(),
+                'created_at' => Carbon::now()->subDays(rand(1, 365)),
+                'updated_at' => Carbon::now()->subDays(rand(1, 365)),
             ],
             [
                 'title' => 'Blogpost 6',
@@ -65,8 +66,8 @@ class BlogSeeder extends Seeder
                 'category' => 'Nieuws',
                 'content' => 'Jump on human and sleep on her all night long be long in the bed, purr in the morning and then give a bite to every human.',
                 'image' => 'https://placecats.com/neo/300/200',
-                'created_at' => now(),
-                'updated_at' => now(),
+                'created_at' => Carbon::now()->subDays(rand(1, 365)),
+                'updated_at' => Carbon::now()->subDays(rand(1, 365)),
             ],
             [
                 'title' => 'Blogpost 7',
@@ -74,8 +75,8 @@ class BlogSeeder extends Seeder
                 'category' => 'Katten',
                 'content' => 'Jump on human and sleep on her all night long be long in the bed, purr in the morning and then give a bite to every human.',
                 'image' => 'https://placecats.com/bella/300/200',
-                'created_at' => now(),
-                'updated_at' => now(),
+                'created_at' => Carbon::now()->subDays(rand(1, 365)),
+                'updated_at' => Carbon::now()->subDays(rand(1, 365)),
             ],
             [
                 'title' => 'Blogpost 8',
@@ -83,8 +84,8 @@ class BlogSeeder extends Seeder
                 'category' => 'Honden',
                 'content' => 'Jump on human and sleep on her all night long be long in the bed, purr in the morning and then give a bite to every human.',
                 'image' => 'https://placecats.com/neo/300/200',
-                'created_at' => now(),
-                'updated_at' => now(),
+                'created_at' => Carbon::now()->subDays(rand(1, 365)),
+                'updated_at' => Carbon::now()->subDays(rand(1, 365)),
             ],
             [
                 'title' => 'Blogpost 9',
@@ -92,8 +93,8 @@ class BlogSeeder extends Seeder
                 'category' => 'Katten',
                 'content' => 'Jump on human and sleep on her all night long be long in the bed, purr in the morning and then give a bite to every human.',
                 'image' => 'https://placecats.com/millie_neo/300/200',
-                'created_at' => now(),
-                'updated_at' => now(),
+                'created_at' => Carbon::now()->subDays(rand(1, 365)),
+                'updated_at' => Carbon::now()->subDays(rand(1, 365)),
             ],
             [
                 'title' => 'Blogpost 10',
@@ -101,8 +102,8 @@ class BlogSeeder extends Seeder
                 'category' => 'Katten',
                 'content' => 'Jump on human and sleep on her all night long be long in the bed, purr in the morning and then give a bite to every human.',
                 'image' => 'https://placecats.com/neo_banana/300/200',
-                'created_at' => now(),
-                'updated_at' => now(),
+                'created_at' => Carbon::now()->subDays(rand(1, 365)),
+                'updated_at' => Carbon::now()->subDays(rand(1, 365)),
             ],
             [
                 'title' => 'Blogpost 11',
@@ -110,8 +111,8 @@ class BlogSeeder extends Seeder
                 'category' => 'Nieuws',
                 'content' => 'Jump on human and sleep on her all night long be long in the bed, purr in the morning and then give a bite to every human.',
                 'image' => 'https://placecats.com/millie_neo/300/200',
-                'created_at' => now(),
-                'updated_at' => now(),
+                'created_at' => Carbon::now()->subDays(rand(1, 365)),
+                'updated_at' => Carbon::now()->subDays(rand(1, 365)),
             ],
             [
                 'title' => 'Blogpost 12',
@@ -119,8 +120,8 @@ class BlogSeeder extends Seeder
                 'category' => 'Honden',
                 'content' => 'Jump on human and sleep on her all night long be long in the bed, purr in the morning and then give a bite to every human.',
                 'image' => 'https://placecats.com/millie/300/150',
-                'created_at' => now(),
-                'updated_at' => now(),
+                'created_at' => Carbon::now()->subDays(rand(1, 365)),
+                'updated_at' => Carbon::now()->subDays(rand(1, 365)),
             ],
         ]);
     }

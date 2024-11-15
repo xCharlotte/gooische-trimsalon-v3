@@ -1,4 +1,10 @@
-export default function Table({ columns, data, onEdit, onDelete }: any) {
+export default function Table({
+  columns,
+  columnLabels,
+  data,
+  onEdit,
+  onDelete,
+}: any) {
   return (
     <div className="bg-white overflow-hiddens rounded-lg p-5">
       <div
@@ -16,7 +22,7 @@ export default function Table({ columns, data, onEdit, onDelete }: any) {
                   className="px-6 py-3"
                   aria-label={col}
                 >
-                  {col}
+                  {columnLabels[col] || col}
                 </th>
               ))}
               <th scope="col" className="px-6 py-3" aria-label="Actions">
