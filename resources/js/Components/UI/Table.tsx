@@ -1,10 +1,30 @@
+export type RowData = {
+  id: number;
+  title: string;
+  image: string;
+  category: string;
+  created_at: string;
+};
+
+export type TableProps = {
+  columns: string[];
+  columnLabels: { [key: string]: string };
+  data: RowData | RowData[];
+  onEdit: (row: RowData) => void;
+  onDelete: (row: RowData) => void;
+  onRowClick?: (row: RowData) => void;
+};
+
 export default function Table({
   columns,
   columnLabels,
   data,
   onEdit,
   onDelete,
-}: any) {
+  onRowClick,
+}: TableProps) {
+  const rowDataArray = Array.isArray(data) ? data : [data];
+
   return (
     <div className="bg-white overflow-hiddens rounded-lg p-5">
       <div
@@ -31,14 +51,12 @@ export default function Table({
             </tr>
           </thead>
           <tbody>
-            {data.map((row, rowIndex) => (
+            {rowDataArray.map((row, rowIndex) => (
               <tr
                 key={rowIndex}
-                className={
-                  rowIndex % 2 === 0
-                    ? "bg-white border-b"
-                    : "bg-gray-50 border-b"
-                }
+                className={`border-b cursor-pointer
+                  ${rowIndex % 2 === 0 ? "bg-white" : "bg-gray-50"}`}
+                onClick={() => onRowClick && onRowClick(row)}
               >
                 {columns.map((col) => (
                   <td
@@ -52,7 +70,7 @@ export default function Table({
                         className="w-12 object-cover rounded"
                       />
                     ) : (
-                      row[col]
+                      (row as any)[col]
                     )}
                   </td>
                 ))}

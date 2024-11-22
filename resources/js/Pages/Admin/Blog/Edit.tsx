@@ -5,13 +5,24 @@ import { Head, router } from "@inertiajs/react";
 import SecondaryButton from "@/Components/Buttons/SecondaryButton";
 import TextArea from "@/Components/Forms/TextArea";
 
-export default function Create() {
+export type BlogType = {
+  blog: {
+    id: number;
+    title: string;
+    category: string;
+    content: string;
+    slug: string;
+    image: string;
+  };
+};
+
+export default function Edit({ blog }: BlogType) {
   const [values, setValues] = useState({
-    title: "",
-    category: "",
-    content: "",
-    slug: "",
-    image: null,
+    title: blog.title || "",
+    category: blog.category || "",
+    content: blog.content || "",
+    slug: blog.slug || "",
+    image: blog.image || null,
   });
 
   const [imagePreview, setImagePreview] = useState<string | null>(null);
@@ -27,6 +38,12 @@ export default function Create() {
     }
   }, [values.title]);
 
+  useEffect(() => {
+    if (blog.image) {
+      setImagePreview(blog.image);
+    }
+  }, [blog.image]);
+
   function handleChange(e: any, key?: string) {
     if (key) {
       setValues({ ...values, [key]: e });
@@ -37,11 +54,16 @@ export default function Create() {
     }
   }
 
+  console.log(blog.image);
+
   function handleImageChange(e: any) {
     const file = e.target.files[0];
+
     if (file) {
       setValues({ ...values, image: file });
       setImagePreview(URL.createObjectURL(file)); // Create a temporary preview URL
+    } else if (blog.image) {
+      setImagePreview(blog.image);
     }
   }
 
@@ -53,7 +75,7 @@ export default function Create() {
       formData.append(key, values[key]);
     }
 
-    router.post("/admin/blogs", formData);
+    router.put(`/admin/blogs/${blog.id}`, formData);
   }
 
   return (
@@ -63,10 +85,10 @@ export default function Create() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="bg-white shadow-md rounded-lg p-8 space-y-6">
             <h1 className="text-2xl font-bold text-gray-800">
-              Nieuw Blog bericht
+              Bewerk: {blog.title}
             </h1>
             <p className="text-gray-600">
-              Vul de onderstaande velden in om een nieuw artikel aan te maken.
+              Pas de velden hieronder aan om het artikel te bewerken.
             </p>
 
             <form onSubmit={handleOnSubmit} className="space-y-5">

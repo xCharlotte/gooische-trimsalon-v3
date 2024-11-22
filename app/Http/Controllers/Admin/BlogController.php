@@ -33,6 +33,7 @@ class BlogController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request->all());
         $blog = new Blog($request->all());
         $blog->save();
         return redirect()->route('blogs.index')->withSuccess('Blog created successfully.');

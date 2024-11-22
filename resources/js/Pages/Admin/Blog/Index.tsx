@@ -4,21 +4,24 @@ import Table from "@/Components/UI/Table";
 import PrimaryButton from "@/Components/Buttons/PrimaryButton";
 import Pagination from "@/Components/UI/Pagination";
 
+export type BlogData = {
+  id: number;
+  title: string;
+  image: string;
+  category: string;
+  created_at: string;
+};
+
 export type BlogType = {
   blogs: {
-    data: {
-      id: number;
-      title: string;
-      image: string;
-      category: string;
-      created_at: string;
-    };
+    data: BlogData | BlogData[];
     current_page: number;
     last_page: number;
     per_page: number;
     total: number;
   };
 };
+
 export default function Index({ blogs }: BlogType) {
   const columns = ["image", "title", "category", "created_at"];
 
@@ -31,20 +34,22 @@ export default function Index({ blogs }: BlogType) {
 
   console.log("blogg", blogs);
 
-  const handleEdit = (blog: BlogType) => {
-    router.get(route(`/admin/blogs/edit/${blog.id}`));
-    console.log("Edit:", blog.id);
+  const handleRowClick = (blog: BlogData) => {
+    router.get(route("blogs.edit", { blog: blog.id })); // Navigeren naar detailpagina
   };
 
-  const handleDelete = (blog: BlogType) => {
+  const handleEdit = (blog: BlogData) => {
+    router.get(route("blogs.edit", { blog: blog.id }));
+  };
+
+  const handleDelete = (blog: BlogData) => {
     if (confirm("Are you sure you want to delete?")) {
-      router.delete(`/admin/blogs/${blog.id}`);
+      router.delete(route("blogs.destroy", { blog: blog.id }));
     }
-    console.log("Delete:", blog.id);
   };
 
   const handlePageChange = (page: number) => {
-    router.get(route("admin/blogs.index"), { page });
+    router.get(route("blogs.index"), { page });
   };
 
   return (
@@ -67,6 +72,7 @@ export default function Index({ blogs }: BlogType) {
                 data={blogs.data}
                 onEdit={handleEdit}
                 onDelete={handleDelete}
+                onRowClick={handleRowClick}
               />
 
               <Pagination
