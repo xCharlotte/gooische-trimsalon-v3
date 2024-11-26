@@ -12,9 +12,16 @@ class BlogController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $blogs = Blog::latest()->paginate(3);
+        $search = $request->input('search');
+
+        $blogs = Blog::query()
+        ->when($search, function ($query, $search) {
+            $query->where('title', 'like', "%${search}%")
+            ->orWhere('category', 'like', "%${search}%");
+        })->paginate(3);
+
         return Inertia::render('Admin/Blog/Index', [
             'blogs' => $blogs,
         ]);

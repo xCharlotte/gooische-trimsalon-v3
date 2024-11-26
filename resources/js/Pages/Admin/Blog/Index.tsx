@@ -1,8 +1,10 @@
-import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
+import { useState } from "react";
 import { Head, Link, router } from "@inertiajs/react";
+import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import Table from "@/Components/UI/Table";
 import PrimaryButton from "@/Components/Buttons/PrimaryButton";
 import Pagination from "@/Components/UI/Pagination";
+import Search from "@/Components/UI/Search";
 
 export type BlogData = {
   id: number;
@@ -24,6 +26,7 @@ export type BlogType = {
 
 export default function Index({ blogs }: BlogType) {
   const columns = ["image", "title", "category", "created_at"];
+  const [loading, setLoading] = useState(false);
 
   const columnLabels = {
     image: "Afbeelding",
@@ -32,10 +35,8 @@ export default function Index({ blogs }: BlogType) {
     created_at: "Aangemaakt op",
   };
 
-  console.log("blogg", blogs);
-
   const handleRowClick = (blog: BlogData) => {
-    router.get(route("blogs.edit", { blog: blog.id })); // Navigeren naar detailpagina
+    router.get(route("blogs.edit", { blog: blog.id }));
   };
 
   const handleEdit = (blog: BlogData) => {
@@ -52,6 +53,15 @@ export default function Index({ blogs }: BlogType) {
     router.get(route("blogs.index"), { page });
   };
 
+  const handleSearch = (query: string) => {
+    console.log(query);
+    router.get(
+      route("blogs.index"),
+      { search: query },
+      { replace: true, preserveState: true, onFinish: () => setLoading(false) }
+    );
+  };
+
   return (
     <>
       <AuthenticatedLayout>
@@ -65,7 +75,8 @@ export default function Index({ blogs }: BlogType) {
               </Link>
             </div>
 
-            <div className="bg-white overflow-hidden rounded-lg p-5">
+            <div className="bg-white overflow-hidden rounded-lg p-5 shadow-lg">
+              <Search onSearch={handleSearch} />
               <Table
                 columns={columns}
                 columnLabels={columnLabels}
