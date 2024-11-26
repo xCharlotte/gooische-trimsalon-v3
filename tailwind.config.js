@@ -13,9 +13,20 @@ export default {
   theme: {
     extend: {
       colors: {
-        primary: "#3490dc",
-        secondary: "#ffed4a",
-        tertiary: "#e3342f",
+        primary: {
+          DEFAULT: "#3A53A5",
+          dark: "#2D437E",
+          light: "#5B6FB8",
+        },
+        secondary: {
+          DEFAULT: "#EF476F",
+          dark: "#D63B5E",
+          light: "#F76B87",
+        },
+        tertiary: "#56CCF2",
+        accent: "#FFD166",
+        neutral: "#F2F5F9",
+        dark: "#2C3E50",
       },
       fontFamily: {
         sans: ["Montserrat", "sans-serif"],
