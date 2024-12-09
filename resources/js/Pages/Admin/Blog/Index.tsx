@@ -45,16 +45,17 @@ export default function Index({ blogs }: BlogType) {
 
   const handleDelete = (blog: BlogData) => {
     if (confirm("Are you sure you want to delete?")) {
-      router.delete(route("blogs.destroy", { blog: blog.id }));
+      router.delete(route("blogs.destroy", { blog: blog.id }), {
+        preserveScroll: true,
+      });
     }
   };
 
   const handlePageChange = (page: number) => {
-    router.get(route("blogs.index"), { page });
+    router.get(route("blogs.index"), { page }, { preserveScroll: true });
   };
 
   const handleSearch = (query: string) => {
-    console.log(query);
     router.get(
       route("blogs.index"),
       { search: query },

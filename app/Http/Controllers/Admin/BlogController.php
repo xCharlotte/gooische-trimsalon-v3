@@ -40,9 +40,27 @@ class BlogController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->all());
-        $blog = new Blog($request->all());
+        $request->validate([
+            'title' => 'required|max:255',
+            'slug' => 'required|unique:blogs|max:255',
+            'category' => 'required|max:255',
+            'content' => 'required',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+        ]);
+
+        $imageName = time() . '.' . $request->image->extension();
+        $request->image->move(public_path('images'), $imageName);
+
+        $blog = new Blog([
+            'title' => $request->title,
+            'slug' => $request->slug,
+            'category' => $request->category,
+            'content' => $request->content,
+            'image' => '/images/' . $imageName,
+        ]);
+
         $blog->save();
+
         return redirect()->route('blogs.index')->withSuccess('Blog created successfully.');
     }
 

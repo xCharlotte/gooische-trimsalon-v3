@@ -76,14 +76,20 @@ export default function Table({
                 ))}
                 <td className="px-6 py-4">
                   <button
-                    onClick={() => onEdit(row)}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      onEdit(row);
+                    }}
                     className="font-medium text-blue-600 hover:underline focus:outline-none focus:ring-2 focus:ring-blue-500 mr-2"
                     aria-label={`Edit ${row.title}`}
                   >
                     Edit
                   </button>
                   <button
-                    onClick={() => onDelete(row)}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      onDelete(row);
+                    }}
                     className="font-medium text-red-600 hover:underline focus:outline-none focus:ring-2 focus:ring-red-500"
                     aria-label={`Delete ${row.title}`}
                   >

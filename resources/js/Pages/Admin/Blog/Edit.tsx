@@ -54,14 +54,12 @@ export default function Edit({ blog }: BlogType) {
     }
   }
 
-  console.log(blog.image);
-
   function handleImageChange(e: any) {
     const file = e.target.files[0];
 
     if (file) {
       setValues({ ...values, image: file });
-      setImagePreview(URL.createObjectURL(file)); // Create a temporary preview URL
+      setImagePreview(URL.createObjectURL(file));
     } else if (blog.image) {
       setImagePreview(blog.image);
     }
