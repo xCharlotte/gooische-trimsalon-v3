@@ -18,7 +18,7 @@ export default function Pagination({
   const pages = [...Array(lastPage)].map((element, i) => i + 1);
 
   return (
-    <div className="flex justify-between items-center mt-2 px-5">
+    <div className="flex justify-between items-center mt-2 px-0 md:px-5">
       <div className="text-sm text-gray-700">
         {perPage} van {total}
       </div>

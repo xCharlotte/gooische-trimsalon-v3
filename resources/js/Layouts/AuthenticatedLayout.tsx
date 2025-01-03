@@ -5,6 +5,7 @@ import { PageProps } from "@/types";
 import Sidebar from "@/Components/UI/Sidebar";
 import { AlignJustify } from "lucide-react";
 import { usePage } from "@inertiajs/react";
+import NavLink from "@/Components/Buttons/NavLink";
 
 export default function Authenticated({ children }: PropsWithChildren) {
   const { auth } = usePage<PageProps>().props;
@@ -19,7 +20,9 @@ export default function Authenticated({ children }: PropsWithChildren) {
 
   return (
     <div className="flex flex-row">
-      <Sidebar />
+      <div className="hidden sm:block">
+        <Sidebar />
+      </div>
       <div className="min-h-screen w-full bg-[#F3F1F1]">
         <nav className="bg-white border-b border-gray-100">
           <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -75,15 +78,22 @@ export default function Authenticated({ children }: PropsWithChildren) {
               (showingNavigationDropdown ? "block" : "hidden") + " sm:hidden"
             }
           >
-            <div className="pt-2 pb-3 space-y-1">
-              <ResponsiveNavLink
-                href={route("dashboard")}
-                active={route().current("dashboard")}
-              >
-                Dashboard
-              </ResponsiveNavLink>
+            <div className="sm:hidden">
+              <div className="flex flex-col space-y-1 py-5">
+                <NavLink
+                  href={route("dashboard")}
+                  active={route().current("dashboard")}
+                >
+                  Dashboard
+                </NavLink>
+                <NavLink
+                  href={route("blogs.index")}
+                  active={route().current("blogs.index")}
+                >
+                  Blog
+                </NavLink>
+              </div>
             </div>
-
             <div className="pt-4 pb-1 border-t border-gray-200">
               <div className="px-4">
                 <div className="font-medium text-base text-gray-800">

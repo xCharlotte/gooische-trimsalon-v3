@@ -68,16 +68,24 @@ export default function Index({ blogs }: BlogType) {
       <AuthenticatedLayout>
         <Head title="Blog" />
 
-        <div className="py-12">
-          <div className="max-w-8xl mx-auto sm:px-6 lg:px-8">
-            <div className="flex justify-end pb-4">
-              <Link href={route("blogs.create")}>
-                <PrimaryButton>Nieuw artikel</PrimaryButton>
-              </Link>
-            </div>
-
-            <div className="bg-white overflow-hidden rounded-lg p-5 shadow-lg">
-              <Search onSearch={handleSearch} />
+        <div className="py-4">
+          <div className="max-w-8xl mx-auto sm:px-6 lg:px-4">
+            <div className="bg-white overflow-hidden rounded-lg p-4 md:p-8 shadow-lg">
+              <div className="flex flex-col gap-4 md:flex-row md:justify-between md:items-center">
+                <h1 className="font-medium text-2xl md:text-4xl">Blogposts</h1>
+                <div className="flex flex-col gap-2 w-full md:flex-row md:gap-2 md:items-center md:w-auto">
+                  <div className="flex-shrink-0 w-full md:w-auto">
+                    <Search onSearch={handleSearch} width="min-w-full" />
+                  </div>
+                  <div className="flex-shrink-0 w-full md:w-auto">
+                    <Link href={route("blogs.create")}>
+                      <PrimaryButton className="w-full md:w-auto">
+                        Nieuw artikel
+                      </PrimaryButton>
+                    </Link>
+                  </div>
+                </div>
+              </div>
               <Table
                 columns={columns}
                 columnLabels={columnLabels}

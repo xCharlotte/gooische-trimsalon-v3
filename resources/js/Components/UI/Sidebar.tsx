@@ -4,12 +4,17 @@ import { Link } from "@inertiajs/react";
 
 export default function Sidebar() {
   return (
-    <div className="min-h-screen w-1/6 bg-white border-r border-gray-100 p-4">
-      <div className="flex space-x-2 flex-row items-center pb-5">
-        <Link href="/">
-          <ApplicationLogo className="w-16" />
-        </Link>
-        <p className="uppercase text-xs font-medium">Admin dashboard</p>
+    <div className="h-full lg:w-[240px] md:w-1/6 bg-heavy-black text-white border-r border-gray-100 p-4">
+      <div className="flex flex-col justify-center items-center gap-y-3">
+        <div className="flex">
+          <Link href="/">
+            <ApplicationLogo className="w-24" />
+          </Link>
+        </div>
+        <div className="flex flex-col items-center">
+          <p className="text-sm font-medium">Gooische Trimsalon</p>
+          <p className="text-xs font-medium text-gray-500">Admin dashboard</p>
+        </div>
       </div>
       <div className="flex flex-col space-y-1 py-5">
         <NavLink
@@ -20,7 +25,12 @@ export default function Sidebar() {
         </NavLink>
         <NavLink
           href={route("blogs.index")}
-          active={route().current("blogs.index")}
+          active={[
+            "blogs.index",
+            "blogs.create",
+            "blogs.update",
+            "blogs.edit",
+          ].some((r) => route().current(r))}
         >
           Blog
         </NavLink>
