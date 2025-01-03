@@ -20,7 +20,7 @@ class BlogController extends Controller
         ->when($search, function ($query, $search) {
             $query->where('title', 'like', "%${search}%")
             ->orWhere('category', 'like', "%${search}%");
-        })->paginate(3);
+        })->paginate(10);
 
         return Inertia::render('Admin/Blog/Index', [
             'blogs' => $blogs,

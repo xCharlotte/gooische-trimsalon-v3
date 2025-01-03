@@ -27,6 +27,7 @@ export default {
         accent: "#FFD166",
         neutral: "#F2F5F9",
         dark: "#2C3E50",
+        "heavy-black": "#1C1D1C",
       },
       fontFamily: {
         sans: ["Montserrat", "sans-serif"],
