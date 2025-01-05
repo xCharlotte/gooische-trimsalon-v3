@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\ClosedDay;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class ClosedDayController extends Controller
 {
@@ -13,15 +14,10 @@ class ClosedDayController extends Controller
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
+        $closedDays = ClosedDay::all();
+        return Inertia::render('Admin/ClosedDay/Index', [
+            'closedDays' => $closedDays,
+        ]);
     }
 
     /**
@@ -29,31 +25,15 @@ class ClosedDayController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
+        $request->validate([
+            'date' => 'required',
+        ]);
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(ClosedDay $closedDay)
-    {
-        //
-    }
+        ClosedDay::create([
+            'date' => $request->input('date'),
+        ]);
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(ClosedDay $closedDay)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, ClosedDay $closedDay)
-    {
-        //
+        return redirect()->route('closed_days.index')->with('success', 'Gesloten dag succesvol aangemaakt!');
     }
 
     /**
@@ -61,6 +41,8 @@ class ClosedDayController extends Controller
      */
     public function destroy(ClosedDay $closedDay)
     {
-        //
+        $closedDay->delete();
+
+        return redirect()->route('closed_days.index')->with('success', 'Gesloten dag succesvol verwijderd!');
     }
 }

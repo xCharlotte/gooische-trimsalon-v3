@@ -34,6 +34,34 @@ export default function Sidebar() {
         >
           Blog
         </NavLink>
+
+        <div className="block py-5">
+          <div className="border-t border-gray-700" />
+        </div>
+
+        <div className="flex flex-col space-y-1">
+          <h3 className="text-xs font-semibold text-gray-400 uppercase px-4">
+            Opties
+          </h3>
+          <NavLink
+            href={route("species.index")}
+            active={["species.index"].some((r) => route().current(r))}
+          >
+            Dieren
+          </NavLink>
+          <NavLink
+            href={route("groomoptions.index")}
+            active={["groomoptions.index"].some((r) => route().current(r))}
+          >
+            Trimopties
+          </NavLink>
+          <NavLink
+            href={route("closed_days.index")}
+            active={["closed_days.index"].some((r) => route().current(r))}
+          >
+            Gesloten dagen
+          </NavLink>
+        </div>
       </div>
     </div>
   );

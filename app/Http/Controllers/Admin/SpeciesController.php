@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Species;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class SpeciesController extends Controller
 {
@@ -13,15 +14,10 @@ class SpeciesController extends Controller
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
+        $species = Species::all();
+        return Inertia::render('Admin/Species/Index', [
+            'species' => $species,
+        ]);
     }
 
     /**
@@ -29,31 +25,15 @@ class SpeciesController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
+        $request->validate([
+            'name' => 'required|string|max:255',
+        ]);
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Species $species)
-    {
-        //
-    }
+        Species::create([
+            'name' => $request->input('name'),
+        ]);
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Species $species)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Species $species)
-    {
-        //
+        return redirect()->route('species.index')->with('success', 'Species added successfully!');
     }
 
     /**
@@ -61,6 +41,8 @@ class SpeciesController extends Controller
      */
     public function destroy(Species $species)
     {
-        //
+        $species->delete();
+
+        return redirect()->route('species.index')->with('success', 'Species deleted successfully!');
     }
 }

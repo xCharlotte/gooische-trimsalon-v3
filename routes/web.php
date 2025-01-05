@@ -1,8 +1,10 @@
 <?php
 
 use App\Http\Controllers\Admin\BlogController;
+use App\Http\Controllers\Admin\ClosedDayController;
+use App\Http\Controllers\Admin\GroomOptionController;
 use App\Http\Controllers\Admin\ProfileController;
-use Illuminate\Foundation\Application;
+use App\Http\Controllers\Admin\SpeciesController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -36,7 +38,15 @@ Route::get('/dashboard', function () {
 
 Route::middleware('auth')->prefix('admin')->group(function () {
     Route::resource('/blogs', BlogController::class);
-
+    Route::resource('/species', SpeciesController::class)->only(['index', 'store', 'destroy']);
+    Route::resource('/groomoptions', GroomOptionController::class)->only(['index', 'store', 'destroy']);
+    Route::resource('/closed-days', ClosedDayController::class)
+    ->names([
+        'index' => 'closed_days.index',
+        'store' => 'closed_days.store',
+        'destroy' => 'closed_days.destroy',
+    ])
+    ->only(['index', 'store', 'destroy']);
     // Route::get('/blogs', [BlogController::class, 'index'])->name('blogs.index');
     // Route::get('/blogs/create', [BlogController::class, 'create'])->name('blogs.create');
     // Route::post('/blogs', [BlogController::class, 'store'])->name('blogs.store');

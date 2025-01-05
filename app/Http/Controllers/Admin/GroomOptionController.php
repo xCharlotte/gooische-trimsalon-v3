@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\GroomOption;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class GroomOptionController extends Controller
 {
@@ -13,15 +14,11 @@ class GroomOptionController extends Controller
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
+        $groomOptions = GroomOption::all();
+        
+        return Inertia::render('Admin/GroomOption/Index', [
+            'groomOptions' => $groomOptions,
+        ]);
     }
 
     /**
@@ -29,31 +26,15 @@ class GroomOptionController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
+        $request->validate([
+            'name' => 'required|string|max:255',
+        ]);
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(GroomOption $groomOption)
-    {
-        //
-    }
+        GroomOption::create([
+            'name' => $request->input('name'),
+        ]);
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(GroomOption $groomOption)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, GroomOption $groomOption)
-    {
-        //
+        return redirect()->route('groomoptions.index')->with('success', 'Trimoptie succesvol toegevoegd!');
     }
 
     /**
@@ -61,6 +42,8 @@ class GroomOptionController extends Controller
      */
     public function destroy(GroomOption $groomOption)
     {
-        //
+        $groomOption->delete();
+
+        return redirect()->route('groomoptions.index')->with('success', 'Trimoptie successvol verwijderd!');
     }
 }

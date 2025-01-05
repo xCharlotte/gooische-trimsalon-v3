@@ -10,7 +10,7 @@ export type TableProps = {
   columns: string[];
   columnLabels: { [key: string]: string };
   data: RowData | RowData[];
-  onEdit: (row: RowData) => void;
+  onEdit?: (row: RowData) => void;
   onDelete: (row: RowData) => void;
   onRowClick?: (row: RowData) => void;
 };
