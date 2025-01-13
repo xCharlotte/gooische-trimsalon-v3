@@ -40,9 +40,9 @@ class GroomOptionController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(GroomOption $groomOption)
+    public function destroy(GroomOption $groomoption)
     {
-        $groomOption->delete();
+        $groomoption->delete();
 
         return redirect()->route('groomoptions.index')->with('success', 'Trimoptie successvol verwijderd!');
     }
