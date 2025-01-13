@@ -5,7 +5,7 @@ import TextInput from "@/Components/Forms/TextInput";
 
 const Index = () => {
   const { closedDays } = usePage().props;
-  const [name, setName] = useState("");
+  const [date, setDate] = useState("");
 
   const columns = ["Gesloten dag"];
 
@@ -17,9 +17,9 @@ const Index = () => {
     e.preventDefault();
     router.post(
       route("closed_days.store"),
-      { name },
+      { date },
       {
-        onSuccess: () => setName(""),
+        onSuccess: () => setDate(""),
       }
     );
   };
@@ -39,7 +39,7 @@ const Index = () => {
       <AuthenticatedLayout>
         <Head title="Gesloten dagen" />
 
-        <div className="bg-neutral min-h-screen p-6 font-sans">
+        <div className="bg-neutral min-h-screen p-6">
           <div className="max-w-4xl mx-auto bg-white rounded-lg shadow-md p-8">
             <h1 className="text-3xl font-bold text-primary mb-6">
               Gesloten dagen

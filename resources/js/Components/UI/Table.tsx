@@ -13,6 +13,7 @@ export type TableProps = {
   onEdit?: (row: RowData) => void;
   onDelete: (row: RowData) => void;
   onRowClick?: (row: RowData) => void;
+  className?: string;
 };
 
 export default function Table({
@@ -22,11 +23,12 @@ export default function Table({
   onEdit,
   onDelete,
   onRowClick,
+  className,
 }: TableProps) {
   const rowDataArray = Array.isArray(data) ? data : [data];
 
   return (
-    <div className="flex justify-center py-6">
+    <div className={`flex justify-center py-6 ${className}`}>
       <div className="relative overflow-x-auto w-full">
         <table className="min-w-full">
           <thead className="bg-heavy-black">
@@ -71,17 +73,20 @@ export default function Table({
                     )}
                   </td>
                 ))}
+
                 <td className="px-6 py-4 text-right text-sm">
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      onEdit(row);
-                    }}
-                    className="px-3 py-1 font-medium text-white bg-blue-500 rounded hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 mr-2"
-                    aria-label={`Edit ${row.title}`}
-                  >
-                    Edit
-                  </button>
+                  {onEdit && (
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        onEdit(row);
+                      }}
+                      className="px-3 py-1 font-medium text-white bg-blue-500 rounded hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 mr-2"
+                      aria-label={`Edit ${row.title}`}
+                    >
+                      Edit
+                    </button>
+                  )}
                   <button
                     onClick={(e) => {
                       e.stopPropagation();
