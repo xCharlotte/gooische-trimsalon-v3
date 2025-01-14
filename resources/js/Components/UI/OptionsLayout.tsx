@@ -2,6 +2,8 @@ import { useState } from "react";
 import PrimaryButton from "../Buttons/PrimaryButton";
 import TextInput from "../Forms/TextInput";
 import Table from "./Table";
+import Flatpickr from "react-flatpickr";
+import "flatpickr/dist/flatpickr.min.css";
 
 export type OptionsLayoutProps = {
   title: string;
@@ -9,10 +11,9 @@ export type OptionsLayoutProps = {
   type: string;
   tableTitle: string;
   columnNames: string[];
-  columnLabels: {
-    [key: string]: string;
-  };
-  data: any;
+  columnLabels: { [key: string]: string };
+  data: any[];
+  emptyMessage: string; // Nieuwe prop voor lege lijst melding
 };
 
 export default function OptionsLayout({
@@ -23,18 +24,24 @@ export default function OptionsLayout({
   columnNames,
   columnLabels,
   data,
+  emptyMessage,
   onSubmit,
   onDelete,
 }: OptionsLayoutProps & {
   onSubmit: (value: string | Date) => void;
   onDelete: (id: number) => void;
 }) {
-  const [inputValue, setInputValue] = useState("");
+  const [inputValue, setInputValue] = useState<string>("");
+  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
 
+  console.log(data);
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (inputValue.trim()) {
-      onSubmit(type === "date" ? new Date(inputValue) : inputValue);
+    if (type === "date" && selectedDate) {
+      onSubmit(selectedDate);
+      setSelectedDate(null);
+    } else if (inputValue.trim()) {
+      onSubmit(inputValue);
       setInputValue("");
     }
   };
@@ -49,15 +56,34 @@ export default function OptionsLayout({
               onSubmit={handleSubmit}
               className="w-full flex flex-col items-center mb-6"
             >
-              <TextInput
-                id="input"
-                type={type}
-                placeholder={placeholder}
-                value={inputValue}
-                onChange={(e) => setInputValue(e.target.value)}
-                required
-                className="mb-4 w-full max-w-md"
-              />
+              {type === "date" ? (
+                <Flatpickr
+                  value={selectedDate}
+                  onChange={(date) => setSelectedDate(date[0])}
+                  options={{
+                    minDate: "today",
+                    altInput: true,
+                    altFormat: "l j F, Y",
+                    dateFormat: "Y-m-d",
+                    locale: {
+                      firstDayOfWeek: 1, // start week on Monday
+                    },
+                  }}
+                  placeholder={placeholder}
+                  className="mb-4 w-full max-w-md p-2 border rounded"
+                />
+              ) : (
+                <TextInput
+                  id="input"
+                  type={type}
+                  placeholder={placeholder}
+                  value={inputValue}
+                  onChange={(e) => setInputValue(e.target.value)}
+                  required
+                  className="mb-4 w-full max-w-md"
+                />
+              )}
+
               <PrimaryButton className="w-full max-w-md" type="submit">
                 Opslaan
               </PrimaryButton>
@@ -66,13 +92,17 @@ export default function OptionsLayout({
             <hr className="w-5/6 mt-10 pb-10" />
 
             <h2 className="text-lg font-semibold">{tableTitle}</h2>
-            <Table
-              columns={columnNames}
-              columnLabels={columnLabels}
-              data={data}
-              onDelete={(row) => onDelete(row.id)}
-              className="w-2/5"
-            />
+            {data.length > 0 ? (
+              <Table
+                columns={columnNames}
+                columnLabels={columnLabels}
+                data={data}
+                onDelete={(row) => onDelete(row.id)}
+                className="w-2/5"
+              />
+            ) : (
+              <p className="text-gray-500 mt-4">{emptyMessage}</p>
+            )}
           </div>
         </div>
       </div>
