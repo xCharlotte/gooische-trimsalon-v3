@@ -13,6 +13,7 @@
         "@types/node": "^18.13.0",
         "@types/react": "^18.0.28",
         "@types/react-dom": "^18.0.10",
+        "@types/react-flatpickr": "^3.8.11",
         "@vitejs/plugin-react": "^4.2.0",
         "autoprefixer": "^10.4.12",
         "axios": "^1.6.4",
@@ -27,6 +28,7 @@
     "dependencies": {
         "@tinymce/tinymce-react": "^5.1.1",
         "lodash": "^4.17.21",
-        "lucide-react": "^0.456.0"
+        "lucide-react": "^0.456.0",
+        "react-flatpickr": "^3.10.13"
     }
 }
