@@ -11,4 +11,8 @@ class ClosedDay extends Model
 
     protected $fillable = ['date'];
     protected $dates = ['date'];
+
+    protected $casts = [
+        'date' => 'datetime:d-m-Y',
+    ];
 }
