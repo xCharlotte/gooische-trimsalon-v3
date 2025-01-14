@@ -35,10 +35,11 @@ export default function Index() {
         type="text"
         tableTitle="Huidige Diersoorten"
         columnNames={["name"]}
+        columnLabels={columnLabels}
         data={species}
         onSubmit={handleAddSpecies}
         onDelete={handleDeleteSpecies}
-        columnLabels={columnLabels}
+        emptyMessage="Geen diersoorten gevonden."
       />
     </AuthenticatedLayout>
   );

@@ -35,10 +35,11 @@ export default function Index() {
         type="text"
         tableTitle="Huidige Trimopties"
         columnNames={["name"]}
+        columnLabels={columnLabels}
         data={groomOptions}
         onSubmit={handleAddGroomOptions}
         onDelete={handleDeleteGroomOption}
-        columnLabels={columnLabels}
+        emptyMessage="Geen trimopties gevonden."
       />
     </AuthenticatedLayout>
   );
