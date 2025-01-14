@@ -13,7 +13,7 @@ export type OptionsLayoutProps = {
   columnNames: string[];
   columnLabels: { [key: string]: string };
   data: any[];
-  emptyMessage: string; // Nieuwe prop voor lege lijst melding
+  emptyMessage: string;
 };
 
 export default function OptionsLayout({
@@ -34,7 +34,6 @@ export default function OptionsLayout({
   const [inputValue, setInputValue] = useState<string>("");
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
 
-  console.log(data);
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (type === "date" && selectedDate) {

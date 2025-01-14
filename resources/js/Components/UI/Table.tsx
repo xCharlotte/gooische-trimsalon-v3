@@ -27,7 +27,6 @@ export default function Table({
 }: TableProps) {
   const rowDataArray = Array.isArray(data) ? data : [data];
 
-  console.log("rowDataArray", rowDataArray);
   return (
     <div className={`flex justify-center py-6 ${className}`}>
       <div className="relative overflow-x-auto w-full">
