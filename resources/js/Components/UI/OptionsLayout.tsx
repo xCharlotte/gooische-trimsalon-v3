@@ -3,7 +3,9 @@ import PrimaryButton from "../Buttons/PrimaryButton";
 import TextInput from "../Forms/TextInput";
 import Table from "./Table";
 import Flatpickr from "react-flatpickr";
+import { Dutch } from "flatpickr/dist/l10n/nl.js";
 import "flatpickr/dist/flatpickr.min.css";
+import { formatDateForFlatpickr } from "@/lib/dateFormatter";
 
 export type OptionsLayoutProps = {
   title: string;
@@ -12,8 +14,9 @@ export type OptionsLayoutProps = {
   tableTitle: string;
   columnNames: string[];
   columnLabels: { [key: string]: string };
-  data: any[];
+  data: any;
   emptyMessage: string;
+  closedDays?: { date: string }[];
 };
 
 export default function OptionsLayout({
@@ -27,23 +30,28 @@ export default function OptionsLayout({
   emptyMessage,
   onSubmit,
   onDelete,
+  closedDays = [],
 }: OptionsLayoutProps & {
   onSubmit: (value: string | Date) => void;
   onDelete: (id: number) => void;
 }) {
   const [inputValue, setInputValue] = useState<string>("");
-  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
+  const [selectedDate, setSelectedDate] = useState<Date | undefined>();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (type === "date" && selectedDate) {
       onSubmit(selectedDate);
-      setSelectedDate(null);
+      setSelectedDate(undefined);
     } else if (inputValue.trim()) {
       onSubmit(inputValue);
       setInputValue("");
     }
   };
+
+  const disabledDates = closedDays.map((item) =>
+    formatDateForFlatpickr(item.date)
+  );
 
   return (
     <div className="py-4">
@@ -57,16 +65,15 @@ export default function OptionsLayout({
             >
               {type === "date" ? (
                 <Flatpickr
-                  value={selectedDate}
+                  value={selectedDate || undefined}
                   onChange={(date) => setSelectedDate(date[0])}
                   options={{
                     minDate: "today",
                     altInput: true,
                     altFormat: "l j F, Y",
                     dateFormat: "Y-m-d",
-                    locale: {
-                      firstDayOfWeek: 1, // start week on Monday
-                    },
+                    locale: Dutch,
+                    disable: disabledDates,
                   }}
                   placeholder={placeholder}
                   className="mb-4 w-full max-w-md p-2 border rounded"

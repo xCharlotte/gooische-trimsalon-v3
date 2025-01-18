@@ -41,6 +41,7 @@ export default function Index() {
         emptyMessage="Geen gesloten dagen gevonden."
         onSubmit={handleAddClosedDay}
         onDelete={handleDeleteClosedDay}
+        closedDays={closedDays}
       />
     </AuthenticatedLayout>
   );
