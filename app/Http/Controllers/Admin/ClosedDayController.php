@@ -14,7 +14,7 @@ class ClosedDayController extends Controller
      */
     public function index()
     {
-        $closedDays = ClosedDay::where('date', '>=', now())->get();
+        $closedDays = ClosedDay::where('date', '>=', now())->orderBy('date', 'ASC')->get();
         
         return Inertia::render('Admin/ClosedDay/Index', [
             'closedDays' => $closedDays,
