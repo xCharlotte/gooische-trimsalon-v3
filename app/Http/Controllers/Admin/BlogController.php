@@ -61,7 +61,7 @@ class BlogController extends Controller
 
         $blog->save();
 
-        return redirect()->route('blogs.index')->withSuccess('Blog created successfully.');
+        return redirect()->route('blogs.index');
     }
 
     /**

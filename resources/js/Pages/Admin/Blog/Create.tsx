@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
 import TextInput from "@/Components/Forms/TextInput";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import { Head, router } from "@inertiajs/react";
+import { Head, router, usePage } from "@inertiajs/react";
 import SecondaryButton from "@/Components/Buttons/SecondaryButton";
 import TextArea from "@/Components/Forms/TextArea";
+import { ToastError, ToastSuccess } from "@/Components/Notify/Toast";
 
 export default function Create() {
   const [values, setValues] = useState({
@@ -53,7 +54,19 @@ export default function Create() {
       formData.append(key, values[key]);
     }
 
-    router.post("/admin/blogs", formData);
+    router.post("/admin/blogs", formData),
+      {
+        onSuccess: () => {
+          ToastSuccess("Blog bericht aangemaakt!");
+          router.visit(route("blogs.index"));
+        },
+        onError: () => {
+          ToastError(
+            "Error!",
+            "Er is iets mis gegaan. Neem contact op met de admin!"
+          );
+        },
+      };
   }
 
   return (

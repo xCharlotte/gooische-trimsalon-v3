@@ -5,6 +5,8 @@ import Table from "@/Components/UI/Table";
 import PrimaryButton from "@/Components/Buttons/PrimaryButton";
 import Pagination from "@/Components/UI/Pagination";
 import Search from "@/Components/UI/Search";
+import { ConfirmModal } from "@/Components/Notify/ConfirmModal";
+import { ToastError, ToastSuccess } from "@/Components/Notify/Toast";
 
 export type BlogData = {
   id: number;
@@ -43,9 +45,22 @@ export default function Index({ blogs }: BlogType) {
     router.get(route("blogs.edit", { blog: blog.id }));
   };
 
-  const handleDelete = (blog: BlogData) => {
-    if (confirm("Are you sure you want to delete?")) {
+  const handleDelete = async (blog: BlogData) => {
+    const result = await ConfirmModal({
+      title: "Weet je het zeker?",
+      text: "Deze actie kan niet ongedaan gemaakt worden.",
+      confirmText: "Ja, verwijderen",
+      cancelText: "Annuleren",
+    });
+
+    if (result.isConfirmed) {
       router.delete(route("blogs.destroy", { blog: blog.id }), {
+        onSuccess: () => {
+          ToastSuccess("Blogpost succesvol verwijderd!");
+        },
+        onError: () => {
+          ToastError("error", "Er is iets misgegaan bij het verwijderen.");
+        },
         preserveScroll: true,
       });
     }

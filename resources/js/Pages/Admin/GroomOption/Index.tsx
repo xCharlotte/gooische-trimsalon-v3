@@ -1,6 +1,8 @@
 import { Head, router, usePage } from "@inertiajs/react";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import OptionsLayout from "@/Components/UI/OptionsLayout";
+import { ToastError, ToastSuccess } from "@/Components/Notify/Toast";
+import { ConfirmModal } from "@/Components/Notify/ConfirmModal";
 
 export default function Index() {
   const { groomOptions } = usePage().props;
@@ -16,13 +18,37 @@ export default function Index() {
       route("groomoptions.store"),
       { name },
       {
-        onSuccess: () => console.log("TRIMOPTIE toegevoegd!"),
+        onSuccess: () => {
+          ToastSuccess("Trimoptie toegevoegd!");
+        },
+        onError: () => {
+          ToastError(
+            "Error!",
+            "Er is iets mis gegaan. Neem contact op met de admin!"
+          );
+        },
       }
     );
   };
 
-  const handleDeleteGroomOption = (id: number) => {
-    router.delete(route("groomoptions.destroy", id));
+  const handleDeleteGroomOption = async (id: number) => {
+    const result = await ConfirmModal({
+      title: "Weet je het zeker?",
+      text: "Deze actie kan niet ongedaan gemaakt worden.",
+      confirmText: "Ja, verwijderen",
+      cancelText: "Annuleren",
+    });
+
+    if (result.isConfirmed) {
+      router.delete(route("groomoptions.destroy", id), {
+        onSuccess: () => {
+          ToastSuccess("Trimoptie succesvol verwijderd!");
+        },
+        onError: () => {
+          ToastError("error", "Er is iets misgegaan bij het verwijderen.");
+        },
+      });
+    }
   };
 
   return (
