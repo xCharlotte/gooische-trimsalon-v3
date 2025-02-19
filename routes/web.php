@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\ClosedDayController;
 use App\Http\Controllers\Admin\GroomOptionController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\SpeciesController;
+use App\Http\Controllers\AppointmentController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -22,6 +23,12 @@ use Inertia\Inertia;
 Route::get('/', function () {
     return Inertia::render('Homepage');
 });
+
+Route::get('/afspraak', [AppointmentController::class, 'index'])->name('appointment');
+
+// Route::get('/afspraak', function () {
+//     return Inertia::render('Appointment/Index');
+// });
 
 Route::get('/dashboard', function () {
     return Inertia::render('Admin/Dashboard');
