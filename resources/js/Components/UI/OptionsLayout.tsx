@@ -2,9 +2,7 @@ import { useState } from "react";
 import PrimaryButton from "../Buttons/PrimaryButton";
 import TextInput from "../Forms/TextInput";
 import Table from "./Table";
-import Flatpickr from "react-flatpickr";
-import { Dutch } from "flatpickr/dist/l10n/nl.js";
-import "flatpickr/dist/flatpickr.min.css";
+import Flatpicker from "@/Components/UI/Flatpicker"; // Het nieuwe component importeren
 import { formatDateForFlatpickr } from "@/lib/dateFormatter";
 
 export type OptionsLayoutProps = {
@@ -64,19 +62,12 @@ export default function OptionsLayout({
               className="w-full flex flex-col items-center mb-6"
             >
               {type === "date" ? (
-                <Flatpickr
-                  value={selectedDate || undefined}
-                  onChange={(date) => setSelectedDate(date[0])}
-                  options={{
-                    minDate: "today",
-                    altInput: true,
-                    altFormat: "l j F, Y",
-                    dateFormat: "Y-m-d",
-                    locale: Dutch,
-                    disable: disabledDates,
-                  }}
+                <Flatpicker
+                  value={selectedDate}
+                  onChange={setSelectedDate}
                   placeholder={placeholder}
-                  className="mb-4 w-full max-w-md p-2 border rounded"
+                  disabledDates={disabledDates}
+                  className="mb-4 w-full max-w-md"
                 />
               ) : (
                 <TextInput
