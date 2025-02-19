@@ -3,7 +3,7 @@ import TextInput from "@/Components/Forms/TextInput";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head, router } from "@inertiajs/react";
 import SecondaryButton from "@/Components/Buttons/SecondaryButton";
-import TextArea from "@/Components/Forms/TextArea";
+import TextEditor from "@/Components/Forms/TextEditor";
 
 export type BlogType = {
   blog: {
@@ -142,7 +142,7 @@ export default function Edit({ blog }: BlogType) {
                 >
                   Content
                 </label>
-                <TextArea
+                <TextEditor
                   id="content"
                   value={values.content}
                   onChange={(content) => handleChange(content, "content")}
