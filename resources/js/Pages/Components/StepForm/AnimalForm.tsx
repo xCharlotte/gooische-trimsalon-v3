@@ -39,7 +39,7 @@ export default function AnimalForm({
         <SelectInput
           id="species_id"
           className="border p-3 rounded-lg w-full focus:ring-2 focus:ring-blue-500"
-          defaultValue=""
+          value={formData.animalDetails.species_id || ""}
           onChange={(e) =>
             setData("animalDetails", {
               ...formData.animalDetails,
@@ -105,7 +105,7 @@ export default function AnimalForm({
         <SelectInput
           id="groom_option_id"
           className="border p-3 rounded-lg w-full focus:ring-2 focus:ring-blue-500"
-          defaultValue=""
+          value={formData.animalDetails.groom_option_id || ""}
           onChange={(e) =>
             setData("animalDetails", {
               ...formData.animalDetails,
