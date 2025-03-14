@@ -5,8 +5,14 @@ import { formatDate } from "@/lib/dateFormatter";
 import { ToastError, ToastSuccess } from "@/Components/Notify/Toast";
 import { ConfirmModal } from "@/Components/Notify/ConfirmModal";
 
+export type ClosedDaysProps = {
+  closedDays: { id: number; date: string }[];
+};
+
 export default function Index() {
-  const { closedDays } = usePage().props;
+  const { closedDays = [] } = usePage().props as unknown as {
+    closedDays: { id: number; date: string }[];
+  };
 
   const columnLabels = {
     date: "Gesloten dagen",

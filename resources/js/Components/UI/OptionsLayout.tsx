@@ -2,7 +2,7 @@ import { useState } from "react";
 import PrimaryButton from "../Buttons/PrimaryButton";
 import TextInput from "../Forms/TextInput";
 import Table from "./Table";
-import Flatpicker from "@/Components/UI/Flatpicker"; // Het nieuwe component importeren
+import Flatpicker from "@/Components/UI/Flatpicker";
 import { formatDateForFlatpickr } from "@/lib/dateFormatter";
 
 export type OptionsLayoutProps = {
@@ -14,7 +14,7 @@ export type OptionsLayoutProps = {
   columnLabels: { [key: string]: string };
   data: any;
   emptyMessage: string;
-  closedDays?: { date: string }[];
+  closedDays: { id: number; date: string }[];
 };
 
 export default function OptionsLayout({
