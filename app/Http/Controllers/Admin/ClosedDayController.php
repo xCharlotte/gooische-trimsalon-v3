@@ -4,26 +4,26 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\ClosedDay;
+use App\Repositories\ClosedDayRepository;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 class ClosedDayController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    protected $closedDayRepo;
+
+    public function __construct(ClosedDayRepository $closedDayRepo)
     {
-        $closedDays = ClosedDay::where('date', '>=', now())->orderBy('date', 'ASC')->get();
-        
+        $this->closedDayRepo = $closedDayRepo;
+    }
+
+    public function index()
+    {   
         return Inertia::render('Admin/ClosedDay/Index', [
-            'closedDays' => $closedDays,
+            'closedDays' => $this->closedDayRepo->getFutureClosedDays(),
         ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         $request->validate([
@@ -37,9 +37,6 @@ class ClosedDayController extends Controller
         return redirect()->route('closed_days.index')->with('success', 'Gesloten dag succesvol aangemaakt!');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(ClosedDay $closedDay)
     {
         $closedDay->delete();

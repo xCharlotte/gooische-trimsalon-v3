@@ -18,8 +18,8 @@ class BlogController extends Controller
 
         $blogs = Blog::query()
         ->when($search, function ($query, $search) {
-            $query->where('title', 'like', "%${search}%")
-            ->orWhere('category', 'like', "%${search}%");
+            $query->where('title', 'like', "%{$search}%")
+            ->orWhere('category', 'like', "%{$search}%");
         })->paginate(10);
 
         return Inertia::render('Admin/Blog/Index', [
