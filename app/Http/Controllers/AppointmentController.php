@@ -2,99 +2,90 @@
 
 namespace App\Http\Controllers;
 
+use App\Actions\CreateAppointmentAction;
 use App\Http\Requests\StoreAppointmentRequest;
 use App\Models\Animal;
 use App\Models\Appointment;
 use App\Models\Client;
+use App\Models\SpeciesGroomOption;
+use App\Repositories\AppointmentRepository;
+use App\Repositories\ClosedDayRepository;
 use App\Models\GroomOption;
 use App\Models\Species;
-use App\Models\SpeciesGroomOption;
-use Carbon\Carbon;
+use DB;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
-use DB;
 
 class AppointmentController extends Controller
 {
-    public function index() {
-        $groomOptions = GroomOption::all();
-        $species = Species::all();
+    protected $appointmentRepo;
+    protected $closedDayRepo;
 
+    public function __construct(AppointmentRepository $appointmentRepo, ClosedDayRepository $closedDayRepo)
+    {
+        $this->appointmentRepo = $appointmentRepo;
+        $this->closedDayRepo = $closedDayRepo;
+    }
+
+    public function index()
+    {
         return Inertia::render('Appointment/Index', [
-            'groomOptions' => $groomOptions,
-            'species' => $species,
+            'groomOptions' => GroomOption::all(),
+            'species' => Species::all(),
+            'closedDays' => $this->closedDayRepo->getFutureClosedDays(),
         ]);
     }
 
-    // Store appointment
-    public function store(StoreAppointmentRequest $request) {
-        // Start DB transaction
-        DB::beginTransaction();
-
+    public function store(Request $request) {
         try {
-            // Create or find client
-            $client = Client::firstOrCreate(
-                ['email' => $request->email],
-                $request->only([
-                    'first_name', 'last_name', 'phone', 'street', 
-                    'postal_code', 'house_number', 'house_number_suffix', 
-                    'city', 'client_remarks'
-                ])
-            );
-
-            // Create species_groom_option link
-            $speciesGroomOption = SpeciesGroomOption::create([
-                'species_id' => $request->species_id,
-                'groom_option_id' => $request->groom_option_id,
-            ]);
-
-            // Create animal
-            $animal = Animal::create([
-                'name' => $request->name,
-                'breed' => $request->breed,
-                'animal_remarks' => $request->animal_remarks,
-                'species_groom_option_id' => $speciesGroomOption->id,
-                'client_id' => $client->id,
-            ]);
-
-            // Create appointment
-            $appointment = Appointment::create([
-                'date' => $request->date,
-                'moment' => $request->moment,
-                'client_id' => $client->id,
-                'animal_id' => $animal->id,
-                'species_groom_option_id' => $speciesGroomOption->id,
-            ]);
-
-            // Commit DB transaction
-            DB::commit();
-
+            DB::transaction(function () use ($request) {
+                // First we will create a client so we can use the client_id in the animal and appointment
+                $client = Client::firstOrCreate(
+                    ['email' => $request->clientDetails['email']],
+                    $request->clientDetails
+                );
+    
+                // Same for the species_groom_option
+                $speciesGroomOption = SpeciesGroomOption::create([
+                    'species_id' => $request->animalDetails['species_id'],
+                    'groom_option_id' => $request->animalDetails['groom_option_id'],
+                ]);
+    
+                // And the animal
+                $animal = Animal::create([
+                    'name' => $request->animalDetails['name'],
+                    'breed' => $request->animalDetails['breed'],
+                    'animal_remarks' => $request->animalDetails['animal_remarks'],
+                    'species_groom_option_id' => $speciesGroomOption->id,
+                    'client_id' => $client->id,
+                ]);
+    
+                // Now the appointment can be made
+                Appointment::create([
+                    'date' => $request->date,
+                    'moment' => $request->moment,
+                    'client_id' => $client->id,
+                    'animal_id' => $animal->id,
+                    'species_groom_option_id' => $speciesGroomOption->id,
+                ]);
+            });
+    
             return redirect()->route('appointment.index')
                 ->with('success', 'Een bevestiging is verstuurd naar uw e-mail');
-
+    
         } catch (\Exception $e) {
-            // Rollback DB transaction on error
-            DB::rollback();
-            return redirect()->back()->withErrors('Er is iets misgegaan. Probeer het opnieuw.');
+            return redirect()->back()->withErrors('Er is iets misgegaan. Probeer het opnieuw.', $e->getMessage());
         }
     }
+    
 
-    // Get available moments for a specific date
-    public function postAvailableTimes(Request $request) {
-        $moments = Appointment::where('date', $request->date)
-                    ->pluck('moment');
+    // public function postAvailableTimes(Request $request)
+    // {
+    //     return response()->json($this->appointmentRepo->getAppointmentsByDate($request->date));
+    // }
 
-        return response()->json($moments);
-    }
-
-    // Get unavailable dates
-    public function countUnavailableDates() {
-        $fullDates = Appointment::select('date', DB::raw('count(*) as totalDate'))
-            ->where('date', '>=', Carbon::now())
-            ->groupBy('date')
-            ->having('totalDate', '>=', 2)
-            ->pluck('date');
-
-        return response()->json($fullDates);
-    }
+    // public function countUnavailableDates()
+    // {
+    //     return response()->json($this->appointmentRepo->getFullyBookedDates());
+    // }
 }

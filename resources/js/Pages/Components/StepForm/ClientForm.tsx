@@ -1,34 +1,20 @@
 import InputLabel from "@/Components/Forms/InputLabel";
 import TextArea from "@/Components/Forms/TextArea";
 import TextInput from "@/Components/Forms/TextInput";
-import { useState } from "react";
+
+export type ClientFormProps = {
+  onPrevious: () => void;
+  onSubmit: (data: any) => void;
+  formData: any;
+  setData: any;
+};
 
 export default function ClientForm({
   onPrevious,
   onSubmit,
   formData,
-}: {
-  onPrevious: () => void;
-  onSubmit: (data: any) => void;
-  formData: any;
-}) {
-  const [clientDetails, setClientDetails] = useState({
-    first_name: formData.clientDetails?.first_name || "",
-    last_name: formData.clientDetails?.last_name || "",
-    address: formData.clientDetails?.address || "",
-    house_number: formData.clientDetails?.house_number || "",
-    house_number_suffix: formData.clientDetails?.house_number_suffix || "",
-    postal_code: formData.clientDetails?.postal_code || "",
-    city: formData.clientDetails?.city || "",
-    email: formData.clientDetails?.email || "",
-    phone: formData.clientDetails?.phone || "",
-    client_remarks: formData.clientDetails?.client_remarks || "",
-  });
-
-  const handleSubmit = () => {
-    onSubmit({ ...formData, clientDetails });
-  };
-
+  setData,
+}: ClientFormProps) {
   return (
     <div className="space-y-6">
       <div className="flex flex-col items-center space-y-2">
@@ -47,12 +33,19 @@ export default function ClientForm({
             Voornaam
           </InputLabel>
           <TextInput
+            id="first_name"
             type="text"
             placeholder="Voornaam"
             className="border p-3 rounded-lg w-full focus:ring-2 focus:ring-blue-500"
-            value={clientDetails.first_name}
+            value={formData.clientDetails.first_name}
             onChange={(e) =>
-              setClientDetails({ ...clientDetails, first_name: e.target.value })
+              setData((prevData) => ({
+                ...prevData,
+                clientDetails: {
+                  ...prevData.clientDetails,
+                  first_name: e.target.value,
+                },
+              }))
             }
           />
         </div>
@@ -64,12 +57,19 @@ export default function ClientForm({
             Achternaam
           </InputLabel>
           <TextInput
+            id="last_name"
             type="text"
             placeholder="Achternaam"
             className="border p-3 rounded-lg w-full focus:ring-2 focus:ring-blue-500"
-            value={clientDetails.last_name}
+            value={formData.clientDetails.last_name}
             onChange={(e) =>
-              setClientDetails({ ...clientDetails, last_name: e.target.value })
+              setData((prevData) => ({
+                ...prevData,
+                clientDetails: {
+                  ...prevData.clientDetails,
+                  last_name: e.target.value,
+                },
+              }))
             }
           />
         </div>
@@ -84,12 +84,19 @@ export default function ClientForm({
             E-mail
           </InputLabel>
           <TextInput
+            id="email"
             type="email"
             placeholder="E-mail"
             className="border p-3 rounded-lg w-full focus:ring-2 focus:ring-blue-500"
-            value={clientDetails.email}
+            value={formData.clientDetails.email}
             onChange={(e) =>
-              setClientDetails({ ...clientDetails, email: e.target.value })
+              setData((prevData) => ({
+                ...prevData,
+                clientDetails: {
+                  ...prevData.clientDetails,
+                  email: e.target.value,
+                },
+              }))
             }
           />
         </div>
@@ -97,16 +104,23 @@ export default function ClientForm({
 
       <div className="flex flex-row gap-x-4">
         <div className="flex flex-col w-3/5 gap-y-2">
-          <InputLabel htmlFor="address" className="text-gray-700 font-semibold">
+          <InputLabel htmlFor="street" className="text-gray-700 font-semibold">
             Straatnaam
           </InputLabel>
           <TextInput
+            id="street"
             type="text"
             placeholder="Adres"
             className="border p-3 rounded-lg w-full focus:ring-2 focus:ring-blue-500"
-            value={clientDetails.address}
+            value={formData.clientDetails.street}
             onChange={(e) =>
-              setClientDetails({ ...clientDetails, address: e.target.value })
+              setData((prevData) => ({
+                ...prevData,
+                clientDetails: {
+                  ...prevData.clientDetails,
+                  street: e.target.value,
+                },
+              }))
             }
           />
         </div>
@@ -118,15 +132,19 @@ export default function ClientForm({
             Huisnummer
           </InputLabel>
           <TextInput
+            id="house_number"
             type="text"
             placeholder="Nr."
             className="border p-3 rounded-lg focus:ring-2 focus:ring-blue-500 w-full"
-            value={clientDetails.house_number}
+            value={formData.clientDetails.house_number}
             onChange={(e) =>
-              setClientDetails({
-                ...clientDetails,
-                house_number: e.target.value,
-              })
+              setData((prevData) => ({
+                ...prevData,
+                clientDetails: {
+                  ...prevData.clientDetails,
+                  house_number: e.target.value,
+                },
+              }))
             }
           />
         </div>
@@ -138,15 +156,19 @@ export default function ClientForm({
             Toevoeging
           </InputLabel>
           <TextInput
+            id="house_number_suffix"
             type="text"
             placeholder="Toevoeging"
             className="border p-3 rounded-lg focus:ring-2 focus:ring-blue-500 w-full"
-            value={clientDetails.house_number_suffix}
+            value={formData.clientDetails.house_number_suffix}
             onChange={(e) =>
-              setClientDetails({
-                ...clientDetails,
-                house_number_suffix: e.target.value,
-              })
+              setData((prevData) => ({
+                ...prevData,
+                clientDetails: {
+                  ...prevData.clientDetails,
+                  house_number_suffix: e.target.value,
+                },
+              }))
             }
           />
         </div>
@@ -161,15 +183,19 @@ export default function ClientForm({
             Postcode
           </InputLabel>
           <TextInput
+            id="postal_code"
             type="text"
             placeholder="Postcode"
             className="border p-3 rounded-lg w-full focus:ring-2 focus:ring-blue-500"
-            value={clientDetails.postal_code}
+            value={formData.clientDetails.postal_code}
             onChange={(e) =>
-              setClientDetails({
-                ...clientDetails,
-                postal_code: e.target.value,
-              })
+              setData((prevData) => ({
+                ...prevData,
+                clientDetails: {
+                  ...prevData.clientDetails,
+                  postal_code: e.target.value,
+                },
+              }))
             }
           />
         </div>
@@ -178,12 +204,19 @@ export default function ClientForm({
             Woonplaats
           </InputLabel>
           <TextInput
+            id="city"
             type="text"
             placeholder="Woonplaats"
             className="border p-3 rounded-lg w-full focus:ring-2 focus:ring-blue-500"
-            value={clientDetails.city}
+            value={formData.clientDetails.city}
             onChange={(e) =>
-              setClientDetails({ ...clientDetails, city: e.target.value })
+              setData((prevData) => ({
+                ...prevData,
+                clientDetails: {
+                  ...prevData.clientDetails,
+                  city: e.target.value,
+                },
+              }))
             }
           />
         </div>
@@ -195,12 +228,19 @@ export default function ClientForm({
             Telefoon
           </InputLabel>
           <TextInput
+            id="phone"
             type="text"
             placeholder="Telefoon"
             className="border p-3 rounded-lg w-full focus:ring-2 focus:ring-blue-500"
-            value={clientDetails.phone}
+            value={formData.clientDetails.phone}
             onChange={(e) =>
-              setClientDetails({ ...clientDetails, phone: e.target.value })
+              setData((prevData) => ({
+                ...prevData,
+                clientDetails: {
+                  ...prevData.clientDetails,
+                  phone: e.target.value,
+                },
+              }))
             }
           />
         </div>
@@ -215,12 +255,15 @@ export default function ClientForm({
             id="client_remarks"
             placeholder="Moet ik nog iets weten? (optioneel)"
             className="border p-3 rounded-lg w-full focus:ring-2 focus:ring-blue-500"
-            value={clientDetails.client_remarks}
+            value={formData.clientDetails.client_remarks}
             onChange={(e) =>
-              setClientDetails({
-                ...clientDetails,
-                client_remarks: e.target.value,
-              })
+              setData((prevData: any) => ({
+                ...prevData,
+                clientDetails: {
+                  ...prevData.clientDetails,
+                  client_remarks: e.target.value,
+                },
+              }))
             }
           />
         </div>
@@ -235,7 +278,7 @@ export default function ClientForm({
         </button>
         <button
           className="bg-green-500 text-white p-3 rounded-lg hover:bg-green-600 transition"
-          onClick={handleSubmit}
+          onClick={() => onSubmit(formData)}
         >
           Verstuur
         </button>

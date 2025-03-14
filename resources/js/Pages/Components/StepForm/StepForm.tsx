@@ -3,65 +3,78 @@ import AnimalForm from "./AnimalForm";
 import DatePickerForm from "./DatePickerForm";
 import ClientForm from "./ClientForm";
 import Swal from "sweetalert2";
+import { useForm } from "@inertiajs/react";
+import { formDefaults } from "./Data/formDefault";
 
 export type StepFormProps = {
   species: { id: number; name: string }[];
   groomOptions: { id: number; name: string }[];
+  closedDays: { id: number; date: string }[];
 };
 
-export default function StepForm({ species, groomOptions }: StepFormProps) {
+export default function StepForm({
+  species,
+  groomOptions,
+  closedDays,
+}: StepFormProps) {
   const [step, setStep] = useState(1);
   const steps = [
     { label: "Afspraak gegevens" },
     { label: "Huisdier gegevens" },
     { label: "Klantgegevens" },
   ];
-  const [formData, setFormData] = useState({
-    date: "",
-    time: "",
-    animalDetails: {},
-    clientDetails: {},
-  });
 
-  const handleNext = (data: any) => {
-    setFormData((prev) => ({ ...prev, ...data }));
+  const { data, setData, post } = useForm(formDefaults);
+
+  const handleNext = (newData) => {
+    setData((prev) => ({ ...prev, ...newData }));
     setStep((prev) => prev + 1);
   };
 
-  const handlePrevious = () => {
-    setStep((prev) => prev - 1);
-  };
+  const handlePrevious = () => setStep((prev) => prev - 1);
+
+  console.log("FORMDATATA", data);
 
   const handleSubmit = () => {
-    console.log("FORMDATATA", formData);
-    fetch("/api/appointments", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(formData),
-    })
-      .then((response) => response.json())
-      .then(() => {
+    post(route("appointment.post"), {
+      data: data,
+      preserveScroll: true,
+      onSuccess: () => {
         Swal.fire({
           title: "Succes!",
-          text: "Je afspraak is succesvol aangemaakt. Een bevestiging is naar je e-mail verstuurd.",
+          text: "Je afspraak is succesvol aangemaakt!",
           icon: "success",
           confirmButtonText: "OK",
         });
-      });
+      },
+      onError: (errors) => {
+        Swal.fire({
+          title: "Fout!",
+          text: "Er ging iets mis, probeer het opnieuw.",
+          icon: "error",
+          confirmButtonText: "OK",
+        });
+      },
+    });
   };
 
   const renderStepForm = () => {
     switch (step) {
       case 1:
-        return <DatePickerForm onNext={handleNext} formData={formData} />;
+        return (
+          <DatePickerForm
+            onNext={handleNext}
+            formData={data}
+            closedDays={closedDays}
+          />
+        );
       case 2:
         return (
           <AnimalForm
             onNext={handleNext}
             onPrevious={handlePrevious}
-            formData={formData}
+            formData={data}
+            setData={setData}
             species={species}
             groomOptions={groomOptions}
           />
@@ -71,7 +84,8 @@ export default function StepForm({ species, groomOptions }: StepFormProps) {
           <ClientForm
             onPrevious={handlePrevious}
             onSubmit={handleSubmit}
-            formData={formData}
+            formData={data}
+            setData={setData}
           />
         );
       default:

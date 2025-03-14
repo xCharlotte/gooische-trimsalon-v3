@@ -24,7 +24,8 @@ Route::get('/', function () {
     return Inertia::render('Homepage');
 });
 
-Route::get('/afspraak', [AppointmentController::class, 'index'])->name('appointment');
+Route::get('/afspraak', [AppointmentController::class, 'index'])->name('appointment.index');
+Route::post('/afspraak', [AppointmentController::class, 'store'])->name('appointment.post');
 
 // Route::get('/afspraak', function () {
 //     return Inertia::render('Appointment/Index');

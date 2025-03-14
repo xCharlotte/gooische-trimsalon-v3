@@ -12,7 +12,7 @@ class SpeciesGroomOption extends Model
 {
     use HasFactory;
 
-    public $table = 'species_groom_option';
+    public $table = 'species_groom_options';
 
     protected $fillable = [
         'species_id',

@@ -16,6 +16,8 @@ class Animal extends Model
         'breed',
         'species',
         'animal_remarks',
+        'client_id',
+        'species_groom_option_id',
     ];
 
     public function speciesGroomOption(): BelongsTo 

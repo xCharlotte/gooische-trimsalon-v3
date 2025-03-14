@@ -13,9 +13,14 @@ class Appointment extends Model
     protected $fillable = [
         'date',
         'moment',
+        'client_id',
+        'animal_id',
+        'species_groom_option_id',
     ];
 
-    protected $dates = ['date'];
+    protected $casts = [
+        'date' => 'datetime'
+    ];
 
     public function client(): BelongsTo 
     {
