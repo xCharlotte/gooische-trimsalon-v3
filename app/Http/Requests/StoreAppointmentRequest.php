@@ -6,36 +6,44 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class StoreAppointmentRequest extends FormRequest
 {
-    public function authorize() {
-        return true;
+    public function rules(): array
+    {
+        return [
+            'date' => 'required|date|after_or_equal:today',
+            'moment' => 'required|string|max:255',
+
+            'clientDetails.first_name' => 'required|string|max:255',
+            'clientDetails.last_name' => 'required|string|max:255',
+            'clientDetails.street' => 'required|string|max:255',
+            'clientDetails.house_number' => 'required|string|max:10',
+            'clientDetails.house_number_suffix' => 'nullable|string|max:10',
+            'clientDetails.postal_code' => 'required|string|regex:/^[1-9][0-9]{3}[A-Z]{2}$/', 
+            'clientDetails.city' => 'required|string|max:255',
+            'clientDetails.email' => 'required|email|max:255|unique:clients,email',
+            'clientDetails.phone' => 'required|string|regex:/^\+?[0-9\s\-\(\)]{7,20}$/',
+            'clientDetails.client_remarks' => 'nullable|string|max:1000',
+
+            'animalDetails.species_id' => 'required|exists:species,id',
+            'animalDetails.name' => 'required|string|max:255',
+            'animalDetails.breed' => 'required|string|max:255',
+            'animalDetails.groom_option_id' => 'required|exists:groom_options,id',
+            'animalDetails.animal_remarks' => 'nullable|string|max:1000',
+        ];
     }
 
-    public function rules() {
+    public function messages(): array
+    {
         return [
-            // Client fields
-            'first_name' => 'required|string|max:255',
-            'last_name' => 'required|string|max:255',
-            'email' => 'required|email',
-            'phone' => 'required|string|max:20',
-            'street' => 'required|string|max:255',
-            'postal_code' => 'required|string|max:10',
-            'house_number' => 'required|integer',
-            'house_number_suffix' => 'nullable|string|max:10',
-            'city' => 'required|string|max:255',
-            'client_remarks' => 'nullable|string',
+            'date.required' => 'De datum is verplicht.',
+            'date.date' => 'De datum moet een geldige datum zijn.',
+            'date.after_or_equal' => 'De datum mag niet in het verleden liggen.',
 
-            // Animal fields
-            'name' => 'required|string|max:255',
-            'breed' => 'required|string|max:255',
-            'animal_remarks' => 'nullable|string',
-
-            // Appointment fields
-            'date' => 'required|date',
-            'moment' => 'required|string',
-
-            // Species & Groom Option
-            'species_id' => 'required|exists:species,id',
-            'groom_option_id' => 'required|exists:groom_options,id',
+            'clientDetails.first_name.required' => 'De voornaam is verplicht.',
+            'clientDetails.email.required' => 'E-mail is verplicht.',
+            'clientDetails.email.email' => 'E-mail moet een geldig adres zijn.',
+            'clientDetails.email.unique' => 'Dit e-mailadres is al geregistreerd.',
+            'clientDetails.phone.regex' => 'Voer een geldig Nederlands telefoonnummer in.',
+            'clientDetails.postal_code.regex' => 'Voer een geldige Nederlandse postcode in (bijv. 1234AB).',
         ];
     }
 }

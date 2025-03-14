@@ -18,6 +18,7 @@ export default function StepForm({
   closedDays,
 }: StepFormProps) {
   const [step, setStep] = useState(1);
+  const [fade, setFade] = useState(true);
   const steps = [
     { label: "Afspraak gegevens" },
     { label: "Huisdier gegevens" },
@@ -33,8 +34,6 @@ export default function StepForm({
 
   const handlePrevious = () => setStep((prev) => prev - 1);
 
-  console.log("FORMDATATA", data);
-
   const handleSubmit = () => {
     post(route("appointment.post"), {
       data: data,
@@ -45,6 +44,13 @@ export default function StepForm({
           text: "Je afspraak is succesvol aangemaakt!",
           icon: "success",
           confirmButtonText: "OK",
+        }).then(() => {
+          setFade(false);
+          setTimeout(() => {
+            setData(formDefaults);
+            setStep(1);
+            setFade(true);
+          }, 300);
         });
       },
       onError: (errors) => {
@@ -95,73 +101,79 @@ export default function StepForm({
 
   return (
     <>
-      <div className="flex items-center justify-center py-12">
-        <nav className="w-full max-w-4xl relative" aria-label="Voortgang">
-          <ul className="flex items-center w-full relative" role="list">
-            {steps.map((item, index) => {
-              const isActive = step > index;
-              const isCompleted = step >= index + 1;
+      <div
+        className={`transition-opacity duration-300 ${
+          fade ? "opacity-100" : "opacity-0"
+        }`}
+      >
+        <div className="flex items-center justify-center py-12">
+          <nav className="w-full max-w-4xl relative" aria-label="Voortgang">
+            <ul className="flex items-center w-full relative" role="list">
+              {steps.map((item, index) => {
+                const isActive = step > index;
+                const isCompleted = step >= index + 1;
 
-              return (
-                <li
-                  key={index}
-                  className="flex flex-col items-center w-1/3 relative"
-                  tabIndex={0}
-                >
-                  {/* Line rendering logic */}
-                  {index === 0 && (
-                    <div
-                      className={`absolute top-5 left-1/2 w-1/2 h-0.5 ${
-                        step > 1 ? "bg-blue-500" : "bg-gray-400"
-                      }`}
-                    />
-                  )}
-                  {index === 1 && (
-                    <>
-                      {/* Left half of the line */}
+                return (
+                  <li
+                    key={index}
+                    className="flex flex-col items-center w-1/3 relative"
+                    tabIndex={0}
+                  >
+                    {/* Line rendering logic */}
+                    {index === 0 && (
                       <div
-                        className={`absolute top-5 left-0 w-1/2 h-0.5 ${
+                        className={`absolute top-5 left-1/2 w-1/2 h-0.5 ${
                           step > 1 ? "bg-blue-500" : "bg-gray-400"
                         }`}
                       />
-                      {/* Right half of the line */}
+                    )}
+                    {index === 1 && (
+                      <>
+                        {/* Left half of the line */}
+                        <div
+                          className={`absolute top-5 left-0 w-1/2 h-0.5 ${
+                            step > 1 ? "bg-blue-500" : "bg-gray-400"
+                          }`}
+                        />
+                        {/* Right half of the line */}
+                        <div
+                          className={`absolute top-5 left-1/2 w-1/2 h-0.5 ${
+                            step > 2 ? "bg-blue-500" : "bg-gray-400"
+                          }`}
+                        />
+                      </>
+                    )}
+                    {index === 2 && (
                       <div
-                        className={`absolute top-5 left-1/2 w-1/2 h-0.5 ${
-                          step > 2 ? "bg-blue-500" : "bg-gray-400"
+                        className={`absolute top-5 right-1/2 w-1/2 h-0.5 ${
+                          isCompleted ? "bg-blue-500" : "bg-gray-400"
                         }`}
                       />
-                    </>
-                  )}
-                  {index === 2 && (
+                    )}
+
+                    {/* Circle rendering logic */}
                     <div
-                      className={`absolute top-5 right-1/2 w-1/2 h-0.5 ${
-                        isCompleted ? "bg-blue-500" : "bg-gray-400"
+                      className={`w-10 h-10 flex items-center justify-center font-bold rounded-full z-10 ${
+                        isActive
+                          ? "bg-blue-500 text-white"
+                          : "bg-gray-500 text-white"
                       }`}
-                    />
-                  )}
+                    >
+                      {index + 1}
+                    </div>
 
-                  {/* Circle rendering logic */}
-                  <div
-                    className={`w-10 h-10 flex items-center justify-center font-bold rounded-full z-10 ${
-                      isActive
-                        ? "bg-blue-500 text-white"
-                        : "bg-gray-500 text-white"
-                    }`}
-                  >
-                    {index + 1}
-                  </div>
-
-                  {/* Label */}
-                  <p className="mt-2 text-sm text-gray-900">{item.label}</p>
-                </li>
-              );
-            })}
-          </ul>
-        </nav>
-      </div>
-      <div className="flex items-center justify-center p-6 w-full pb-20">
-        <div className="bg-white shadow-lg rounded-2xl w-full max-w-4xl p-8">
-          <div className="p-4">{renderStepForm()}</div>
+                    {/* Label */}
+                    <p className="mt-2 text-sm text-gray-900">{item.label}</p>
+                  </li>
+                );
+              })}
+            </ul>
+          </nav>
+        </div>
+        <div className="flex items-center justify-center p-6 w-full pb-20">
+          <div className="bg-white shadow-lg rounded-2xl w-full max-w-4xl p-8">
+            <div className="p-4">{renderStepForm()}</div>
+          </div>
         </div>
       </div>
     </>

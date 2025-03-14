@@ -2,18 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Actions\CreateAppointmentAction;
 use App\Http\Requests\StoreAppointmentRequest;
 use App\Models\Animal;
 use App\Models\Appointment;
 use App\Models\Client;
 use App\Models\SpeciesGroomOption;
-use App\Repositories\AppointmentRepository;
 use App\Repositories\ClosedDayRepository;
 use App\Models\GroomOption;
 use App\Models\Species;
 use DB;
-use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 class AppointmentController extends Controller
@@ -21,9 +18,8 @@ class AppointmentController extends Controller
     protected $appointmentRepo;
     protected $closedDayRepo;
 
-    public function __construct(AppointmentRepository $appointmentRepo, ClosedDayRepository $closedDayRepo)
+    public function __construct(ClosedDayRepository $closedDayRepo)
     {
-        $this->appointmentRepo = $appointmentRepo;
         $this->closedDayRepo = $closedDayRepo;
     }
 
@@ -36,7 +32,7 @@ class AppointmentController extends Controller
         ]);
     }
 
-    public function store(Request $request) {
+    public function store(StoreAppointmentRequest $request) {
         try {
             DB::transaction(function () use ($request) {
                 // First we will create a client so we can use the client_id in the animal and appointment
