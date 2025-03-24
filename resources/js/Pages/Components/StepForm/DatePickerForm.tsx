@@ -1,37 +1,47 @@
 import InputLabel from "@/Components/Forms/InputLabel";
 import TextInput from "@/Components/Forms/TextInput";
 import Flatpicker from "@/Components/UI/Flatpicker";
+import { formValidationSchema } from "./hooks/formValidationSchema";
 import { formatDateForFlatpickr } from "@/lib/dateFormatter";
-import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useEffect } from "react";
 
 export type DatePickerFormProps = {
   onNext: (data: any) => void;
   formData: any;
+  setData: any;
   closedDays: { id: number; date: string }[];
 };
 
 export default function DatePickerForm({
   onNext,
   formData,
+  setData,
   closedDays,
 }: DatePickerFormProps) {
-  const [date, setDate] = useState<Date | undefined>(
-    formData.date || undefined
-  );
-  const [moment, setMoment] = useState(formData.moment || "");
+  const { appointmentFormSchema } = formValidationSchema();
 
-  const handleNext = () => {
-    if (date && moment) {
-      onNext({ date, moment });
-    }
-  };
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    formState: { errors },
+  } = useForm({
+    resolver: zodResolver(appointmentFormSchema),
+    defaultValues: formData,
+  });
 
   const disabledDates = closedDays.map((item) =>
     formatDateForFlatpickr(item.date)
   );
 
+  const onSubmit = () => {
+    onNext(formData);
+  };
+
   return (
-    <div className="space-y-6">
+    <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
       <div className="flex flex-col items-center space-y-2">
         <h2 className="text-2xl uppercase font-bold text-gray-700">
           Datum & Tijdstip
@@ -40,14 +50,23 @@ export default function DatePickerForm({
       </div>
 
       <Flatpicker
-        value={date}
-        onChange={setDate}
+        value={formData.date}
+        onChange={(selectedDate) => {
+          setValue("date", selectedDate, { shouldValidate: true });
+          setData((prevData: any) => ({
+            ...prevData,
+            date: selectedDate,
+          }));
+        }}
         placeholder="Kies een datum"
         disabledDates={disabledDates}
         className="mb-4 w-full p-2 border rounded"
       />
+      {errors.date && (
+        <p className="text-red-500 text-sm">{errors.date.message}</p>
+      )}
 
-      {date && (
+      {formData.date && (
         <div className="space-y-4">
           <p className="text-gray-700">Kies een tijd*</p>
           <div className="space-y-2">
@@ -55,10 +74,16 @@ export default function DatePickerForm({
               <TextInput
                 id="moment"
                 type="radio"
-                name="moment"
+                {...register("moment")}
                 value="10:00 - 12:00"
-                checked={moment === "10:00 - 12:00"}
-                onChange={() => setMoment("10:00 - 12:00")}
+                checked={formData.moment === "10:00 - 12:00"}
+                onChange={() => {
+                  setValue("moment", "10:00 - 12:00");
+                  setData((prevData: any) => ({
+                    ...prevData,
+                    moment: "10:00 - 12:00",
+                  }));
+                }}
                 className="form-radio text-blue-500"
               />
               <span className="text-gray-700">
@@ -69,10 +94,16 @@ export default function DatePickerForm({
               <TextInput
                 id="moment"
                 type="radio"
-                name="moment"
+                {...register("moment")}
                 value="19:00 - 20:00"
-                checked={moment === "19:00 - 20:00"}
-                onChange={() => setMoment("19:00 - 20:00")}
+                checked={formData.moment === "19:00 - 20:00"}
+                onChange={() => {
+                  setValue("moment", "19:00 - 20:00");
+                  setData((prevData: any) => ({
+                    ...prevData,
+                    moment: "19:00 - 20:00",
+                  }));
+                }}
                 className="form-radio text-blue-500"
               />
               <span className="text-gray-700">
@@ -81,17 +112,18 @@ export default function DatePickerForm({
               </span>
             </InputLabel>
           </div>
+          {errors.moment && (
+            <p className="text-red-500 text-sm">{errors.moment.message}</p>
+          )}
         </div>
       )}
 
       <button
         className="bg-blue-500 text-white p-3 rounded-lg w-full hover:bg-blue-600 transition"
-        onClick={handleNext}
-        disabled={!date || !moment}
-        type="button"
+        type="submit"
       >
         Volgende
       </button>
-    </div>
+    </form>
   );
 }

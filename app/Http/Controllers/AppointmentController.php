@@ -33,10 +33,12 @@ class AppointmentController extends Controller
     }
 
     public function store(StoreAppointmentRequest $request) {
+
+        dd($request->all());
         try {
             DB::transaction(function () use ($request) {
                 // First we will create a client so we can use the client_id in the animal and appointment
-                $client = Client::firstOrCreate(
+                $client = Client::updateOrCreate(
                     ['email' => $request->clientDetails['email']],
                     $request->clientDetails
                 );

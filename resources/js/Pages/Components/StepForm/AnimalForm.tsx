@@ -1,3 +1,6 @@
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { formValidationSchema } from "./hooks/formValidationSchema";
 import InputLabel from "@/Components/Forms/InputLabel";
 import SelectInput from "@/Components/Forms/SelectInput";
 import TextArea from "@/Components/Forms/TextArea";
@@ -20,8 +23,29 @@ export default function AnimalForm({
   species,
   groomOptions,
 }: AnimalFormProps) {
+  const { animalFormSchema } = formValidationSchema();
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: zodResolver(animalFormSchema),
+    defaultValues: formData.animalDetails,
+  });
+
+  const onSubmit = (data: any) => {
+    console.log("formData in AnimalForm:", formData);
+    console.log("Updated formData:", data);
+    setData((prev) => ({
+      ...prev,
+      animalDetails: data,
+    }));
+    onNext(data);
+  };
+
   return (
-    <div className="space-y-6">
+    <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
       <div className="flex flex-col items-center space-y-2">
         <h2 className="text-2xl uppercase font-bold text-gray-700">
           Huisdier gegevens
@@ -39,13 +63,7 @@ export default function AnimalForm({
         <SelectInput
           id="species_id"
           className="border p-3 rounded-lg w-full focus:ring-2 focus:ring-blue-500"
-          value={formData.animalDetails.species_id || ""}
-          onChange={(e) =>
-            setData("animalDetails", {
-              ...formData.animalDetails,
-              species_id: e.target.value,
-            })
-          }
+          {...register("species_id")}
         >
           <option disabled value="">
             Kies een dier
@@ -56,6 +74,9 @@ export default function AnimalForm({
             </option>
           ))}
         </SelectInput>
+        {errors.species_id && (
+          <p className="text-red-500">{errors.species_id.message}</p>
+        )}
       </div>
 
       <div className="space-y-2">
@@ -65,15 +86,10 @@ export default function AnimalForm({
         <TextInput
           id="name"
           placeholder="Hoe heet je huisdier?"
-          value={formData.animalDetails.name}
           className="border p-3 rounded-lg w-full focus:ring-2 focus:ring-blue-500"
-          onChange={(e) =>
-            setData("animalDetails", {
-              ...formData.animalDetails,
-              name: e.target.value,
-            })
-          }
+          {...register("name")}
         />
+        {errors.name && <p className="text-red-500">{errors.name.message}</p>}
       </div>
 
       <div className="space-y-2">
@@ -81,18 +97,12 @@ export default function AnimalForm({
           Ras
         </InputLabel>
         <TextInput
-          type="text"
           id="breed"
           placeholder="Om welk ras gaat het?"
           className="border p-3 rounded-lg w-full focus:ring-2 focus:ring-blue-500"
-          value={formData.animalDetails.breed}
-          onChange={(e) =>
-            setData("animalDetails", {
-              ...formData.animalDetails,
-              breed: e.target.value,
-            })
-          }
+          {...register("breed")}
         />
+        {errors.breed && <p className="text-red-500">{errors.breed.message}</p>}
       </div>
 
       <div className="space-y-2">
@@ -105,13 +115,7 @@ export default function AnimalForm({
         <SelectInput
           id="groom_option_id"
           className="border p-3 rounded-lg w-full focus:ring-2 focus:ring-blue-500"
-          value={formData.animalDetails.groom_option_id || ""}
-          onChange={(e) =>
-            setData("animalDetails", {
-              ...formData.animalDetails,
-              groom_option_id: e.target.value,
-            })
-          }
+          {...register("groom_option_id")}
         >
           <option disabled value="">
             Kies een trimoptie
@@ -122,6 +126,9 @@ export default function AnimalForm({
             </option>
           ))}
         </SelectInput>
+        {errors.groom_option_id && (
+          <p className="text-red-500">{errors.groom_option_id.message}</p>
+        )}
       </div>
 
       <div className="space-y-2">
@@ -135,30 +142,25 @@ export default function AnimalForm({
           id="animal_remarks"
           placeholder="Moet ik nog iets weten over je huisdier? (optioneel)"
           className="border p-3 rounded-lg w-full focus:ring-2 focus:ring-blue-500"
-          value={formData.animalDetails.animal_remarks}
-          onChange={(e) =>
-            setData("animalDetails", {
-              ...formData.animalDetails,
-              animal_remarks: e.target.value,
-            })
-          }
+          {...register("animal_remarks")}
         />
       </div>
 
       <div className="flex justify-between">
         <button
           className="bg-gray-500 text-white p-3 rounded-lg hover:bg-gray-600 transition"
+          type="button"
           onClick={onPrevious}
         >
           Vorige
         </button>
         <button
           className="bg-blue-500 text-white p-3 rounded-lg hover:bg-blue-600 transition"
-          onClick={() => onNext(formData)}
+          type="submit"
         >
           Volgende
         </button>
       </div>
-    </div>
+    </form>
   );
 }

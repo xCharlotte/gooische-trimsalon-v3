@@ -1,10 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import AnimalForm from "./AnimalForm";
 import DatePickerForm from "./DatePickerForm";
 import ClientForm from "./ClientForm";
 import Swal from "sweetalert2";
 import { useForm } from "@inertiajs/react";
-import { formDefaults } from "./Data/formDefault";
+import { formDefaults } from "./data/formDefault";
 
 export type StepFormProps = {
   species: { id: number; name: string }[];
@@ -19,22 +19,33 @@ export default function StepForm({
 }: StepFormProps) {
   const [step, setStep] = useState(1);
   const [fade, setFade] = useState(true);
+  const [shouldSubmit, setShouldSubmit] = useState(false);
+  const { data, setData, post } = useForm(formDefaults);
+
   const steps = [
     { label: "Afspraak gegevens" },
     { label: "Huisdier gegevens" },
     { label: "Klantgegevens" },
   ];
 
-  const { data, setData, post } = useForm(formDefaults);
+  useEffect(() => {
+    console.log("!!!!!!!!!! formData in StepForm:", data);
+    if (shouldSubmit) {
+      onSubmitHandler();
+      setShouldSubmit(false);
+    }
+  }, [data]);
 
-  const handleNext = (newData) => {
-    setData((prev) => ({ ...prev, ...newData }));
-    setStep((prev) => prev + 1);
-  };
-
+  const handleNext = () => setStep((prev) => prev + 1);
   const handlePrevious = () => setStep((prev) => prev - 1);
 
   const handleSubmit = () => {
+    console.log("SCHATJE DIT GAAT WERKEN");
+    setShouldSubmit(true);
+  };
+
+  const onSubmitHandler = (e: any) => {
+    e.preventDefault();
     post(route("appointment.post"), {
       data: data,
       preserveScroll: true,
@@ -54,6 +65,8 @@ export default function StepForm({
         });
       },
       onError: (errors) => {
+        console.log("Swal errors", errors);
+
         Swal.fire({
           title: "Fout!",
           text: "Er ging iets mis, probeer het opnieuw.",
@@ -71,6 +84,7 @@ export default function StepForm({
           <DatePickerForm
             onNext={handleNext}
             formData={data}
+            setData={setData}
             closedDays={closedDays}
           />
         );
@@ -89,7 +103,7 @@ export default function StepForm({
         return (
           <ClientForm
             onPrevious={handlePrevious}
-            onSubmit={handleSubmit}
+            onSubmit={onSubmitHandler}
             formData={data}
             setData={setData}
           />
