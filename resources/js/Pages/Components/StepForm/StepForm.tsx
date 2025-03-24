@@ -40,7 +40,6 @@ export default function StepForm({
   const handlePrevious = () => setStep((prev) => prev - 1);
 
   const handleSubmit = () => {
-    console.log("SCHATJE DIT GAAT WERKEN");
     setShouldSubmit(true);
   };
 
