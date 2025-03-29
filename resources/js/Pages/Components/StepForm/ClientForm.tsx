@@ -7,8 +7,7 @@ import { formValidationSchema } from "./hooks/formValidationSchema";
 
 export type ClientFormProps = {
   onPrevious: () => void;
-  // onSubmit: () => void;
-  onSubmit: any;
+  onSubmit: () => void;
   formData: any;
   setData: any;
 };

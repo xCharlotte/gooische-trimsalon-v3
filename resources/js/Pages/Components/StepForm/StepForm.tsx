@@ -43,8 +43,7 @@ export default function StepForm({
     setShouldSubmit(true);
   };
 
-  const onSubmitHandler = (e: any) => {
-    e.preventDefault();
+  const onSubmitHandler = () => {
     post(route("appointment.post"), {
       data: data,
       preserveScroll: true,
@@ -102,7 +101,7 @@ export default function StepForm({
         return (
           <ClientForm
             onPrevious={handlePrevious}
-            onSubmit={onSubmitHandler}
+            onSubmit={handleSubmit}
             formData={data}
             setData={setData}
           />
