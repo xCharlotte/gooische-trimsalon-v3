@@ -4,7 +4,6 @@ import AnimalForm from "./AnimalForm";
 import DatePickerForm from "./DatePickerForm";
 import ClientForm from "./ClientForm";
 import Swal from "sweetalert2";
-import { useForm } from "@inertiajs/react";
 import { useStepFormStore } from "@/stores/useStepFormStore";
 
 export type StepFormProps = {
@@ -21,7 +20,6 @@ export default function StepForm({
   const [fade, setFade] = useState(true);
   const { step, formData, nextStep, prevStep, updateFormData, resetForm } =
     useStepFormStore();
-  const { post } = useForm(formData);
 
   const steps = [
     { label: "Afspraak gegevens" },
