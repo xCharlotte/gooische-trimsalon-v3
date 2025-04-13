@@ -34,8 +34,6 @@ export default function AnimalForm({
     defaultValues: formData.animalDetails,
   });
 
-  console.log("animalForm", formData);
-
   const onSubmit = (data: any) => {
     updateFormData({ animalDetails: data });
     onNext(data);

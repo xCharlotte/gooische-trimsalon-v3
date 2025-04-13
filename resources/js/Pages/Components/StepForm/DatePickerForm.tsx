@@ -35,8 +35,6 @@ export default function DatePickerForm({
     formatDateForFlatpickr(item.date)
   );
 
-  console.log("datePicker", formData);
-
   const onSubmit = () => {
     onNext(formData);
   };

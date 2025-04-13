@@ -28,7 +28,6 @@ export default function StepForm({
   ];
 
   const handleSubmit = (mergedData: any) => {
-    console.log("handleSubmit", mergedData);
     router.post(route("appointment.post"), mergedData, {
       preserveScroll: true,
       onSuccess: () => {
@@ -45,9 +44,7 @@ export default function StepForm({
           }, 300);
         });
       },
-      onError: (errors) => {
-        console.log("Swal errors", errors);
-
+      onError: () => {
         Swal.fire({
           title: "Fout!",
           text: "Er ging iets mis, probeer het opnieuw.",

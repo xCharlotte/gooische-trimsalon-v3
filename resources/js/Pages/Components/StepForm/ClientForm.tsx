@@ -29,8 +29,6 @@ export default function ClientForm({
     defaultValues: formData.clientDetails,
   });
 
-  console.log("clientForm", formData);
-
   const onSubmitHandler = (data: any) => {
     const mergedData = {
       ...formData,
