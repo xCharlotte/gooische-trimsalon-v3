@@ -19,5 +19,6 @@ export const formDefaults = {
     email: "",
     phone: "",
     client_remarks: "",
+    terms_accepted: false,
   },
 };

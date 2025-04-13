@@ -1,10 +1,11 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { router } from "@inertiajs/react";
 import AnimalForm from "./AnimalForm";
 import DatePickerForm from "./DatePickerForm";
 import ClientForm from "./ClientForm";
 import Swal from "sweetalert2";
 import { useForm } from "@inertiajs/react";
-import { formDefaults } from "./data/formDefault";
+import { useStepFormStore } from "@/stores/useStepFormStore";
 
 export type StepFormProps = {
   species: { id: number; name: string }[];
@@ -17,10 +18,10 @@ export default function StepForm({
   groomOptions,
   closedDays,
 }: StepFormProps) {
-  const [step, setStep] = useState(1);
   const [fade, setFade] = useState(true);
-  const [shouldSubmit, setShouldSubmit] = useState(false);
-  const { data, setData, post } = useForm(formDefaults);
+  const { step, formData, nextStep, prevStep, updateFormData, resetForm } =
+    useStepFormStore();
+  const { post } = useForm(formData);
 
   const steps = [
     { label: "Afspraak gegevens" },
@@ -28,24 +29,9 @@ export default function StepForm({
     { label: "Klantgegevens" },
   ];
 
-  useEffect(() => {
-    console.log("!!!!!!!!!! formData in StepForm:", data);
-    if (shouldSubmit) {
-      onSubmitHandler();
-      setShouldSubmit(false);
-    }
-  }, [data]);
-
-  const handleNext = () => setStep((prev) => prev + 1);
-  const handlePrevious = () => setStep((prev) => prev - 1);
-
-  const handleSubmit = () => {
-    setShouldSubmit(true);
-  };
-
-  const onSubmitHandler = () => {
-    post(route("appointment.post"), {
-      data: data,
+  const handleSubmit = (mergedData: any) => {
+    console.log("handleSubmit", mergedData);
+    router.post(route("appointment.post"), mergedData, {
       preserveScroll: true,
       onSuccess: () => {
         Swal.fire({
@@ -56,8 +42,7 @@ export default function StepForm({
         }).then(() => {
           setFade(false);
           setTimeout(() => {
-            setData(formDefaults);
-            setStep(1);
+            resetForm();
             setFade(true);
           }, 300);
         });
@@ -80,19 +65,19 @@ export default function StepForm({
       case 1:
         return (
           <DatePickerForm
-            onNext={handleNext}
-            formData={data}
-            setData={setData}
+            onNext={nextStep}
+            formData={formData}
+            updateFormData={updateFormData}
             closedDays={closedDays}
           />
         );
       case 2:
         return (
           <AnimalForm
-            onNext={handleNext}
-            onPrevious={handlePrevious}
-            formData={data}
-            setData={setData}
+            onNext={nextStep}
+            onPrevious={prevStep}
+            formData={formData}
+            updateFormData={updateFormData}
             species={species}
             groomOptions={groomOptions}
           />
@@ -100,10 +85,10 @@ export default function StepForm({
       case 3:
         return (
           <ClientForm
-            onPrevious={handlePrevious}
+            onPrevious={prevStep}
             onSubmit={handleSubmit}
-            formData={data}
-            setData={setData}
+            formData={formData}
+            updateFormData={updateFormData}
           />
         );
       default:

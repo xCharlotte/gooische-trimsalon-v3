@@ -10,7 +10,7 @@ export type AnimalFormProps = {
   onNext: (data: any) => void;
   onPrevious: () => void;
   formData: any;
-  setData: any;
+  updateFormData: any;
   species: { id: number; name: string }[];
   groomOptions: { id: number; name: string }[];
 };
@@ -19,7 +19,7 @@ export default function AnimalForm({
   onNext,
   onPrevious,
   formData,
-  setData,
+  updateFormData,
   species,
   groomOptions,
 }: AnimalFormProps) {
@@ -34,13 +34,10 @@ export default function AnimalForm({
     defaultValues: formData.animalDetails,
   });
 
+  console.log("animalForm", formData);
+
   const onSubmit = (data: any) => {
-    console.log("formData in AnimalForm:", formData);
-    console.log("Updated formData:", data);
-    setData((prev) => ({
-      ...prev,
-      animalDetails: data,
-    }));
+    updateFormData({ animalDetails: data });
     onNext(data);
   };
 

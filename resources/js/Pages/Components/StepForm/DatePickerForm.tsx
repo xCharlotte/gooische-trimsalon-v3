@@ -5,19 +5,18 @@ import { formValidationSchema } from "./hooks/formValidationSchema";
 import { formatDateForFlatpickr } from "@/lib/dateFormatter";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useEffect } from "react";
 
 export type DatePickerFormProps = {
   onNext: (data: any) => void;
   formData: any;
-  setData: any;
+  updateFormData: any;
   closedDays: { id: number; date: string }[];
 };
 
 export default function DatePickerForm({
   onNext,
   formData,
-  setData,
+  updateFormData,
   closedDays,
 }: DatePickerFormProps) {
   const { appointmentFormSchema } = formValidationSchema();
@@ -36,6 +35,8 @@ export default function DatePickerForm({
     formatDateForFlatpickr(item.date)
   );
 
+  console.log("datePicker", formData);
+
   const onSubmit = () => {
     onNext(formData);
   };
@@ -53,10 +54,7 @@ export default function DatePickerForm({
         value={formData.date}
         onChange={(selectedDate) => {
           setValue("date", selectedDate, { shouldValidate: true });
-          setData((prevData: any) => ({
-            ...prevData,
-            date: selectedDate,
-          }));
+          updateFormData({ date: selectedDate });
         }}
         placeholder="Kies een datum"
         disabledDates={disabledDates}
@@ -79,10 +77,7 @@ export default function DatePickerForm({
                 checked={formData.moment === "10:00 - 12:00"}
                 onChange={() => {
                   setValue("moment", "10:00 - 12:00");
-                  setData((prevData: any) => ({
-                    ...prevData,
-                    moment: "10:00 - 12:00",
-                  }));
+                  updateFormData({ moment: "10:00 - 12:00" });
                 }}
                 className="form-radio text-blue-500"
               />
@@ -99,10 +94,7 @@ export default function DatePickerForm({
                 checked={formData.moment === "19:00 - 20:00"}
                 onChange={() => {
                   setValue("moment", "19:00 - 20:00");
-                  setData((prevData: any) => ({
-                    ...prevData,
-                    moment: "19:00 - 20:00",
-                  }));
+                  updateFormData({ moment: "19:00 - 20:00" });
                 }}
                 className="form-radio text-blue-500"
               />

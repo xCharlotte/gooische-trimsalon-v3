@@ -34,6 +34,11 @@ export const clientFormSchema = z.object({
       "Voer een geldig telefoonnummer in, beginnend met +31 of 0"
     ),
   client_remarks: z.string().optional(),
+  terms_accepted: z.literal(true, {
+    errorMap: () => ({
+      message: "Je moet akkoord gaan met de algemene voorwaarden",
+    }),
+  }),
 });
 
 export const appointmentFormSchema = z.object({

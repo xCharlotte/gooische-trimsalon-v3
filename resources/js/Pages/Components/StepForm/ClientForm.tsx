@@ -9,14 +9,14 @@ export type ClientFormProps = {
   onPrevious: () => void;
   onSubmit: () => void;
   formData: any;
-  setData: any;
+  updateFormData: any;
 };
 
 export default function ClientForm({
   onPrevious,
   onSubmit,
   formData,
-  setData,
+  updateFormData,
 }: ClientFormProps) {
   const { clientFormSchema } = formValidationSchema();
 
@@ -29,13 +29,16 @@ export default function ClientForm({
     defaultValues: formData.clientDetails,
   });
 
-  const onSubmitHandler = (data: any) => {
-    setData((prev) => ({
-      ...prev,
-      clientDetails: data,
-    }));
+  console.log("clientForm", formData);
 
-    onSubmit();
+  const onSubmitHandler = (data: any) => {
+    const mergedData = {
+      ...formData,
+      clientDetails: data,
+    };
+
+    updateFormData({ clientDetails: data });
+    onSubmit(mergedData);
   };
 
   return (
@@ -211,6 +214,29 @@ export default function ClientForm({
             {...register("client_remarks")}
           />
         </div>
+        <div className="flex items-center gap-2">
+          <input
+            id="terms_accepted"
+            type="checkbox"
+            className="w-5 h-5"
+            {...register("terms_accepted")}
+          />
+          <label htmlFor="terms_accepted" className="text-gray-700">
+            Ik ga akkoord met de{" "}
+            <a
+              href="/algemene-voorwaarden"
+              target="_blank"
+              className="underline text-blue-600"
+            >
+              algemene voorwaarden
+            </a>
+          </label>
+        </div>
+        {errors.terms_accepted && (
+          <p className="text-red-500">
+            {errors.terms_accepted.message as string}
+          </p>
+        )}
       </div>
 
       <div className="flex justify-between">
