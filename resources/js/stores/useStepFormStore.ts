@@ -1,12 +1,14 @@
 import { create } from "zustand";
 import { formDefaults } from "../Pages/Components/StepForm/data/formDefault";
 
+export type FormData = typeof formDefaults;
+
 type StepFormStore = {
   step: number;
-  formData: typeof formDefaults;
+  formData: FormData;
   nextStep: () => void;
   prevStep: () => void;
-  updateFormData: (newData: Partial<typeof formDefaults>) => void;
+  updateFormData: (newData: Partial<FormData>) => void;
   resetForm: () => void;
 };
 

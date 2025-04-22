@@ -46,18 +46,10 @@ export const appointmentFormSchema = z.object({
   moment: z.string().min(1, "Tijdstip is verplicht"),
 });
 
-export const fullFormSchema = z.object({
-  date: appointmentFormSchema.shape.date,
-  moment: appointmentFormSchema.shape.moment,
-  animalDetails: animalFormSchema,
-  clientDetails: clientFormSchema,
-});
-
 export const formValidationSchema = () => {
   return {
     animalFormSchema,
     clientFormSchema,
     appointmentFormSchema,
-    fullFormSchema,
   };
 };

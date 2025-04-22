@@ -5,13 +5,13 @@ import DatePickerForm from "./DatePickerForm";
 import ClientForm from "./ClientForm";
 import Swal from "sweetalert2";
 import { useStepFormStore } from "@/stores/useStepFormStore";
+import { FormData } from "@/types/formData";
 
 export type StepFormProps = {
   species: { id: number; name: string }[];
   groomOptions: { id: number; name: string }[];
   closedDays: { id: number; date: string }[];
-  momentsByDate: any;
-  fullyBookedDates: any;
+  momentsByDate: { [date: string]: string[] };
 };
 
 export default function StepForm({
@@ -19,7 +19,6 @@ export default function StepForm({
   groomOptions,
   closedDays,
   momentsByDate,
-  fullyBookedDates,
 }: StepFormProps) {
   const [fade, setFade] = useState(true);
   const { step, formData, nextStep, prevStep, updateFormData, resetForm } =
@@ -31,7 +30,7 @@ export default function StepForm({
     { label: "Klantgegevens" },
   ];
 
-  const handleSubmit = (mergedData: any) => {
+  const handleSubmit = (mergedData: FormData) => {
     router.post(route("appointment.post"), mergedData, {
       preserveScroll: true,
       onSuccess: () => {
@@ -69,7 +68,6 @@ export default function StepForm({
             updateFormData={updateFormData}
             closedDays={closedDays}
             momentsByDate={momentsByDate}
-            fullyBookedDates={fullyBookedDates}
           />
         );
       case 2:

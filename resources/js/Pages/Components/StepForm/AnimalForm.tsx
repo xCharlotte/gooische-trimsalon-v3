@@ -5,12 +5,13 @@ import InputLabel from "@/Components/Forms/InputLabel";
 import SelectInput from "@/Components/Forms/SelectInput";
 import TextArea from "@/Components/Forms/TextArea";
 import TextInput from "@/Components/Forms/TextInput";
+import { FormData } from "@/types/formData";
 
 export type AnimalFormProps = {
   onNext: (data: any) => void;
-  onPrevious: () => void;
-  formData: any;
-  updateFormData: any;
+  onPrevious: (data: any) => void;
+  formData: FormData;
+  updateFormData: (data: Partial<FormData>) => void;
   species: { id: number; name: string }[];
   groomOptions: { id: number; name: string }[];
 };

@@ -4,13 +4,14 @@ import Flatpicker from "@/Components/UI/Flatpicker";
 import { formValidationSchema } from "./hooks/formValidationSchema";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { FormData } from "@/types/formData";
 
 export type DatePickerFormProps = {
-  onNext: (data: any) => void;
-  formData: any;
-  updateFormData: any;
+  onNext: (data: FormData) => void;
+  formData: FormData;
+  updateFormData: (data: Partial<FormData>) => void;
   closedDays: { id: number; date: string }[];
-  momentsByDate: any;
+  momentsByDate: { [date: string]: string[] };
 };
 
 export default function DatePickerForm({
@@ -32,7 +33,9 @@ export default function DatePickerForm({
     defaultValues: formData,
   });
 
-  const getFullyBookedFromMoments = (momentsByDate) => {
+  const getFullyBookedFromMoments = (momentsByDate: {
+    [date: string]: string[];
+  }) => {
     return Object.entries(momentsByDate)
       .filter(([date, moments]) => {
         return (

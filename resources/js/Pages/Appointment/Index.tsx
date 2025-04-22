@@ -9,7 +9,6 @@ interface AppointmentProps {
   groomOptions: { id: number; name: string }[];
   closedDays: { id: number; date: string }[];
   momentsByDate: any;
-  fullyBookedDates: any;
 }
 
 export default function Index({
@@ -17,7 +16,6 @@ export default function Index({
   groomOptions,
   closedDays,
   momentsByDate,
-  fullyBookedDates,
 }: AppointmentProps) {
   return (
     <>
@@ -29,7 +27,6 @@ export default function Index({
         groomOptions={groomOptions}
         closedDays={closedDays}
         momentsByDate={momentsByDate}
-        fullyBookedDates={fullyBookedDates}
       />
       <Footer />
     </>

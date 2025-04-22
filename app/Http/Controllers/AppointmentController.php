@@ -27,14 +27,12 @@ class AppointmentController extends Controller
 
     public function index()
     {
-        $fullyBookedDates = $this->momentAvailableService->getFullyBookedDates();
         $momentsByDate = $this->momentAvailableService->getMomentsByDate();
 
         return Inertia::render('Appointment/Index', [
             'groomOptions' => GroomOption::all(),
             'species' => Species::all(),
             'closedDays' => $this->closedDayRepo->getFutureClosedDays(),
-            'fullyBookedDates' => $fullyBookedDates,
             'momentsByDate' => $momentsByDate,
         ]);
     }

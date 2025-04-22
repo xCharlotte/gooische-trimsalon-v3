@@ -1,4 +1,6 @@
-export const formDefaults = {
+import { FormData } from "@/types/formData";
+
+export const formDefaults: FormData = {
   date: "",
   moment: "",
   animalDetails: {
