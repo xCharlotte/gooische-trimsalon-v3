@@ -4,12 +4,14 @@ import TextInput from "@/Components/Forms/TextInput";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { formValidationSchema } from "./hooks/formValidationSchema";
+import { FormData } from "@/types/formData";
+import Checkbox from "@/Components/Forms/Checkbox";
 
 export type ClientFormProps = {
   onPrevious: () => void;
-  onSubmit: () => void;
-  formData: any;
-  updateFormData: any;
+  onSubmit: (data: FormData) => void;
+  formData: FormData;
+  updateFormData: (data: Partial<FormData>) => void;
 };
 
 export default function ClientForm({
@@ -25,6 +27,7 @@ export default function ClientForm({
     handleSubmit,
     formState: { errors },
   } = useForm({
+    // @ts-ignore
     resolver: zodResolver(clientFormSchema),
     defaultValues: formData.clientDetails,
   });
@@ -213,12 +216,7 @@ export default function ClientForm({
           />
         </div>
         <div className="flex items-center gap-2">
-          <input
-            id="terms_accepted"
-            type="checkbox"
-            className="w-5 h-5"
-            {...register("terms_accepted")}
-          />
+          <Checkbox id="terms_accepted" {...register("terms_accepted")} />
           <label htmlFor="terms_accepted" className="text-gray-700">
             Ik ga akkoord met de{" "}
             <a
