@@ -3,7 +3,6 @@ import PrimaryButton from "../Buttons/PrimaryButton";
 import TextInput from "../Forms/TextInput";
 import Table from "./Table";
 import Flatpicker from "@/Components/UI/Flatpicker";
-import { formatDateForFlatpickr } from "@/lib/dateFormatter";
 
 export type OptionsLayoutProps = {
   title: string;
@@ -47,9 +46,7 @@ export default function OptionsLayout({
     }
   };
 
-  const disabledDates = closedDays.map((item) =>
-    formatDateForFlatpickr(item.date)
-  );
+  const disabledDates = closedDays.map((item) => item.date);
 
   return (
     <div className="py-4">

@@ -5,9 +5,3 @@ export const formatDate = (date: Date): string => {
   const day = String(date.getDate()).padStart(2, "0");
   return `${year}-${month}-${day}`;
 };
-
-// Returns Y-m-d format for Flatpickr
-export const formatDateForFlatpickr = (date: string) => {
-  const [day, month, year] = date.split("-");
-  return `${year}-${month}-${day}`;
-};
