@@ -8,12 +8,16 @@ interface AppointmentProps {
   species: { id: number; name: string }[];
   groomOptions: { id: number; name: string }[];
   closedDays: { id: number; date: string }[];
+  momentsByDate: any;
+  fullyBookedDates: any;
 }
 
 export default function Index({
   species,
   groomOptions,
   closedDays,
+  momentsByDate,
+  fullyBookedDates,
 }: AppointmentProps) {
   return (
     <>
@@ -24,6 +28,8 @@ export default function Index({
         species={species}
         groomOptions={groomOptions}
         closedDays={closedDays}
+        momentsByDate={momentsByDate}
+        fullyBookedDates={fullyBookedDates}
       />
       <Footer />
     </>

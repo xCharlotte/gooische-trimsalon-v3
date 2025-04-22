@@ -2,7 +2,6 @@ import InputLabel from "@/Components/Forms/InputLabel";
 import TextInput from "@/Components/Forms/TextInput";
 import Flatpicker from "@/Components/UI/Flatpicker";
 import { formValidationSchema } from "./hooks/formValidationSchema";
-import { formatDateForFlatpickr } from "@/lib/dateFormatter";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
@@ -11,6 +10,7 @@ export type DatePickerFormProps = {
   formData: any;
   updateFormData: any;
   closedDays: { id: number; date: string }[];
+  momentsByDate: any;
 };
 
 export default function DatePickerForm({
@@ -18,6 +18,7 @@ export default function DatePickerForm({
   formData,
   updateFormData,
   closedDays,
+  momentsByDate,
 }: DatePickerFormProps) {
   const { appointmentFormSchema } = formValidationSchema();
 
@@ -31,9 +32,27 @@ export default function DatePickerForm({
     defaultValues: formData,
   });
 
-  const disabledDates = closedDays.map((item) =>
-    formatDateForFlatpickr(item.date)
-  );
+  const getFullyBookedFromMoments = (momentsByDate) => {
+    return Object.entries(momentsByDate)
+      .filter(([date, moments]) => {
+        return (
+          moments.includes("10:00 - 12:00") && moments.includes("19:00 - 20:00")
+        );
+      })
+      .map(([date]) => date);
+  };
+
+  const fullyBookedDates = getFullyBookedFromMoments(momentsByDate);
+
+  const disabledDates = [
+    ...closedDays.map((item) => item.date),
+    ...fullyBookedDates,
+  ];
+
+  const isMomentDisabled = (moment: string) => {
+    const unavailableMoments = momentsByDate[formData.date] || [];
+    return unavailableMoments.includes(moment);
+  };
 
   const onSubmit = () => {
     onNext(formData);
@@ -72,6 +91,7 @@ export default function DatePickerForm({
                 type="radio"
                 {...register("moment")}
                 value="10:00 - 12:00"
+                disabled={isMomentDisabled("10:00 - 12:00")}
                 checked={formData.moment === "10:00 - 12:00"}
                 onChange={() => {
                   setValue("moment", "10:00 - 12:00");
@@ -79,7 +99,13 @@ export default function DatePickerForm({
                 }}
                 className="form-radio text-blue-500"
               />
-              <span className="text-gray-700">
+              <span
+                className={`text-gray-700 ${
+                  isMomentDisabled("10:00 - 12:00")
+                    ? "line-through text-gray-400"
+                    : ""
+                }`}
+              >
                 10:00 - 12:00 uur (alleen honden)
               </span>
             </InputLabel>
@@ -89,6 +115,7 @@ export default function DatePickerForm({
                 type="radio"
                 {...register("moment")}
                 value="19:00 - 20:00"
+                disabled={isMomentDisabled("19:00 - 20:00")}
                 checked={formData.moment === "19:00 - 20:00"}
                 onChange={() => {
                   setValue("moment", "19:00 - 20:00");
@@ -96,7 +123,13 @@ export default function DatePickerForm({
                 }}
                 className="form-radio text-blue-500"
               />
-              <span className="text-gray-700">
+              <span
+                className={`text-gray-700 ${
+                  isMomentDisabled("19:00 - 20:00")
+                    ? "line-through text-gray-400"
+                    : ""
+                }`}
+              >
                 19:00 - 20:00 uur (alleen katten & kleine hondjes met een
                 schofthoogte van 30cm)
               </span>

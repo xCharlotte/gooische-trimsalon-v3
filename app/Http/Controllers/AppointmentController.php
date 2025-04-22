@@ -10,25 +10,32 @@ use App\Models\SpeciesGroomOption;
 use App\Repositories\ClosedDayRepository;
 use App\Models\GroomOption;
 use App\Models\Species;
+use App\Services\MomentAvailableService;
 use DB;
 use Inertia\Inertia;
 
 class AppointmentController extends Controller
 {
-    protected $appointmentRepo;
     protected $closedDayRepo;
+    protected $momentAvailableService;
 
-    public function __construct(ClosedDayRepository $closedDayRepo)
+    public function __construct(ClosedDayRepository $closedDayRepo, MomentAvailableService $momentAvailableService)
     {
         $this->closedDayRepo = $closedDayRepo;
+        $this->momentAvailableService = $momentAvailableService;
     }
 
     public function index()
     {
+        $fullyBookedDates = $this->momentAvailableService->getFullyBookedDates();
+        $momentsByDate = $this->momentAvailableService->getMomentsByDate();
+
         return Inertia::render('Appointment/Index', [
             'groomOptions' => GroomOption::all(),
             'species' => Species::all(),
             'closedDays' => $this->closedDayRepo->getFutureClosedDays(),
+            'fullyBookedDates' => $fullyBookedDates,
+            'momentsByDate' => $momentsByDate,
         ]);
     }
 
@@ -73,15 +80,4 @@ class AppointmentController extends Controller
             return redirect()->back()->withErrors('Er is iets misgegaan. Probeer het opnieuw.', $e->getMessage());
         }
     }
-    
-
-    // public function postAvailableTimes(Request $request)
-    // {
-    //     return response()->json($this->appointmentRepo->getAppointmentsByDate($request->date));
-    // }
-
-    // public function countUnavailableDates()
-    // {
-    //     return response()->json($this->appointmentRepo->getFullyBookedDates());
-    // }
 }

@@ -10,12 +10,16 @@ export type StepFormProps = {
   species: { id: number; name: string }[];
   groomOptions: { id: number; name: string }[];
   closedDays: { id: number; date: string }[];
+  momentsByDate: any;
+  fullyBookedDates: any;
 };
 
 export default function StepForm({
   species,
   groomOptions,
   closedDays,
+  momentsByDate,
+  fullyBookedDates,
 }: StepFormProps) {
   const [fade, setFade] = useState(true);
   const { step, formData, nextStep, prevStep, updateFormData, resetForm } =
@@ -64,6 +68,8 @@ export default function StepForm({
             formData={formData}
             updateFormData={updateFormData}
             closedDays={closedDays}
+            momentsByDate={momentsByDate}
+            fullyBookedDates={fullyBookedDates}
           />
         );
       case 2:

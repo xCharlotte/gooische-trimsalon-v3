@@ -1,6 +1,7 @@
 import Flatpickr from "react-flatpickr";
 import { Dutch } from "flatpickr/dist/l10n/nl.js";
 import "flatpickr/dist/flatpickr.min.css";
+import { formatDate } from "@/lib/dateFormatter";
 
 export type FlatpickerProps = {
   value: string | undefined;
@@ -24,10 +25,9 @@ export default function Flatpicker({
   return (
     <Flatpickr
       value={value || undefined}
-      // onChange={(date) => onChange(date[0])}
       onChange={(dates) => {
         if (dates[0]) {
-          const formattedDate = dates[0].toISOString().split("T")[0]; // YYYY-MM-DD formaat
+          const formattedDate = formatDate(dates[0]);
           onChange(formattedDate);
         }
       }}
