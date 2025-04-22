@@ -13,6 +13,6 @@ class ClosedDay extends Model
     protected $dates = ['date'];
 
     protected $casts = [
-        'date' => 'datetime:d-m-Y',
+        'date' => 'date:Y-m-d',
     ];
 }
