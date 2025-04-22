@@ -7,13 +7,13 @@ import { ConfirmModal } from "@/Components/Notify/ConfirmModal";
 
 export type ClosedDaysProps = {
   closedDays: { id: number; date: string }[];
+  fullyBookedDates: string[];
 };
 
-export default function Index() {
-  const { closedDays = [] } = usePage().props as unknown as {
-    closedDays: { id: number; date: string }[];
-  };
-
+export default function Index({
+  closedDays,
+  fullyBookedDates,
+}: ClosedDaysProps) {
   const columnLabels = {
     date: "Gesloten dagen",
   };
@@ -74,6 +74,7 @@ export default function Index() {
         onSubmit={handleAddClosedDay}
         onDelete={handleDeleteClosedDay}
         closedDays={closedDays}
+        fullyBookedDates={fullyBookedDates}
       />
     </AuthenticatedLayout>
   );

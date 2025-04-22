@@ -3,6 +3,7 @@ import PrimaryButton from "../Buttons/PrimaryButton";
 import TextInput from "../Forms/TextInput";
 import Table from "./Table";
 import Flatpicker from "@/Components/UI/Flatpicker";
+import { formatDateToDMY } from "@/lib/dateFormatter";
 
 export type OptionsLayoutProps = {
   title: string;
@@ -13,7 +14,8 @@ export type OptionsLayoutProps = {
   columnLabels: { [key: string]: string };
   data: any;
   emptyMessage: string;
-  closedDays: { id: number; date: string }[];
+  closedDays?: { id: number; date: string }[];
+  fullyBookedDates?: string[];
 };
 
 export default function OptionsLayout({
@@ -27,13 +29,14 @@ export default function OptionsLayout({
   emptyMessage,
   onSubmit,
   onDelete,
-  closedDays = [],
+  closedDays,
+  fullyBookedDates,
 }: OptionsLayoutProps & {
   onSubmit: (value: string | Date) => void;
   onDelete: (id: number) => void;
 }) {
   const [inputValue, setInputValue] = useState<string>("");
-  const [selectedDate, setSelectedDate] = useState<Date | undefined>();
+  const [selectedDate, setSelectedDate] = useState<string>();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -46,7 +49,15 @@ export default function OptionsLayout({
     }
   };
 
-  const disabledDates = closedDays.map((item) => item.date);
+  const disabledDates = [
+    ...(closedDays ?? []).map((item) => item.date),
+    ...(fullyBookedDates ?? []),
+  ];
+
+  const formattedData = data.map((item: any) => ({
+    ...item,
+    date: formatDateToDMY(item.date),
+  }));
 
   return (
     <div className="py-4">
@@ -86,11 +97,11 @@ export default function OptionsLayout({
             <hr className="w-5/6 mt-10 pb-10" />
 
             <h2 className="text-lg font-semibold">{tableTitle}</h2>
-            {data.length > 0 ? (
+            {formattedData.length > 0 ? (
               <Table
                 columns={columnNames}
                 columnLabels={columnLabels}
-                data={data}
+                data={formattedData}
                 onDelete={(row) => onDelete(row.id)}
                 className="w-2/5"
               />
