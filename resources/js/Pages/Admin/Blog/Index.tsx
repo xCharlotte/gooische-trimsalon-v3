@@ -8,7 +8,7 @@ import Search from "@/Components/UI/Search";
 import { ConfirmModal } from "@/Components/Notify/ConfirmModal";
 import { ToastError, ToastSuccess } from "@/Components/Notify/Toast";
 
-export type BlogData = {
+export type BlogRowData = {
   id: number;
   title: string;
   image: string;
@@ -18,7 +18,7 @@ export type BlogData = {
 
 export type BlogType = {
   blogs: {
-    data: BlogData | BlogData[];
+    data: BlogRowData | BlogRowData[];
     current_page: number;
     last_page: number;
     per_page: number;
@@ -37,15 +37,15 @@ export default function Index({ blogs }: BlogType) {
     created_at: "Aangemaakt op",
   };
 
-  const handleRowClick = (blog: BlogData) => {
+  const handleRowClick = (blog: BlogRowData) => {
     router.get(route("blogs.edit", { blog: blog.id }));
   };
 
-  const handleEdit = (blog: BlogData) => {
+  const handleEdit = (blog: BlogRowData) => {
     router.get(route("blogs.edit", { blog: blog.id }));
   };
 
-  const handleDelete = async (blog: BlogData) => {
+  const handleDelete = async (blog: BlogRowData) => {
     const result = await ConfirmModal({
       title: "Weet je het zeker?",
       text: "Deze actie kan niet ongedaan gemaakt worden.",
@@ -83,13 +83,13 @@ export default function Index({ blogs }: BlogType) {
       <AuthenticatedLayout>
         <Head title="Blog" />
 
-        <div className="py-4">
-          <div className="max-w-8xl mx-auto sm:px-6 lg:px-4">
+        <div className="py-4 sm:py-8 xl:py-16">
+          <div className="max-w-7xl mx-auto sm:px-6 lg:px-4">
             <div className="bg-white overflow-hidden rounded-lg p-4 md:p-8 shadow-lg">
-              <div className="flex flex-col gap-4 md:flex-row md:justify-between md:items-center">
+              <div className="flex flex-col gap-4 md:flex-row md:justify-between">
                 <h1 className="font-medium text-2xl md:text-4xl">Blogposts</h1>
-                <div className="flex flex-col gap-2 w-full md:flex-row md:gap-2 md:items-center md:w-auto">
-                  <div className="flex-shrink-0 w-full md:w-auto">
+                <div className="flex flex-col gap-2 w-full md:flex-row justify-end md:gap-2">
+                  <div className="flex-shrink-0 w-full md:w-3/6">
                     <Search onSearch={handleSearch} width="min-w-full" />
                   </div>
                   <div className="flex-shrink-0 w-full md:w-auto">
@@ -101,7 +101,7 @@ export default function Index({ blogs }: BlogType) {
                   </div>
                 </div>
               </div>
-              <Table
+              <Table<BlogRowData>
                 columns={columns}
                 columnLabels={columnLabels}
                 data={blogs.data}

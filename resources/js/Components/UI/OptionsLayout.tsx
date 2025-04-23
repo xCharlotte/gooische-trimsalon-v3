@@ -5,7 +5,10 @@ import Table from "./Table";
 import Flatpicker from "@/Components/UI/Flatpicker";
 import { formatDateToDMY } from "@/lib/dateFormatter";
 
-export type OptionsLayoutProps = {
+/** generic type to pass props from closed days, groomoptions and species
+ * so the right props will be passed to the Table component
+ */
+export type OptionsLayoutProps<T> = {
   title: string;
   placeholder: string;
   type: string;
@@ -18,7 +21,7 @@ export type OptionsLayoutProps = {
   fullyBookedDates?: string[];
 };
 
-export default function OptionsLayout({
+export default function OptionsLayout<T>({
   title,
   placeholder,
   type,
@@ -31,7 +34,7 @@ export default function OptionsLayout({
   onDelete,
   closedDays,
   fullyBookedDates,
-}: OptionsLayoutProps & {
+}: OptionsLayoutProps<T> & {
   onSubmit: (value: string | Date) => void;
   onDelete: (id: number) => void;
 }) {

@@ -1,12 +1,17 @@
-import { usePage, router, Head } from "@inertiajs/react";
+import { router, Head } from "@inertiajs/react";
 import OptionsLayout from "@/Components/UI/OptionsLayout";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { ToastError, ToastSuccess } from "@/Components/Notify/Toast";
 import { ConfirmModal } from "@/Components/Notify/ConfirmModal";
 
-export default function Index() {
-  const { species } = usePage().props;
+export type SpeciesRowData = {
+  species: {
+    id: number;
+    name: string;
+  };
+};
 
+export default function Index({ species }: SpeciesRowData) {
   const columnLabels = {
     name: "Naam",
   };
@@ -55,7 +60,7 @@ export default function Index() {
     <AuthenticatedLayout>
       <Head title="Dieren" />
 
-      <OptionsLayout
+      <OptionsLayout<SpeciesRowData>
         title="Diersoorten Beheren"
         placeholder="Voer een diersoort in"
         type="text"

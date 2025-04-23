@@ -1,22 +1,15 @@
-export type RowData = {
-  id: number;
-  title: string;
-  image: string;
-  category: string;
-  created_at: string;
-};
-
-export type TableProps = {
+// Table data differs per page, so we use a generic type for flexibility
+export type TableProps<T> = {
   columns: string[];
   columnLabels: { [key: string]: string };
-  data: RowData | RowData[];
-  onEdit?: (row: RowData) => void;
-  onDelete: (row: RowData) => void;
-  onRowClick?: (row: RowData) => void;
+  data: T[] | T;
+  onEdit?: (row: T) => void;
+  onDelete: (row: T) => void;
+  onRowClick?: (row: T) => void;
   className?: string;
 };
 
-export default function Table({
+export default function Table<T>({
   columns,
   columnLabels,
   data,
@@ -24,7 +17,7 @@ export default function Table({
   onDelete,
   onRowClick,
   className,
-}: TableProps) {
+}: TableProps<T>) {
   const rowDataArray = Array.isArray(data) ? data : [data];
 
   return (
@@ -37,14 +30,14 @@ export default function Table({
                 <th
                   key={col}
                   scope="col"
-                  className="px-6 py-3 text-left text-xs font-bold text-white tracking-wide uppercase"
+                  className="px-2 py-2 text-left text-xs font-bold text-white tracking-wide uppercase"
                 >
                   {columnLabels[col] || col}
                 </th>
               ))}
               <th
-                scope="col"
-                className="px-6 py-3 text-right text-xs font-bold text-white tracking-wide uppercase"
+                scope="col-sm-2"
+                className="px-2 py-2 text-right text-xs font-bold text-white tracking-wide uppercase"
               >
                 Actions
               </th>
@@ -60,7 +53,7 @@ export default function Table({
                 {columns.map((col) => (
                   <td
                     key={col}
-                    className="px-6 py-4 whitespace-nowrap text-sm text-gray-700"
+                    className="px-2 py-2 whitespace-nowrap text-sm text-gray-700"
                   >
                     {col === "image" ? (
                       <img
@@ -74,7 +67,7 @@ export default function Table({
                   </td>
                 ))}
 
-                <td className="px-6 py-4 text-right text-sm">
+                <td className="px-2 py-2 text-right text-sm">
                   {onEdit && (
                     <button
                       onClick={(e) => {

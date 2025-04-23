@@ -5,8 +5,13 @@ import { formatDate } from "@/lib/dateFormatter";
 import { ToastError, ToastSuccess } from "@/Components/Notify/Toast";
 import { ConfirmModal } from "@/Components/Notify/ConfirmModal";
 
+export type ClosedDaysRowData = {
+  id: number;
+  date: string;
+};
+
 export type ClosedDaysProps = {
-  closedDays: { id: number; date: string }[];
+  closedDays: ClosedDaysRowData[];
   fullyBookedDates: string[];
 };
 
@@ -62,7 +67,7 @@ export default function Index({
     <AuthenticatedLayout>
       <Head title="Gesloten dagen" />
 
-      <OptionsLayout
+      <OptionsLayout<ClosedDaysRowData>
         title="Gesloten dagen beheren"
         placeholder="Selecteer een datum"
         type="date"

@@ -1,12 +1,17 @@
-import { Head, router, usePage } from "@inertiajs/react";
+import { Head, router } from "@inertiajs/react";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import OptionsLayout from "@/Components/UI/OptionsLayout";
 import { ToastError, ToastSuccess } from "@/Components/Notify/Toast";
 import { ConfirmModal } from "@/Components/Notify/ConfirmModal";
 
-export default function Index() {
-  const { groomOptions } = usePage().props;
+export type GroomOptionsRowData = {
+  groomOptions: {
+    id: number;
+    name: string;
+  };
+};
 
+export default function Index({ groomOptions }: GroomOptionsRowData) {
   const columnLabels = {
     name: "Naam",
   };
@@ -55,7 +60,7 @@ export default function Index() {
     <AuthenticatedLayout>
       <Head title="Trimopties" />
 
-      <OptionsLayout
+      <OptionsLayout<GroomOptionsRowData>
         title="Trimopties Beheren"
         placeholder="Voer een trimoptie in"
         type="text"
