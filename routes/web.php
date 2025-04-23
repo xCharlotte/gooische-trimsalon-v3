@@ -37,6 +37,7 @@ Route::get('/dashboard', function () {
 
 Route::middleware('auth')->prefix('admin')->group(function () {
     Route::resource('/blogs', BlogController::class);
+    Route::resource('/appointments', \App\Http\Controllers\Admin\AppointmentController::class);
     Route::resource('/species', SpeciesController::class)->only(['index', 'store', 'destroy']);
     Route::resource('/groomoptions', GroomOptionController::class)->only(['index', 'store', 'destroy']);
     Route::resource('/closed-days', ClosedDayController::class)

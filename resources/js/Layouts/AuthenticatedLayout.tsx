@@ -87,6 +87,12 @@ export default function Authenticated({ children }: PropsWithChildren) {
                   Dashboard
                 </NavLink>
                 <NavLink
+                  href={route("appointments.index")}
+                  active={route().current("appointments.index")}
+                >
+                  Afsprakenoverzicht
+                </NavLink>
+                <NavLink
                   href={route("blogs.index")}
                   active={route().current("blogs.index")}
                 >

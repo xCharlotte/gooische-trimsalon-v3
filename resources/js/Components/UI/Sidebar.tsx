@@ -4,7 +4,7 @@ import { Link } from "@inertiajs/react";
 
 export default function Sidebar() {
   return (
-    <div className="h-full lg:w-[240px] md:w-1/6 bg-heavy-black text-white border-r border-gray-100 p-4">
+    <div className="h-full lg:w-[240px] bg-heavy-black text-white border-r border-gray-100 p-4">
       <div className="flex flex-col justify-center items-center gap-y-3">
         <div className="flex">
           <Link href="/">
@@ -24,6 +24,16 @@ export default function Sidebar() {
           Dashboard
         </NavLink>
         <NavLink
+          href={route("appointments.index")}
+          active={[
+            "appointments.index",
+            "appointments.update",
+            "appointments.edit",
+          ].some((r) => route().current(r))}
+        >
+          Afsprakenoverzicht
+        </NavLink>
+        <NavLink
           href={route("blogs.index")}
           active={[
             "blogs.index",
@@ -32,7 +42,7 @@ export default function Sidebar() {
             "blogs.edit",
           ].some((r) => route().current(r))}
         >
-          Blog
+          Blogposts
         </NavLink>
 
         <div className="block py-5">
