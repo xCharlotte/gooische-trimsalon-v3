@@ -7,10 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class SpeciesGroomOption extends Model
 {
     use HasFactory;
+    use SoftDeletes;
 
     public $table = 'species_groom_options';
 
@@ -18,6 +20,8 @@ class SpeciesGroomOption extends Model
         'species_id',
         'groom_option_id',
     ];
+
+    protected $dates = ['deleted_at'];
     
     public function Species(): BelongsTo 
     {

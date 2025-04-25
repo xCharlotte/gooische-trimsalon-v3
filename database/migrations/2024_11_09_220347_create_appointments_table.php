@@ -15,9 +15,10 @@ return new class extends Migration
             $table->id();
             $table->dateTime('date');
             $table->string('moment');
-            $table->foreignId('client_id')->constrained('clients')->onDelete('cascade');
-            $table->foreignId('animal_id')->constrained('animals')->onDelete('cascade');
-            $table->foreignId('species_groom_option_id')->constrained('species_groom_options')->onDelete('cascade');
+            $table->foreignId('client_id')->constrained('clients');
+            $table->foreignId('animal_id')->constrained('animals');
+            $table->foreignId('species_groom_option_id')->constrained('species_groom_options');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

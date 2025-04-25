@@ -16,8 +16,9 @@ return new class extends Migration
             $table->string('name');
             $table->string('breed');
             $table->text('animal_remarks')->nullable();
-            $table->foreignId('client_id')->constrained('clients')->onDelete('cascade');
-            $table->foreignId('species_groom_option_id')->constrained('species_groom_options')->onDelete('cascade');
+            $table->foreignId('client_id')->constrained('clients');
+            $table->foreignId('species_groom_option_id')->constrained('species_groom_options');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

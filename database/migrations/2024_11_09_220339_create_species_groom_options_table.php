@@ -13,8 +13,9 @@ return new class extends Migration
     {
         Schema::create('species_groom_options', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('species_id')->constrained('species')->onDelete('cascade');
-            $table->foreignId('groom_option_id')->constrained('groom_options')->onDelete('cascade');
+            $table->foreignId('species_id')->constrained('species');
+            $table->foreignId('groom_option_id')->constrained('groom_options');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

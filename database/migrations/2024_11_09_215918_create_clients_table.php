@@ -23,6 +23,7 @@ return new class extends Migration
             $table->string('house_number_suffix')->nullable();
             $table->string('city');
             $table->text('client_remarks')->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }
