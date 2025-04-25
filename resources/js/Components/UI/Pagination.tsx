@@ -5,6 +5,7 @@ export type PaginationProps = {
   lastPage: number;
   total: number;
   perPage: number;
+  totalOnPage: number;
   onPageChange: (page: number) => void;
 };
 
@@ -14,13 +15,14 @@ export default function Pagination({
   total,
   perPage,
   onPageChange,
+  totalOnPage,
 }: PaginationProps) {
   const pages = [...Array(lastPage)].map((element, i) => i + 1);
 
   return (
     <div className="flex justify-between items-center mt-2 px-0 md:px-5">
       <div className="text-sm text-gray-700">
-        {perPage} van {total}
+        {totalOnPage} van {total}
       </div>
       <div className="flex space-x-1">
         <button

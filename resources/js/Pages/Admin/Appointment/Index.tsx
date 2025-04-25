@@ -123,7 +123,7 @@ export default function Index({ appointments }: AppointmentType) {
       <AuthenticatedLayout>
         <Head title="Afspraken" />
 
-        <div className="py-4">
+        <div className="py-12">
           <div className="max-w-7xl mx-auto sm:px-6 lg:px-4">
             <div className="bg-white overflow-hidden rounded-lg p-4 md:p-8 shadow-lg">
               <div className="flex flex-col gap-4 md:flex-row md:justify-between">
@@ -151,6 +151,7 @@ export default function Index({ appointments }: AppointmentType) {
                 total={appointments.total}
                 perPage={appointments.per_page}
                 onPageChange={handlePageChange}
+                totalOnPage={mappedAppointments.length}
               />
             </div>
           </div>
