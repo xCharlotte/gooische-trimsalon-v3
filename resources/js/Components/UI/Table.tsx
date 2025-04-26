@@ -27,30 +27,30 @@ export default function Table<T>({
   return (
     <div className={`flex justify-center py-6 ${className}`}>
       <div className="relative overflow-x-auto w-full">
-        <table className="min-w-full">
-          <thead className="bg-heavy-black">
+        <table className="min-w-full border border-gray-200 rounded-lg overflow-hidden">
+          <thead className="bg-heavy-black text-white">
             <tr>
               {columns.map((col) => (
                 <th
                   key={col}
                   scope="col"
-                  className="px-2 py-2 text-left text-xs font-bold text-white tracking-wide uppercase"
+                  className="px-4 py-3 text-left text-xs font-bold text-white tracking-wide uppercase"
                 >
                   {columnLabels[col] || col}
                 </th>
               ))}
               <th
                 scope="col-sm-2"
-                className="px-2 py-2 text-right text-xs font-bold text-white tracking-wide uppercase"
+                className="px-4 py-3 text-left text-xs font-bold text-white tracking-wide uppercase"
               ></th>
             </tr>
           </thead>
-          <tbody className="bg-white divide-y divide-gray-200">
+          <tbody className="bg-white divide-y divide-gray-100 [&>tr:nth-child(even)]:bg-gray-50">
             {rowDataArray.length === 0 ? (
               <tr>
                 <td
                   colSpan={columns.length + 1}
-                  className="px-4 py-6 text-center text-gray-500 text-sm"
+                  className="px-4 py-3 whitespace-nowrap text-sm text-gray-700"
                 >
                   Geen data aanwezig
                 </td>
@@ -59,13 +59,13 @@ export default function Table<T>({
               rowDataArray.map((row, rowIndex) => (
                 <tr
                   key={rowIndex}
-                  className="hover:bg-gray-50 transition duration-200 ease-in-out cursor-pointer"
+                  className="hover:bg-gray-100 transition duration-200 ease-in-out cursor-pointer"
                   onClick={() => onRowClick && onRowClick(row)}
                 >
                   {columns.map((col) => (
                     <td
                       key={col}
-                      className="px-2 py-2 whitespace-nowrap text-sm text-gray-700"
+                      className="px-4 py-3 whitespace-nowrap text-sm text-gray-700"
                     >
                       {col === "image" ? (
                         <img
@@ -79,7 +79,7 @@ export default function Table<T>({
                     </td>
                   ))}
 
-                  <td className="px-2 py-2 text-right text-xs font-bold">
+                  <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">
                     <div className="flex justify-end items-center h-full">
                       {onShow && (
                         <button

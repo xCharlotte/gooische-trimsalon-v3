@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Head, router } from "@inertiajs/react";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import Table from "@/Components/UI/Table";
@@ -7,6 +7,8 @@ import Search from "@/Components/UI/Search";
 import { ConfirmModal } from "@/Components/Notify/ConfirmModal";
 import { ToastError, ToastSuccess } from "@/Components/Notify/Toast";
 import { formatDateToDMY } from "@/lib/dateFormatter";
+import Show from "@/Pages/Admin/Appointment/Show";
+import { AppointmentData } from "@/types/AppointmentData";
 
 export type MappedAppointmentRow = {
   id: number;
@@ -14,18 +16,6 @@ export type MappedAppointmentRow = {
   animal_name: string;
   groom_option: string;
   species: string;
-  date: string;
-  moment: string;
-};
-
-export type AppointmentData = {
-  id: number;
-  animal: { name: string };
-  client: { first_name: string; last_name: string };
-  species_groom_option: {
-    species: { name: string };
-    groom_option: { name: string };
-  };
   date: string;
   moment: string;
 };
@@ -41,6 +31,10 @@ export type AppointmentType = {
 };
 
 export default function Index({ appointments }: AppointmentType) {
+  const [selectedAppointment, setSelectedAppointment] =
+    useState<AppointmentData | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   const mappedAppointments = (
     Array.isArray(appointments.data) ? appointments.data : [appointments.data]
   ).map((appointment) => ({
@@ -56,8 +50,8 @@ export default function Index({ appointments }: AppointmentType) {
   const columns = [
     "full_name",
     "animal_name",
-    "groom_option",
     "species",
+    "groom_option",
     "date",
     "moment",
   ];
@@ -65,21 +59,38 @@ export default function Index({ appointments }: AppointmentType) {
 
   const columnLabels = {
     full_name: "Klantnaam",
-    animal_name: "Dier",
-    groom_option: "Trimoptie",
+    animal_name: "Naam dier",
     species: "Soort",
+    groom_option: "Trimoptie",
     date: "Datum",
     moment: "Tijdstip",
   };
 
-  console.log("appointments", appointments);
+  useEffect(() => {
+    if (isModalOpen) {
+      document.body.classList.add("overflow-hidden");
+    } else {
+      document.body.classList.remove("overflow-hidden");
+    }
+
+    return () => {
+      document.body.classList.remove("overflow-hidden");
+    };
+  }, [isModalOpen]);
 
   const handleRowClick = (appointment: MappedAppointmentRow) => {
     router.get(route("appointments.show", { appointment: appointment.id }));
   };
 
   const handleShow = (appointment: MappedAppointmentRow) => {
-    router.get(route("appointments.show", { appointment: appointment.id }));
+    const fullAppointment = (
+      Array.isArray(appointments.data) ? appointments.data : [appointments.data]
+    ).find((a) => a.id === appointment.id);
+
+    if (fullAppointment) {
+      setSelectedAppointment(fullAppointment);
+      setIsModalOpen(true);
+    }
   };
 
   const handleDelete = async (appointment: MappedAppointmentRow) => {
@@ -123,7 +134,28 @@ export default function Index({ appointments }: AppointmentType) {
       <AuthenticatedLayout>
         <Head title="Afspraken" />
 
-        <div className="py-12">
+        {isModalOpen && selectedAppointment && (
+          <div
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 transition-opacity duration-300"
+            onClick={() => setIsModalOpen(false)}
+          >
+            <div
+              className="bg-[#F7F7F7] rounded-2xl shadow-2xl w-full max-w-6xl p-6 relative transform transition-all duration-300 scale-95 animate-fadeIn"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <button
+                onClick={() => setIsModalOpen(false)}
+                className="absolute top-4 right-4 text-gray-500 hover:text-gray-800 text-lg"
+              >
+                ✕
+              </button>
+
+              <Show appointment={selectedAppointment} />
+            </div>
+          </div>
+        )}
+
+        <div className="py-12 px-4 sm:px-0">
           <div className="max-w-7xl mx-auto sm:px-6 lg:px-4">
             <div className="bg-white overflow-hidden rounded-lg p-4 md:p-8 shadow-lg">
               <div className="flex flex-col gap-4 md:flex-row md:justify-between">
@@ -140,7 +172,7 @@ export default function Index({ appointments }: AppointmentType) {
                 columns={columns}
                 columnLabels={columnLabels}
                 data={mappedAppointments}
-                // onEdit={handleShow}
+                onShow={handleShow}
                 onDelete={handleDelete}
                 onRowClick={handleRowClick}
               />

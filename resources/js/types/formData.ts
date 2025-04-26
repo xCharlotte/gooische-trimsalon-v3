@@ -1,3 +1,4 @@
+// Data for the appointment form on the frontend
 export type FormData = {
   date: string;
   moment: string;

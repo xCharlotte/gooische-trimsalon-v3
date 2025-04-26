@@ -16,7 +16,16 @@ class AppointmentController extends Controller
     {
         $search = $request->input('search');
 
-        $appointments = Appointment::with(['client', 'animal', 'speciesGroomOption.groomOption', 'speciesGroomOption.species'])
+        $appointments = Appointment::with([
+            'client', 
+            'animal', 
+            'speciesGroomOption.groomOption' => function ($query) {
+                $query->withTrashed();
+            },
+            'speciesGroomOption.species' => function ($query) {
+                $query->withTrashed();
+            }
+            ])
             ->when($search, function ($query, $search) {
                 $query->whereHas('client', function ($q) use ($search) {
                     $q->whereRaw("CONCAT(first_name, ' ', last_name) LIKE ?", ["%{$search}%"]);
