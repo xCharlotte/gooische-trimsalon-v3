@@ -57,6 +57,17 @@ export default function DatePickerForm({
     return unavailableMoments.includes(moment);
   };
 
+  const isMomentVisible = (moment: string) => {
+    const isSaturday = formData.date && new Date(formData.date).getDay() === 6;
+
+    // Do not show moment on saturdays
+    if (isSaturday && moment === "19:00 - 20:00") {
+      return false;
+    }
+
+    return true;
+  };
+
   const onSubmit = () => {
     onNext(formData);
   };
@@ -88,55 +99,60 @@ export default function DatePickerForm({
         <div className="space-y-4">
           <p className="text-gray-700">Kies een tijd*</p>
           <div className="space-y-2">
-            <InputLabel className="flex items-center space-x-2">
-              <TextInput
-                id="moment"
-                type="radio"
-                {...register("moment")}
-                value="10:00 - 12:00"
-                disabled={isMomentDisabled("10:00 - 12:00")}
-                checked={formData.moment === "10:00 - 12:00"}
-                onChange={() => {
-                  setValue("moment", "10:00 - 12:00");
-                  updateFormData({ moment: "10:00 - 12:00" });
-                }}
-                className="form-radio text-blue-500"
-              />
-              <span
-                className={`text-gray-700 ${
-                  isMomentDisabled("10:00 - 12:00")
-                    ? "line-through text-gray-400"
-                    : ""
-                }`}
-              >
-                10:00 - 12:00 uur (alleen honden)
-              </span>
-            </InputLabel>
-            <InputLabel className="flex items-center space-x-2">
-              <TextInput
-                id="moment"
-                type="radio"
-                {...register("moment")}
-                value="19:00 - 20:00"
-                disabled={isMomentDisabled("19:00 - 20:00")}
-                checked={formData.moment === "19:00 - 20:00"}
-                onChange={() => {
-                  setValue("moment", "19:00 - 20:00");
-                  updateFormData({ moment: "19:00 - 20:00" });
-                }}
-                className="form-radio text-blue-500"
-              />
-              <span
-                className={`text-gray-700 ${
-                  isMomentDisabled("19:00 - 20:00")
-                    ? "line-through text-gray-400"
-                    : ""
-                }`}
-              >
-                19:00 - 20:00 uur (alleen katten & kleine hondjes met een
-                schofthoogte van 30cm)
-              </span>
-            </InputLabel>
+            {isMomentVisible("10:00 - 12:00") && (
+              <InputLabel className="flex items-center space-x-2">
+                <TextInput
+                  id="moment"
+                  type="radio"
+                  {...register("moment")}
+                  value="10:00 - 12:00"
+                  disabled={isMomentDisabled("10:00 - 12:00")}
+                  checked={formData.moment === "10:00 - 12:00"}
+                  onChange={() => {
+                    setValue("moment", "10:00 - 12:00");
+                    updateFormData({ moment: "10:00 - 12:00" });
+                  }}
+                  className="form-radio text-blue-500"
+                />
+                <span
+                  className={`text-gray-700 ${
+                    isMomentDisabled("10:00 - 12:00")
+                      ? "line-through text-gray-400"
+                      : ""
+                  }`}
+                >
+                  10:00 - 12:00 uur (alleen honden)
+                </span>
+              </InputLabel>
+            )}
+
+            {isMomentVisible("19:00 - 20:00") && (
+              <InputLabel className="flex items-center space-x-2">
+                <TextInput
+                  id="moment"
+                  type="radio"
+                  {...register("moment")}
+                  value="19:00 - 20:00"
+                  disabled={isMomentDisabled("19:00 - 20:00")}
+                  checked={formData.moment === "19:00 - 20:00"}
+                  onChange={() => {
+                    setValue("moment", "19:00 - 20:00");
+                    updateFormData({ moment: "19:00 - 20:00" });
+                  }}
+                  className="form-radio text-blue-500"
+                />
+                <span
+                  className={`text-gray-700 ${
+                    isMomentDisabled("19:00 - 20:00")
+                      ? "line-through text-gray-400"
+                      : ""
+                  }`}
+                >
+                  19:00 - 20:00 uur (alleen katten & kleine hondjes met een
+                  schofthoogte van 30cm)
+                </span>
+              </InputLabel>
+            )}
           </div>
           {errors.moment && (
             <p className="text-red-500 text-sm">{errors.moment.message}</p>

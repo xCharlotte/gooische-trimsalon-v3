@@ -38,7 +38,13 @@ export default function Flatpicker({
         altFormat: "l j F, Y",
         dateFormat: "Y-m-d",
         locale: Dutch,
-        disable: disabledDates,
+        disable: [
+          function (date) {
+            const day = date.getDay();
+            return day === 0 || day === 1; // Disable Sundays and Mondays
+          },
+          ...disabledDates,
+        ],
       }}
       placeholder={placeholder}
       className={`p-2 border rounded ${className}`}
