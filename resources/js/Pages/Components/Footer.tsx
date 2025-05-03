@@ -1,96 +1,84 @@
 import { Link } from "@inertiajs/react";
-import ApplicationLogo from "@/Components/UI/ApplicationLogo";
+import { FaFacebookF, FaInstagram } from "react-icons/fa";
 
 export default function Footer() {
   return (
-    <footer className="bg-gray-900 text-gray-300 py-12">
-      <div className="max-w-7xl mx-auto px-6 lg:px-8">
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
-          {/* Logo en Adres */}
+    <>
+      <footer className="bg-gray-100 text-gray-700 py-10 mt-10">
+        <div className="container mx-auto grid grid-cols-1 md:grid-cols-4 gap-8 px-6">
+          {/* Contactgegevens */}
           <div>
-            <Link href="/" className="flex items-center mb-4">
-              <ApplicationLogo className="w-auto h-16 text-white" />
-            </Link>
-            <p className="text-sm leading-relaxed">
-              Gooische Trimsalon
-              <br />
-              Hoofdstraat 123
-              <br />
-              1234 AB Plaatsnaam
-              <br />
-              Nederland
-            </p>
-            <p className="mt-2 text-sm">
-              Telefoon:{" "}
-              <a href="tel:+31612345678" className="hover:text-white">
-                +31 6 12345678
+            <h2 className="font-bold text-lg mb-4">Gooische Trimsalon</h2>
+            <p>Van Linschotenlaan 242</p>
+            <p>1212 GA Hilversum</p>
+            <p className="mt-2">
+              <a
+                href="tel:+31623349398"
+                className="hover:underline focus:outline focus:outline-2 focus:outline-[#3A53A5]"
+              >
+                +31 6 23349398
               </a>
-              <br />
-              E-mail:{" "}
+            </p>
+            <p>
               <a
                 href="mailto:info@gooisetrimsalon.nl"
-                className="hover:text-white"
+                className="hover:underline focus:outline focus:outline-2 focus:outline-[#3A53A5]"
               >
-                info@gooisetrimsalon.nl
+                info@gooischetrimsalon.nl
               </a>
             </p>
+            <div className="mt-10 text-sm text-gray-600">
+              <p>BTW-nummer: 88646476B02</p>
+              <p>KvK-nummer: 77062965</p>
+            </div>
           </div>
 
-          {/* Laatste Nieuwsberichten */}
+          {/* Nieuws */}
           <div>
-            <h2 className="text-lg font-semibold text-white mb-4">
-              Laatste Nieuws
-            </h2>
-            <ul className="text-sm space-y-3">
-              <li>
-                <a href="#" className="hover:text-white">
-                  Nieuwe openingstijden vanaf volgende maand
-                </a>
-              </li>
-              <li>
-                <a href="#" className="hover:text-white">
-                  Hoe u uw hond thuis kunt verzorgen
-                </a>
-              </li>
-              <li>
-                <a href="#" className="hover:text-white">
-                  Tips voor de winterverzorging van uw huisdier
-                </a>
-              </li>
+            <h2 className="font-bold text-lg mb-4">Laatste Nieuws</h2>
+            <ul className="space-y-2">
+              <li>Nieuwe openingstijden vanaf volgende maand</li>
+              <li>Hoe u uw hond thuis kunt verzorgen</li>
+              <li>Tips voor de winterverzorging van uw huisdier</li>
             </ul>
           </div>
 
           {/* Openingstijden */}
           <div>
-            <h2 className="text-lg font-semibold text-white mb-4">
-              Openingstijden
-            </h2>
-            <ul className="text-sm space-y-2">
+            <h2 className="font-bold text-lg mb-4">Openingstijden</h2>
+            <ul className="space-y-2">
               <li>Maandag - Vrijdag: 09:00 - 18:00</li>
               <li>Zaterdag: 10:00 - 16:00</li>
               <li>Zondag: Gesloten</li>
             </ul>
           </div>
 
-          {/* Sociale Media */}
+          {/* Social media */}
           <div>
-            <h2 className="text-lg font-semibold text-white mb-4">Volg ons</h2>
-            <p className="text-sm">Volg ons voor de laatste updates:</p>
-            <div className="mt-4 flex space-x-3">
-              <a href="#" className="text-gray-300 hover:text-white">
-                <i className="fab fa-facebook-f"></i> Facebook
+            <h2 className="font-bold text-lg mb-4">Volg ons</h2>
+            <div className="flex space-x-4">
+              <a
+                href="#"
+                aria-label="Facebook"
+                className="hover:text-[#3A53A5]"
+              >
+                <FaFacebookF size={24} />
               </a>
-              <a href="#" className="text-gray-300 hover:text-white">
-                <i className="fab fa-instagram"></i> Instagram
+              <a
+                href="#"
+                aria-label="Instagram"
+                className="hover:text-[#3A53A5]"
+              >
+                <FaInstagram size={24} />
               </a>
             </div>
           </div>
         </div>
-      </div>
+      </footer>
 
-      <div className="mt-8 border-t border-gray-700 pt-6 text-center text-sm text-gray-500">
+      <div className="bg-[#3A53A5] text-white py-4 text-center text-sm">
         © 2024 Gooische Trimsalon. Alle rechten voorbehouden.
       </div>
-    </footer>
+    </>
   );
 }
