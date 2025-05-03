@@ -6,6 +6,7 @@ import SelectInput from "@/Components/Forms/SelectInput";
 import TextArea from "@/Components/Forms/TextArea";
 import TextInput from "@/Components/Forms/TextInput";
 import { FormData } from "@/types/formData";
+import { useEffect } from "react";
 
 export type AnimalFormProps = {
   onNext: (data: any) => void;
@@ -29,11 +30,36 @@ export default function AnimalForm({
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { errors },
   } = useForm({
     resolver: zodResolver(animalFormSchema),
     defaultValues: formData.animalDetails,
   });
+
+  // Set default value for species_id based on the selected moment
+  useEffect(() => {
+    if (formData.moment === "10:00 - 12:00") {
+      const hond = species.find((type) => type.name.toLowerCase() === "hond");
+      if (hond) {
+        setValue("species_id", hond.id.toString());
+        updateFormData({
+          animalDetails: {
+            ...formData.animalDetails,
+            species_id: hond.id.toString(),
+          },
+        });
+      } else {
+        setValue("species_id", "");
+        updateFormData({
+          animalDetails: {
+            ...formData.animalDetails,
+            species_id: "",
+          },
+        });
+      }
+    }
+  }, [formData.moment, species, updateFormData]);
 
   const onSubmit = (data: any) => {
     updateFormData({ animalDetails: data });
@@ -61,14 +87,28 @@ export default function AnimalForm({
           className="border p-3 rounded-lg w-full focus:ring-2 focus:ring-blue-500"
           {...register("species_id")}
         >
-          <option disabled value="">
-            Kies een dier
-          </option>
-          {species.map((type, index) => (
-            <option key={index} value={type.id}>
-              {type.name}
-            </option>
-          ))}
+          {formData.moment === "10:00 - 12:00" ? (
+            <>
+              {species
+                .filter((type) => type.name.toLowerCase() === "hond")
+                .map((type) => (
+                  <option key={type.id} value={type.id}>
+                    {type.name}
+                  </option>
+                ))}
+            </>
+          ) : (
+            <>
+              <option disabled value="">
+                Kies een dier
+              </option>
+              {species.map((type) => (
+                <option key={type.id} value={type.id}>
+                  {type.name}
+                </option>
+              ))}
+            </>
+          )}
         </SelectInput>
         {errors.species_id && (
           <p className="text-red-500">{errors.species_id.message}</p>
