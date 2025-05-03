@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { formDefaults } from "../Pages/Components/StepForm/data/formDefault";
+import { formDefaults } from "@/Pages/Appointment/StepForm/data/formDefault";
 
 export type FormData = typeof formDefaults;
 
