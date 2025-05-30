@@ -14,25 +14,51 @@ export default {
     extend: {
       colors: {
         primary: {
-          DEFAULT: "#3A53A5",
-          dark: "#2D437E",
-          light: "#5B6FB8",
+          DEFAULT: "#3A53A5", // logo kleur
+          dark: "#2c3e90",
+          light: "#6f81d6",
+          tint: "#eef0fb", // zachte bg-tint
         },
         secondary: {
-          DEFAULT: "#EF476F",
-          dark: "#D63B5E",
-          light: "#F76B87",
+          DEFAULT: "#F9A826", // warm geel/oranje als accentkleur
+          dark: "#d98b1c",
+          light: "#ffe4b3",
         },
-        tertiary: "#56CCF2",
-        accent: "#FFD166",
-        neutral: "#F2F5F9",
-        dark: "#2C3E50",
-        "heavy-black": "#1C1D1C",
+        tertiary: {
+          DEFAULT: "#94C9A9", // zachte mintgroen voor rust
+          dark: "#6aa789",
+          light: "#dff4e8",
+        },
+        neutral: {
+          100: "#F9FAFB",
+          200: "#F3F4F6",
+          300: "#E5E7EB",
+          400: "#D1D5DB",
+          500: "#9CA3AF",
+          600: "#6B7280",
+          700: "#4B5563",
+          800: "#374151",
+          900: "#1F2937",
+        },
       },
+
       fontFamily: {
-        sans: ["Montserrat", "sans-serif"],
-        // sans: ["Figtree", ...defaultTheme.fontFamily.sans],
+        sans: ["Montserrat", ...defaultTheme.fontFamily.sans],
       },
+
+      fontSize: {
+        xs: ["0.75rem", { lineHeight: "1.25rem", fontWeight: "400" }], // 12px
+        sm: ["0.875rem", { lineHeight: "1.5rem", fontWeight: "400" }], // 14px
+        base: ["1rem", { lineHeight: "1.75rem", fontWeight: "400" }], // 16px
+        md: ["1.125rem", { lineHeight: "1.75rem", fontWeight: "500" }], // 18px
+        lg: ["1.25rem", { lineHeight: "2rem", fontWeight: "500" }], // 20px
+        xl: ["1.5rem", { lineHeight: "2.25rem", fontWeight: "600" }], // 24px
+        "2xl": ["1.875rem", { lineHeight: "2.5rem", fontWeight: "600" }], // 30px
+        "3xl": ["2.25rem", { lineHeight: "2.75rem", fontWeight: "700" }], // 36px
+        "4xl": ["3rem", { lineHeight: "1", fontWeight: "700" }], // 48px
+        "5xl": ["3.75rem", { lineHeight: "1", fontWeight: "700" }], // 60px
+      },
+
       backgroundImage: {
         "login-bg": "url('/images/login-bg.webp')",
         "hero-bg": "url('/images/home-banner.jpg')",
