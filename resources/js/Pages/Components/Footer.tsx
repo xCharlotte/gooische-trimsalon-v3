@@ -5,7 +5,7 @@ export default function Footer() {
   return (
     <>
       <footer className="bg-gray-100 text-gray-700 py-10 mt-10">
-        <div className="container mx-auto grid grid-cols-1 md:grid-cols-4 gap-8 px-6">
+        <div className="max-w-7xl  mx-auto grid grid-cols-1 md:grid-cols-4 gap-8 px-6">
           {/* Contactgegevens */}
           <div>
             <h2 className="font-bold text-lg mb-4">Gooische Trimsalon</h2>
@@ -77,7 +77,8 @@ export default function Footer() {
       </footer>
 
       <div className="bg-[#3A53A5] text-white py-4 text-center text-sm">
-        © 2024 Gooische Trimsalon. Alle rechten voorbehouden.
+        © {new Date().getFullYear()} Gooische Trimsalon. Alle rechten
+        voorbehouden.
       </div>
     </>
   );
