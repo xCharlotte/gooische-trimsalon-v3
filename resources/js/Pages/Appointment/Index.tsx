@@ -21,7 +21,7 @@ export default function Index({
     <>
       <Head title="Afspraak" />
       <Navbar />
-      <Hero />
+      <Hero title="Afspraak maken" imageUrl="images/appointment-hero.jpg" />
       <StepForm
         species={species}
         groomOptions={groomOptions}
