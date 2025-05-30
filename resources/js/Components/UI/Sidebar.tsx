@@ -1,4 +1,4 @@
-import NavLink from "@/Components/Buttons/NavLink";
+import NavLink from "@/Components/Buttons/NavLinkAdmin";
 import ApplicationLogo from "@/Components/UI/ApplicationLogo";
 import { Link } from "@inertiajs/react";
 

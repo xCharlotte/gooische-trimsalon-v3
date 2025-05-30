@@ -1,13 +1,13 @@
 import ApplicationLogo from "@/Components/UI/ApplicationLogo";
 import { useState } from "react";
-import { Link } from "@inertiajs/react";
+import NavLinkFrontend from "@/Components/Buttons/NavLinkFrontend";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <nav className="bg-white p-4 shadow-md">
-      <div className="max-w-7xl mx-auto px-6 lg:px-8 flex justify-between items-center">
+    <nav className="bg-white p-4 shadow-md fixed w-full z-50">
+      <div className="max-w-7xl mx-auto px-4 lg:px-8 flex justify-between items-center">
         <div className="flex items-center">
           <ApplicationLogo className="w-10 h-10 md:w-12 md:h-12 lg:w-16 lg:h-16" />
           <h1 className="text-lg md:text-xl lg:text-2xl text-[#3A53A5] font-medium pl-2 md:pl-4">
@@ -41,36 +41,21 @@ export default function Navbar() {
             isOpen ? "block" : "hidden"
           } md:flex md:items-center md:space-x-6 space-y-2 md:space-y-0 mt-4 md:mt-0`}
         >
-          <Link
-            href="/"
-            className="block text-gray-700 hover:text-[#3A53A5] focus:outline focus:outline-2 focus:outline-[#3A53A5] px-2"
-          >
+          <NavLinkFrontend href="/" componentName="Homepage">
             Home
-          </Link>
-          <Link
-            href="/afspraak"
-            className="block text-gray-700 hover:text-[#3A53A5] focus:outline focus:outline-2 focus:outline-[#3A53A5] px-2"
-          >
+          </NavLinkFrontend>
+          <NavLinkFrontend href="/afspraak" componentName="Appointment/Index">
             Afspraak maken
-          </Link>
-          <Link
-            href="/nieuws"
-            className="block text-gray-700 hover:text-[#3A53A5] focus:outline focus:outline-2 focus:outline-[#3A53A5] px-2"
-          >
+          </NavLinkFrontend>
+          <NavLinkFrontend href="/nieuws" componentName="Blog/Index">
             Nieuws
-          </Link>
-          <Link
-            href="/tarieven"
-            className="block text-gray-700 hover:text-[#3A53A5] focus:outline focus:outline-2 focus:outline-[#3A53A5] px-2"
-          >
+          </NavLinkFrontend>
+          <NavLinkFrontend href="/tarieven" componentName="Pricing/Index">
             Tarieven
-          </Link>
-          <Link
-            href="/contact"
-            className="block text-gray-700 hover:text-[#3A53A5] font-semibold focus:outline focus:outline-2 focus:outline-[#3A53A5] px-2"
-          >
+          </NavLinkFrontend>
+          <NavLinkFrontend href="/contact" componentName="Contact/Index">
             Contact
-          </Link>
+          </NavLinkFrontend>
         </div>
       </div>
     </nav>

@@ -5,7 +5,7 @@ import { PageProps } from "@/types";
 import Sidebar from "@/Components/UI/Sidebar";
 import { AlignJustify } from "lucide-react";
 import { usePage } from "@inertiajs/react";
-import NavLink from "@/Components/Buttons/NavLink";
+import NavLink from "@/Components/Buttons/NavLinkAdmin";
 
 export default function Authenticated({ children }: PropsWithChildren) {
   const { auth } = usePage<PageProps>().props;
