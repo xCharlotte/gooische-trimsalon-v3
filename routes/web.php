@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\Admin\BlogController;
+use App\Http\Controllers\BlogController;
 use App\Http\Controllers\Admin\ClosedDayController;
 use App\Http\Controllers\Admin\GroomOptionController;
 use App\Http\Controllers\Admin\ProfileController;
@@ -27,16 +27,23 @@ Route::get('/', function () {
 Route::get('/afspraak', [AppointmentController::class, 'index'])->name('appointment.index');
 Route::post('/afspraak', [AppointmentController::class, 'store'])->name('appointment.post');
 
-// Route::get('/afspraak', function () {
-//     return Inertia::render('Appointment/Index');
-// });
+Route::get('/nieuws', [BlogController::class, 'index'])->name('blog.index');
+Route::get('/nieuws/{blog:slug}', [BlogController::class, 'show'])->name('blog.show');
+
+Route::get('tarieven', function () {
+    return Inertia::render('Pricing/Index');
+});
+
+Route::get('contact', function () {
+    return Inertia::render('Contact/Index');
+});
 
 Route::get('/dashboard', function () {
     return Inertia::render('Admin/Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->prefix('admin')->group(function () {
-    Route::resource('/blogs', BlogController::class);
+    Route::resource('/blogs', \App\Http\Controllers\Admin\BlogController::class);
     Route::resource('/appointments', \App\Http\Controllers\Admin\AppointmentController::class);
     Route::resource('/species', SpeciesController::class)->only(['index', 'store', 'destroy']);
     Route::resource('/groomoptions', GroomOptionController::class)->only(['index', 'store', 'destroy']);
