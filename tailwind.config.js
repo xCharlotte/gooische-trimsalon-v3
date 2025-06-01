@@ -13,22 +13,35 @@ export default {
   theme: {
     extend: {
       colors: {
-        primary: {
-          DEFAULT: "#3A53A5", // logo kleur
-          dark: "#2c3e90",
-          light: "#6f81d6",
-          tint: "#eef0fb", // zachte bg-tint
-        },
-        secondary: {
-          DEFAULT: "#F9A826", // warm geel/oranje als accentkleur
-          dark: "#d98b1c",
-          light: "#ffe4b3",
-        },
-        tertiary: {
-          DEFAULT: "#94C9A9", // zachte mintgroen voor rust
-          dark: "#6aa789",
-          light: "#dff4e8",
-        },
+        primary: "#3A53A5",
+        "primary-light": "#5F74C7",
+        "primary-dark": "#2E4288",
+        secondary: "#9055A2",
+        "secondary-light": "#B98CCB",
+        "secondary-dark": "#6B3F7C",
+        tertiary: "#F4B400",
+        "tertiary-light": "#FFE599",
+        "tertiary-dark": "#C28F00",
+        "surface-light": "#FFFFFF",
+        "surface-muted": "#E5E7EB",
+        "surface-accent": "#EEF0FA",
+        "surface-warm": "#FDF5F7",
+        // primary: {
+        //   DEFAULT: "#3A53A5", // logo kleur
+        //   dark: "#2c3e90",
+        //   light: "#6f81d6",
+        //   tint: "#eef0fb", // zachte bg-tint
+        // },
+        // secondary: {
+        //   DEFAULT: "#F9A826", // warm geel/oranje als accentkleur
+        //   dark: "#d98b1c",
+        //   light: "#ffe4b3",
+        // },
+        // tertiary: {
+        //   DEFAULT: "#94C9A9", // zachte mintgroen voor rust
+        //   dark: "#6aa789",
+        //   light: "#dff4e8",
+        // },
         neutral: {
           100: "#F9FAFB",
           200: "#F3F4F6",

@@ -23,7 +23,7 @@ export default function Home() {
         buttonText="Maak een afspraak"
       />
       {/* Content */}
-      <main className="flex-grow py-6">
+      <main className="flex-grow mt-6">
         <Introduction />
         <Process />
         <Testimonials />

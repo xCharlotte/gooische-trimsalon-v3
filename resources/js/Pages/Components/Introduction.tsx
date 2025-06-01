@@ -8,7 +8,7 @@ export default function IntroSection() {
           <h2 className="text-4xl font-bold text-gray-800 mb-6">
             Welkom bij
             <br />
-            <span className="whitespace-nowrap text-4xl text-secondary">
+            <span className="whitespace-nowrap text-4xl text-tertiary">
               Gooische Trimsalon
             </span>
           </h2>

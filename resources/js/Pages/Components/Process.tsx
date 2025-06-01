@@ -23,11 +23,9 @@ const steps = [
 
 export default function Process() {
   return (
-    <section className="bg-primary-tint py-16">
-      <div className="max-w-7xl mx-auto px-4 text-center">
-        <h2 className="text-3xl font-bold text-primary mb-10">
-          Onze werkwijze
-        </h2>
+    <section className="py-16">
+      <div className="max-w-5xl mx-auto px-4 text-center">
+        <h2 className="text-3xl font-bold mb-10">Onze werkwijze</h2>
         <div className="grid gap-8 md:grid-cols-3">
           {steps.map((step, index) => (
             <div
