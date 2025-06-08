@@ -23,14 +23,15 @@ const steps = [
 
 export default function Process() {
   return (
-    <section className="py-16">
+    // NOTE: No padding top top needed here to make it belong to the introduction section
+    <section className="pb-8 md:pb-14 lg:pb-28 px-4 sm:px-6 lg:px-8">
       <div className="max-w-5xl mx-auto px-4 text-center">
         <h2 className="text-3xl font-bold mb-10">Onze werkwijze</h2>
         <div className="grid gap-8 md:grid-cols-3">
           {steps.map((step, index) => (
             <div
               key={index}
-              className="bg-white rounded-2xl shadow-sm p-6 text-left hover:shadow-md transition-shadow duration-300"
+              className="bg-white rounded-2xl shadow-md p-6 text-left hover:shadow-md transition-shadow duration-300"
             >
               <div className="mb-4">{step.icon}</div>
               <h3 className="text-lg font-semibold text-neutral-800 mb-2">

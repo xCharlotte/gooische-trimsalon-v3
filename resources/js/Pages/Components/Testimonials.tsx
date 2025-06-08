@@ -41,16 +41,17 @@ const testimonials: Testimonial[] = [
 
 export default function Testimonials() {
   return (
-    <section className="bg-surface-warm py-12 px-4 sm:px-6 lg:px-8">
+    <section className="bg-brown-default py-8 md:py-14 lg:py-28 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
-        <h2 className="text-3xl font-bold mb-8 text-center">
+        <p className="uppercase text-xs font-bold text-center">Klantreview</p>
+        <h2 className="text-3xl font-bold mb-12 text-center">
           Wat onze klanten zeggen
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {testimonials.map(({ id, name, breed, text, avatarUrl }) => (
             <div
               key={id}
-              className="bg-white rounded-lg shadow-md p-6 flex flex-col"
+              className="bg-white rounded-2xl shadow-md p-6 flex flex-col"
             >
               <p className="text-neutral-700 mb-4 text-sm flex-grow">{text}</p>
               <div className="flex items-center gap-4">

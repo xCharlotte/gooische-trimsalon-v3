@@ -2,7 +2,7 @@ import { PawPrint, Scissors, Sparkles } from "lucide-react";
 
 export default function IntroSection() {
   return (
-    <section className="py-16">
+    <section className="py-8 md:py-14 lg:py-28 px-4 sm:px-6 lg:px-8">
       <div className="max-w-5xl mx-auto px-4 flex flex-col-reverse lg:flex-row items-center gap-12">
         <div className="lg:w-1/2">
           <h2 className="text-4xl font-bold text-gray-800 mb-6">
@@ -22,11 +22,11 @@ export default function IntroSection() {
 
           <div className="flex flex-col space-y-4 text-sm text-gray-700">
             <div className="flex flex-row gap-2">
-              <Sparkles className="text-tertiary" />
+              <Sparkles className="text-secondary" />
               Professionele verzorging op maat
             </div>
             <div className="flex flex-row gap-2">
-              <PawPrint className="text-primary" />
+              <PawPrint className="text-secondary" />
               Rustige, diervriendelijke aanpak
             </div>
             <div className="flex flex-row gap-2">
