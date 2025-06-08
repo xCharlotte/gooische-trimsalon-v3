@@ -39,7 +39,7 @@ export default function IntroSection() {
         {/* Image */}
         <div className="lg:w-1/2">
           <img
-            src="images/owner.jpg"
+            src="images/honden.jpg"
             alt="Grooming in progress"
             className="rounded-2xl shadow-lg w-full object-cover"
           />

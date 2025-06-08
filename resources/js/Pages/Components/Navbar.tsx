@@ -6,8 +6,8 @@ export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <nav className="bg-white p-4 shadow-md fixed w-full z-50">
-      <div className="max-w-7xl mx-auto px-4 lg:px-8 flex justify-between items-center">
+    <nav className="bg-white py-4 shadow-md fixed w-full z-50">
+      <div className="max-w-7xl mx-auto px-4 md:px-0 flex justify-between items-center">
         {/* Logo + Naam */}
         <div className="flex items-center">
           <ApplicationLogo className="w-10 h-10 md:w-12 md:h-12 lg:w-16 lg:h-16" />
