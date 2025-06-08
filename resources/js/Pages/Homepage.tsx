@@ -7,6 +7,7 @@ import Process from "./Components/Process";
 import Testimonials from "./Components/Testimonials";
 import About from "./Components/About";
 import CallToAction from "./Components/CallToAction";
+import GalleryDivider from "./Components/GalleryDivider";
 
 export default function Home() {
   return (
@@ -29,6 +30,7 @@ export default function Home() {
         <Testimonials />
         <About />
         <CallToAction />
+        <GalleryDivider />
       </main>
       <Footer />
     </div>
