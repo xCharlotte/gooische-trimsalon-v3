@@ -13,35 +13,27 @@ export default {
   theme: {
     extend: {
       colors: {
-        primary: "#3A53A5",
-        "primary-light": "#5F74C7",
-        "primary-dark": "#2E4288",
-        secondary: "#9055A2",
-        "secondary-light": "#B98CCB",
-        "secondary-dark": "#6B3F7C",
+        primary: "#00B9AE",
+        "primary-light": "#4DCEC6",
+        "primary-dark": "#00827A",
+        secondary: "##FF8A5B",
+        "secondary-light": "#FFA17C",
+        "secondary-dark": "#CC6E49",
         tertiary: "#F4B400",
-        "tertiary-light": "#FFE599",
-        "tertiary-dark": "#C28F00",
-        "surface-light": "#FFFFFF",
-        "surface-muted": "#E5E7EB",
-        "surface-accent": "#EEF0FA",
-        "surface-warm": "#FDF5F7",
-        // primary: {
-        //   DEFAULT: "#3A53A5", // logo kleur
-        //   dark: "#2c3e90",
-        //   light: "#6f81d6",
-        //   tint: "#eef0fb", // zachte bg-tint
-        // },
-        // secondary: {
-        //   DEFAULT: "#F9A826", // warm geel/oranje als accentkleur
-        //   dark: "#d98b1c",
-        //   light: "#ffe4b3",
-        // },
-        // tertiary: {
-        //   DEFAULT: "#94C9A9", // zachte mintgroen voor rust
-        //   dark: "#6aa789",
-        //   light: "#dff4e8",
-        // },
+        "tertiary-light": "#F6C333",
+        "tertiary-dark": "#C39000",
+        brown: {
+          default: "#EDE4E3",
+        },
+        tint: {
+          100: "#F5F7F6",
+          200: "#EAF8F7",
+          300: "#F4ECE6",
+          400: "#EDE7DE",
+          500: "#0B3D3C",
+          600: "#1C2E2D",
+          700: "#FF6B6B",
+        },
         neutral: {
           100: "#F9FAFB",
           200: "#F3F4F6",
