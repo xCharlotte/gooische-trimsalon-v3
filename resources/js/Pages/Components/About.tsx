@@ -7,7 +7,7 @@ export default function About() {
         {/* Tekst links */}
         <div>
           <p className="uppercase text-xs font-bold">Over ons</p>
-          <h2 className="text-4xl font-bold text-primary.dark mb-6">
+          <h2 className="text-2xl lg:text-4xl font-bold text-primary.dark mb-6">
             Over Gooische Trimsalon
           </h2>
           <p className="text-neutral-700 mb-4 leading-relaxed">

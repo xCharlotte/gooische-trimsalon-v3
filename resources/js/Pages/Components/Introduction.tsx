@@ -3,12 +3,12 @@ import { PawPrint, Scissors, Sparkles } from "lucide-react";
 export default function IntroSection() {
   return (
     <section className="py-8 md:py-14 lg:py-28 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-5xl mx-auto px-4 flex flex-col-reverse lg:flex-row items-center gap-12">
+      <div className="max-w-5xl mx-auto flex flex-col lg:flex-row items-center gap-12">
         <div className="lg:w-1/2">
-          <h2 className="text-4xl font-bold text-gray-800 mb-6">
+          <h2 className="text-2xl lg:text-4xl font-bold text-gray-800 mb-6">
             Welkom bij
             <br />
-            <span className="whitespace-nowrap text-4xl text-tertiary">
+            <span className="text-2xl lg:text-4xl text-tertiary">
               Gooische Trimsalon
             </span>
           </h2>

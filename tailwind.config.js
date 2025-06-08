@@ -68,6 +68,15 @@ export default {
         "login-bg": "url('/images/login-bg.webp')",
         "hero-bg": "url('/images/home-banner.jpg')",
       },
+      animation: {
+        slideInRight: "slide-in-right 0.3s ease-out forwards",
+      },
+      keyframes: {
+        "slide-in-right": {
+          "0%": { transform: "translateX(100%)" },
+          "100%": { transform: "translateX(0)" },
+        },
+      },
     },
   },
 

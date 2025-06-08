@@ -44,10 +44,10 @@ export default function Testimonials() {
     <section className="bg-brown-default py-8 md:py-14 lg:py-28 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
         <p className="uppercase text-xs font-bold text-center">Klantreview</p>
-        <h2 className="text-3xl font-bold mb-12 text-center">
+        <h2 className="text-2xl lg:text-4xl font-bold mb-12 text-center">
           Wat onze klanten zeggen
         </h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8">
           {testimonials.map(({ id, name, breed, text, avatarUrl }) => (
             <div
               key={id}

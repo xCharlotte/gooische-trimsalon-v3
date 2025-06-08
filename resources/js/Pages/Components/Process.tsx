@@ -25,8 +25,8 @@ export default function Process() {
   return (
     // NOTE: No padding top top needed here to make it belong to the introduction section
     <section className="pb-8 md:pb-14 lg:pb-28 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-5xl mx-auto px-4 text-center">
-        <h2 className="text-3xl font-bold mb-10">Onze werkwijze</h2>
+      <div className="max-w-5xl mx-auto text-center">
+        <h2 className="text-2xl lg:text-4xl font-bold mb-10">Onze werkwijze</h2>
         <div className="grid gap-8 md:grid-cols-3">
           {steps.map((step, index) => (
             <div
