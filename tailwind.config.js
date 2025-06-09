@@ -25,6 +25,7 @@ export default {
         brown: {
           default: "#EDE4E3",
         },
+        "heavy-black": "#1C1D1C", // Used for sidebar admin panel
         tint: {
           100: "#F5F7F6",
           200: "#EAF8F7",
