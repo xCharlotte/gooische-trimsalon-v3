@@ -6,6 +6,7 @@ export type HeroProps = {
   imageUrl?: string;
   buttonText?: string;
   buttonLink?: string;
+  imagePositionClass?: string;
 };
 
 export default function Hero({
@@ -14,10 +15,13 @@ export default function Hero({
   imageUrl,
   buttonText,
   buttonLink,
+  imagePositionClass,
 }: HeroProps) {
   return (
     <section
-      className="h-[60vh] relative bg-cover bg-center bg-no-repeat flex items-center"
+      className={`h-[60vh] relative bg-cover bg-center bg-no-repeat flex items-center ${
+        imagePositionClass || ""
+      }`}
       style={{ backgroundImage: `url('${imageUrl}')` }}
     >
       <div className="absolute inset-0 bg-black opacity-30"></div>
