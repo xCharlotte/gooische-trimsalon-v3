@@ -161,7 +161,7 @@ export default function DatePickerForm({
       )}
 
       <button
-        className="bg-blue-500 text-white p-3 rounded-lg w-full hover:bg-blue-600 transition"
+        className="bg-primary text-white p-3 rounded-lg w-full hover:bg-primary-dark transition"
         type="submit"
       >
         Volgende

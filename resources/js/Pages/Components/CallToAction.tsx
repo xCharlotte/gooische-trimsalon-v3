@@ -15,7 +15,7 @@ export default function CallToAction() {
           </p>
           <Link
             href="/afspraak"
-            className="self-start flex flex-row items-center border border-1 text-white font-semibold py-3 px-6 rounded-full transition duration-300"
+            className="self-start flex flex-row items-center border border-1 text-white hover:bg-primary hover:border-primary font-semibold py-3 px-6 rounded-full transition duration-300"
           >
             Maak een afspraak
             <ChevronRight className="ml-2" />

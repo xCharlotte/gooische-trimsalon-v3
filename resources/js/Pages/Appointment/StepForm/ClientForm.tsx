@@ -222,7 +222,7 @@ export default function ClientForm({
             <a
               href="/algemene-voorwaarden"
               target="_blank"
-              className="underline text-blue-600"
+              className="underline text-primary"
             >
               algemene voorwaarden
             </a>
@@ -243,7 +243,7 @@ export default function ClientForm({
           Vorige
         </button>
         <button
-          className="bg-green-500 text-white p-3 rounded-lg hover:bg-green-600 transition"
+          className="bg-primary text-white p-3 rounded-lg hover:bg-primary-dark transition"
           type="submit"
         >
           Verstuur

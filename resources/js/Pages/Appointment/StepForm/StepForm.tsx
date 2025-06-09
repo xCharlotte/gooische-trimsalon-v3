@@ -119,7 +119,7 @@ export default function StepForm({
                     {index === 0 && (
                       <div
                         className={`absolute top-5 left-1/2 w-1/2 h-0.5 ${
-                          step > 1 ? "bg-blue-500" : "bg-gray-400"
+                          step > 1 ? "bg-primary" : "bg-gray-400"
                         }`}
                       />
                     )}
@@ -128,13 +128,13 @@ export default function StepForm({
                         {/* Left half of the line */}
                         <div
                           className={`absolute top-5 left-0 w-1/2 h-0.5 ${
-                            step > 1 ? "bg-blue-500" : "bg-gray-400"
+                            step > 1 ? "bg-primary" : "bg-gray-400"
                           }`}
                         />
                         {/* Right half of the line */}
                         <div
                           className={`absolute top-5 left-1/2 w-1/2 h-0.5 ${
-                            step > 2 ? "bg-blue-500" : "bg-gray-400"
+                            step > 2 ? "bg-primary" : "bg-gray-400"
                           }`}
                         />
                       </>
@@ -142,7 +142,7 @@ export default function StepForm({
                     {index === 2 && (
                       <div
                         className={`absolute top-5 right-1/2 w-1/2 h-0.5 ${
-                          isCompleted ? "bg-blue-500" : "bg-gray-400"
+                          isCompleted ? "bg-primary" : "bg-gray-400"
                         }`}
                       />
                     )}
@@ -151,7 +151,7 @@ export default function StepForm({
                     <div
                       className={`w-10 h-10 flex items-center justify-center font-bold rounded-full z-10 ${
                         isActive
-                          ? "bg-blue-500 text-white"
+                          ? "bg-primary text-white"
                           : "bg-gray-500 text-white"
                       }`}
                     >
