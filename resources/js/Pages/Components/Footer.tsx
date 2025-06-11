@@ -15,7 +15,7 @@ export default function Footer() {
               <p className="mt-2">
                 <a
                   href="tel:+31623349398"
-                  className="hover:underline focus:outline focus:outline-2 focus:outline-[#3A53A5]"
+                  className="hover:underline focus-visible:outline focus:outline-2 focus-visible:outline-primary"
                 >
                   +31 6 23349398
                 </a>
@@ -23,7 +23,7 @@ export default function Footer() {
               <p>
                 <a
                   href="mailto:info@gooisetrimsalon.nl"
-                  className="hover:underline focus:outline focus:outline-2 focus:outline-[#3A53A5]"
+                  className="hover:underline focus-visible:outline focus:outline-2 focus:outline-primary"
                 >
                   info@gooischetrimsalon.nl
                 </a>
@@ -38,14 +38,14 @@ export default function Footer() {
               <a
                 href="#"
                 aria-label="Facebook"
-                className="hover:text-[#3A53A5] transition"
+                className="hover:text-primary transition"
               >
                 <FaFacebookF />
               </a>
               <a
                 href="#"
                 aria-label="Instagram"
-                className="hover:text-[#3A53A5] transition"
+                className="hover:text-primary transition"
               >
                 <FaInstagram />
               </a>
@@ -84,13 +84,13 @@ export default function Footer() {
           <div className="flex space-x-4">
             <Link
               href="/algemene-voorwaarden"
-              className="hover:underline hover:text-[#3A53A5] transition"
+              className="hover:underline hover:text-primary transition"
             >
               Algemene voorwaarden
             </Link>
             <Link
               href="/cookies"
-              className="hover:underline hover:text-[#3A53A5] transition"
+              className="hover:underline hover:text-primary transition"
             >
               Cookies
             </Link>

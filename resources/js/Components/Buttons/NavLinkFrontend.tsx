@@ -19,7 +19,7 @@ export default function NavLinkFrontend({
     <Link
       href={href}
       onClick={onClick}
-      className={`block text-gray-700 hover:text-primary focus:outline focus:outline-2 focus:outline-primary px-2 ${
+      className={`block text-gray-700 hover:text-primary focus-visible:outline focus:outline-2 focus:outline-primary px-2 ${
         component === componentName ? "font-semibold text-primary" : ""
       }`}
     >

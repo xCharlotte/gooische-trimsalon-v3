@@ -165,7 +165,7 @@ export default function Edit({ blog }: BlogType) {
                     file:mr-4 file:py-2 file:px-4
                     file:rounded-lg file:border-0
                     file:text-sm file:font-semibold
-                    file:bg-indigo-50 file:text-indigo-700
+                    file:bg-indigo-50 file:text-primary
                     hover:file:bg-indigo-100"
                 />
                 {imagePreview && (
@@ -182,7 +182,7 @@ export default function Edit({ blog }: BlogType) {
               <div className="flex justify-end">
                 <SecondaryButton
                   type="submit"
-                  className="bg-indigo-600 text-white hover:bg-indigo-700 transition-colors px-6 py-2 rounded-lg shadow-md"
+                  className="bg-primary text-white hover:bg-primary-dark transition-colors px-6 py-2 rounded-lg shadow-md"
                 >
                   Opslaan
                 </SecondaryButton>

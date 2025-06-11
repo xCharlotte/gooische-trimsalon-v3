@@ -62,7 +62,7 @@ export default function ClientForm({
           <TextInput
             id="first_name"
             placeholder="Voornaam"
-            className="border p-3 rounded-lg w-full focus:ring-2 focus:ring-blue-500"
+            className="border p-3 rounded-lg w-full focus:ring-2 focus:ring-primary"
             {...register("first_name")}
           />
           {errors.first_name && (
@@ -79,7 +79,7 @@ export default function ClientForm({
           <TextInput
             id="last_name"
             placeholder="Achternaam"
-            className="border p-3 rounded-lg w-full focus:ring-2 focus:ring-blue-500"
+            className="border p-3 rounded-lg w-full focus:ring-2 focus:ring-primary"
             {...register("last_name")}
           />
           {errors.last_name && (
@@ -97,7 +97,7 @@ export default function ClientForm({
             id="email"
             type="email"
             placeholder="E-mail"
-            className="border p-3 rounded-lg w-full focus:ring-2 focus:ring-blue-500"
+            className="border p-3 rounded-lg w-full focus:ring-2 focus:ring-primary"
             {...register("email")}
           />
           {errors.email && (
@@ -114,7 +114,7 @@ export default function ClientForm({
           <TextInput
             id="street"
             placeholder="Adres"
-            className="border p-3 rounded-lg w-full focus:ring-2 focus:ring-blue-500"
+            className="border p-3 rounded-lg w-full focus:ring-2 focus:ring-primary"
             {...register("street")}
           />
           {errors.street && (
@@ -131,7 +131,7 @@ export default function ClientForm({
           <TextInput
             id="house_number"
             placeholder="Nr."
-            className="border p-3 rounded-lg focus:ring-2 focus:ring-blue-500 w-full"
+            className="border p-3 rounded-lg focus:ring-2 focus:ring-primary w-full"
             {...register("house_number")}
           />
           {errors.house_number && (
@@ -148,7 +148,7 @@ export default function ClientForm({
           <TextInput
             id="house_number_suffix"
             placeholder="Toevoeging"
-            className="border p-3 rounded-lg focus:ring-2 focus:ring-blue-500 w-full"
+            className="border p-3 rounded-lg focus:ring-2 focus:ring-primary w-full"
             {...register("house_number_suffix")}
           />
         </div>
@@ -165,7 +165,7 @@ export default function ClientForm({
           <TextInput
             id="postal_code"
             placeholder="Postcode"
-            className="border p-3 rounded-lg w-full focus:ring-2 focus:ring-blue-500"
+            className="border p-3 rounded-lg w-full focus:ring-2 focus:ring-primary"
             {...register("postal_code")}
           />
           {errors.postal_code && (
@@ -179,7 +179,7 @@ export default function ClientForm({
           <TextInput
             id="city"
             placeholder="Woonplaats"
-            className="border p-3 rounded-lg w-full focus:ring-2 focus:ring-blue-500"
+            className="border p-3 rounded-lg w-full focus:ring-2 focus:ring-primary"
             {...register("city")}
           />
           {errors.city && <p className="text-red-500">{errors.city.message}</p>}
@@ -194,7 +194,7 @@ export default function ClientForm({
           <TextInput
             id="phone"
             placeholder="Telefoon"
-            className="border p-3 rounded-lg w-full focus:ring-2 focus:ring-blue-500"
+            className="border p-3 rounded-lg w-full focus:ring-2 focus:ring-primary"
             {...register("phone")}
           />
           {errors.phone && (
@@ -211,7 +211,7 @@ export default function ClientForm({
           <TextArea
             id="client_remarks"
             placeholder="Moet ik nog iets weten? (optioneel)"
-            className="border p-3 rounded-lg w-full focus:ring-2 focus:ring-blue-500"
+            className="border p-3 rounded-lg w-full focus:ring-2 focus:ring-primary"
             {...register("client_remarks")}
           />
         </div>

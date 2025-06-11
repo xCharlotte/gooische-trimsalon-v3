@@ -84,7 +84,7 @@ export default function AnimalForm({
         </InputLabel>
         <SelectInput
           id="species_id"
-          className="border p-3 rounded-lg w-full focus:ring-2 focus:ring-blue-500"
+          className="border p-3 rounded-lg w-full focus:ring-2 focus:ring-primary"
           {...register("species_id")}
         >
           {formData.moment === "10:00 - 12:00" ? (
@@ -122,7 +122,7 @@ export default function AnimalForm({
         <TextInput
           id="name"
           placeholder="Hoe heet je huisdier?"
-          className="border p-3 rounded-lg w-full focus:ring-2 focus:ring-blue-500"
+          className="border p-3 rounded-lg w-full focus:ring-2 focus:ring-primary"
           {...register("name")}
         />
         {errors.name && <p className="text-red-500">{errors.name.message}</p>}
@@ -135,7 +135,7 @@ export default function AnimalForm({
         <TextInput
           id="breed"
           placeholder="Om welk ras gaat het?"
-          className="border p-3 rounded-lg w-full focus:ring-2 focus:ring-blue-500"
+          className="border p-3 rounded-lg w-full focus:ring-2 focus:ring-primary"
           {...register("breed")}
         />
         {errors.breed && <p className="text-red-500">{errors.breed.message}</p>}
@@ -150,7 +150,7 @@ export default function AnimalForm({
         </InputLabel>
         <SelectInput
           id="groom_option_id"
-          className="border p-3 rounded-lg w-full focus:ring-2 focus:ring-blue-500"
+          className="border p-3 rounded-lg w-full focus:ring-2 focus:ring-primary"
           {...register("groom_option_id")}
         >
           <option disabled value="">
@@ -177,7 +177,7 @@ export default function AnimalForm({
         <TextArea
           id="animal_remarks"
           placeholder="Moet ik nog iets weten over je huisdier? (optioneel)"
-          className="border p-3 rounded-lg w-full focus:ring-2 focus:ring-blue-500"
+          className="border p-3 rounded-lg w-full focus:ring-2 focus:ring-primary"
           {...register("animal_remarks")}
         />
       </div>

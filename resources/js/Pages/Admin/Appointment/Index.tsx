@@ -79,7 +79,7 @@ export default function Index({ appointments }: AppointmentType) {
   }, [isModalOpen]);
 
   const handleRowClick = (appointment: MappedAppointmentRow) => {
-    router.get(route("appointments.show", { appointment: appointment.id }));
+    handleShow(appointment);
   };
 
   const handleShow = (appointment: MappedAppointmentRow) => {
@@ -140,7 +140,7 @@ export default function Index({ appointments }: AppointmentType) {
             onClick={() => setIsModalOpen(false)}
           >
             <div
-              className="bg-[#F7F7F7] rounded-2xl shadow-2xl w-full max-w-6xl p-6 relative transform transition-all duration-300 scale-95 animate-fadeIn"
+              className="bg-[#F7F7F7] rounded-2xl shadow-2xl w-full max-w-6xl max-h-[90vh] overflow-y-auto p-6 relative transform transition-all duration-300 scale-95 animate-fadeIn"
               onClick={(e) => e.stopPropagation()}
             >
               <button
