@@ -14,10 +14,11 @@ export default function Index() {
         imageUrl="images/contact-hero.jpg"
         imagePositionClass="lg:bg-[center_bottom_-8rem]"
       />
-      <div className="container mx-auto p-6">
-        <h1 className="text-2xl font-bold mb-4">Contact</h1>
-        <p>Hier komt het contact overzicht...</p>
-      </div>
+      <section className="py-8 md:py-14 lg:py-28 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-5xl mx-auto flex flex-col lg:flex-row items-center gap-12">
+          <p>Hier komt het contact...</p>
+        </div>
+      </section>
       <GalleryDivider />
       <Footer />
     </div>

@@ -27,12 +27,23 @@ export default function Index({
         imageUrl="images/afspraak.png"
         imagePositionClass="lg:bg-[center_top_-14rem]"
       />
+      <div className="flex flex-row justify-center w-full bg-secondary py-2">
+        <span className="text-white uppercase text center font-semibold text-sm">
+          <u>Let op:</u> Voor honden met een pluk vacht en honden boven de 30 KG
+          geldt een klantenstop.
+        </span>
+      </div>
       <StepForm
         species={species}
         groomOptions={groomOptions}
         closedDays={closedDays}
         momentsByDate={momentsByDate}
       />
+      <div className="flex flex-row justify-center -mt-20 py-16">
+        <p>
+          Als er nog plaats is, gelieve een afspraak maken 1 dag van tevoren.
+        </p>
+      </div>
       <GalleryDivider />
       <Footer />
     </>

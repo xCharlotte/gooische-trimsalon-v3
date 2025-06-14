@@ -10,14 +10,15 @@ export default function Index() {
       <Head title="Nieuws" />
       <Navbar />
       <Hero
-        title="Blogberichten"
+        title="Nieuwsberichten"
         imageUrl="images/news-hero.jpg"
         imagePositionClass="lg:bg-[center_top_-16rem]"
       />
-      <div className="container mx-auto p-6">
-        <h1 className="text-2xl font-bold mb-4">Nieuws</h1>
-        <p>Hier komt het nieuws...</p>
-      </div>
+      <section className="py-8 md:py-14 lg:py-28 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-5xl mx-auto flex flex-col lg:flex-row items-center gap-12">
+          <p>Hier komt het nieuws...</p>
+        </div>
+      </section>
       <GalleryDivider />
       <Footer />
     </div>
