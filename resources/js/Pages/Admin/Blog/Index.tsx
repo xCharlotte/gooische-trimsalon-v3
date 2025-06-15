@@ -7,6 +7,7 @@ import Pagination from "@/Components/UI/Pagination";
 import Search from "@/Components/UI/Search";
 import { ConfirmModal } from "@/Components/Notify/ConfirmModal";
 import { ToastError, ToastSuccess } from "@/Components/Notify/Toast";
+import { formatDateToDMY } from "@/lib/dateFormatter";
 
 export type BlogRowData = {
   id: number;
@@ -38,6 +39,16 @@ export default function Index({ blogs }: BlogType) {
     category: "Categorie",
     created_at: "Aangemaakt op",
   };
+
+  const mappedBlog = (
+    Array.isArray(blogs.data) ? blogs.data : [blogs.data]
+  ).map((blog) => ({
+    id: blog.id,
+    title: blog.title,
+    image: blog.image,
+    category: blog.category,
+    created_at: formatDateToDMY(blog.created_at),
+  }));
 
   const handleRowClick = (blog: BlogRowData) => {
     router.get(route("blogs.edit", { blog: blog.id }));
@@ -108,7 +119,7 @@ export default function Index({ blogs }: BlogType) {
               <Table<BlogRowData>
                 columns={columns}
                 columnLabels={columnLabels}
-                data={blogs.data}
+                data={mappedBlog}
                 onEdit={handleEdit}
                 onDelete={handleDelete}
                 onRowClick={handleRowClick}

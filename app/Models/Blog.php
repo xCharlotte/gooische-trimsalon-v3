@@ -18,7 +18,7 @@ class Blog extends Model
     ];
 
     protected $casts = [
-        'created_at' => 'datetime:d-m-Y',
-        'updated_at' => 'datetime:d-m-Y',
+        'created_at' => 'datetime',
+        'updated_at' => 'datetime',
     ];
 }
