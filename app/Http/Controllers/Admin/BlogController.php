@@ -79,8 +79,26 @@ class BlogController extends Controller
      */
     public function update(Request $request, Blog $blog)
     {
-        $blog->update($request->all());
-        return redirect()->route('blogs.index')->withSuccess('Blog updated successfully.');
+        $request->validate([
+            'title' => 'required|max:255',
+            'slug' => 'required|max:255|unique:blogs,slug,' . $blog->id,
+            'category' => 'required|max:255',
+            'content' => 'required',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+        ]);
+
+        $data = $request->only(['title', 'slug', 'category', 'content']);
+
+        // If new image is being uploaded, handle the image upload
+        if ($request->hasFile('image')) {
+            $imageName = time() . '.' . $request->image->extension();
+            $request->image->move(public_path('images'), $imageName);
+            $data['image'] = '/images/' . $imageName;
+        }
+
+        $blog->update($data);
+
+        return back()->withSuccess('Blog updated successfully.');
     }
 
     /**

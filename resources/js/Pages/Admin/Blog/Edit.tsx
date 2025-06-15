@@ -4,6 +4,7 @@ import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head, router } from "@inertiajs/react";
 import SecondaryButton from "@/Components/Buttons/SecondaryButton";
 import TextEditor from "@/Components/Forms/TextEditor";
+import { ToastError, ToastSuccess } from "@/Components/Notify/Toast";
 
 export type BlogType = {
   blog: {
@@ -69,11 +70,24 @@ export default function Edit({ blog }: BlogType) {
     e.preventDefault();
     const formData = new FormData();
 
+    formData.append("_method", "PUT");
+
     for (const key in values) {
       formData.append(key, values[key]);
     }
 
-    router.put(`/admin/blogs/${blog.id}`, formData);
+    router.post(`/admin/blogs/${blog.id}`, formData, {
+      onSuccess: () => {
+        ToastSuccess("Blog bericht bijgewerkt!");
+      },
+      onError: (errors) => {
+        console.error(errors);
+        ToastError(
+          "Error!",
+          "Er is iets misgegaan bij het bijwerken van het blogbericht."
+        );
+      },
+    });
   }
 
   return (
