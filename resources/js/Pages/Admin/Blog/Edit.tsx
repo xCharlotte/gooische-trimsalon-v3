@@ -13,7 +13,7 @@ export type BlogType = {
     category: string;
     content: string;
     slug: string;
-    image: string;
+    image: string | File | null;
   };
 };
 
@@ -26,6 +26,7 @@ export default function Edit({ blog }: BlogType) {
     image: blog.image || null,
   });
 
+  const [errors, setErrors] = useState<Record<string, string>>({});
   const [imagePreview, setImagePreview] = useState<string | null>(null);
 
   useEffect(() => {
@@ -40,10 +41,19 @@ export default function Edit({ blog }: BlogType) {
   }, [values.title]);
 
   useEffect(() => {
-    if (blog.image) {
-      setImagePreview(blog.image);
+    if (!values.image) {
+      setImagePreview(null);
+      return;
     }
-  }, [blog.image]);
+
+    if (values.image instanceof File) {
+      const url = URL.createObjectURL(values.image);
+      setImagePreview(url);
+      return () => URL.revokeObjectURL(url);
+    }
+
+    setImagePreview(values.image);
+  }, [values.image]);
 
   function handleChange(e: any, key?: string) {
     if (key) {
@@ -60,28 +70,32 @@ export default function Edit({ blog }: BlogType) {
 
     if (file) {
       setValues({ ...values, image: file });
-      setImagePreview(URL.createObjectURL(file));
-    } else if (blog.image) {
-      setImagePreview(blog.image);
+    } else {
+      setValues({ ...values, image: null });
     }
   }
 
   function handleOnSubmit(e: any) {
     e.preventDefault();
+    const { image, ...rest } = values;
     const formData = new FormData();
-
     formData.append("_method", "PUT");
 
-    for (const key in values) {
-      formData.append(key, values[key]);
+    if (image instanceof File) {
+      formData.append("image", image);
     }
+
+    Object.entries(rest).forEach(([key, value]) => {
+      formData.append(key, value);
+    });
 
     router.post(`/admin/blogs/${blog.id}`, formData, {
       onSuccess: () => {
+        setErrors({});
         ToastSuccess("Blog bericht bijgewerkt!");
       },
       onError: (errors) => {
-        console.error(errors);
+        setErrors(errors);
         ToastError(
           "Error!",
           "Er is iets misgegaan bij het bijwerken van het blogbericht."
@@ -102,6 +116,18 @@ export default function Edit({ blog }: BlogType) {
             <p className="text-gray-600">
               Pas de velden hieronder aan om het artikel te bewerken.
             </p>
+
+            {Object.keys(errors).length > 0 && (
+              <div className="mb-4 p-4 border border-red-400 bg-red-100 text-red-700 rounded">
+                <ul className="list-disc list-inside">
+                  {Object.entries(errors).map(([field, message]) => (
+                    <li key={field}>
+                      <strong>{field}:</strong> {message}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
 
             <form onSubmit={handleOnSubmit} className="space-y-5">
               <div>
