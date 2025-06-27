@@ -14,11 +14,11 @@ export default function GalleryDivider() {
     <div className="w-full overflow-hidden">
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8">
         {images.map((src, index) => (
-          <div key={index} className="h-[150px]">
+          <div key={index} className="h-[150px] overflow-hidden">
             <img
               src={src}
               alt={`Getrimde hond ${index + 1}`}
-              className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
+              className="w-full h-full object-cover transition-transform duration-[1500ms] ease-out hover:scale-110"
               loading="lazy"
             />
           </div>

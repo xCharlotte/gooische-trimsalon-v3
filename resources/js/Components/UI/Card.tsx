@@ -21,9 +21,13 @@ export default function Card({
     <div
       className={`bg-white shadow rounded-lg overflow-hidden border border-gray-200 ${className}`}
     >
-      <figure className="relative">
+      <figure className="aspect-[364/224] overflow-hidden w-full">
         {image && (
-          <img src={image} alt={title} className="w-full h-48 object-cover" />
+          <img
+            src={image}
+            alt={title}
+            className="w-full h-full object-cover transition-transform duration-[1500ms] ease-out hover:scale-110"
+          />
         )}
       </figure>
       <div className="p-4">
@@ -40,7 +44,7 @@ export default function Card({
             })}
           </time>
         )}
-        <p className="text-gray-600">{text}</p>
+        <div dangerouslySetInnerHTML={{ __html: text }} />
         <a
           href="#"
           className="text-primary hover:text-primary-dark mt-4 inline-block"
