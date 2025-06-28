@@ -14,12 +14,17 @@ class BlogController extends Controller
      */
     public function index(Request $request)
     {
-        $search = $request->input('search');
-
-        $blogs = Blog::all();
+        $blogs = Blog::paginate(6);
 
         return Inertia::render('Blog/Index', [
             'blogs' => $blogs,
+        ]);
+    }
+
+    public function show(Blog $blog)
+    {
+        return Inertia::render('Blog/Show', [
+            'blog' => $blog,
         ]);
     }
 }

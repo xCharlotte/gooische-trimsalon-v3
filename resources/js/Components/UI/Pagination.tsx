@@ -3,9 +3,10 @@ import { ChevronRight, ChevronLeft } from "lucide-react";
 export type PaginationProps = {
   currentPage: number;
   lastPage: number;
-  total: number;
-  perPage: number;
-  totalOnPage: number;
+  total?: number;
+  perPage?: number;
+  totalOnPage?: number;
+  showTotal?: boolean;
   onPageChange: (page: number) => void;
 };
 
@@ -16,14 +17,23 @@ export default function Pagination({
   perPage,
   onPageChange,
   totalOnPage,
+  showTotal,
 }: PaginationProps) {
   const pages = [...Array(lastPage)].map((element, i) => i + 1);
 
   return (
-    <div className="flex justify-between items-center mt-2 px-0 md:px-5">
-      <div className="text-sm text-gray-700">
-        {totalOnPage} van {total}
-      </div>
+    <div
+      className={`${
+        showTotal
+          ? "flex justify-between items-center mt-2 px-0 md:px-5"
+          : "flex justify-center"
+      }`}
+    >
+      {showTotal && (
+        <div className="text-sm text-gray-700">
+          {totalOnPage} van {total}
+        </div>
+      )}
       <div className="flex space-x-1">
         <button
           onClick={() => onPageChange(currentPage - 1)}

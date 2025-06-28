@@ -80,7 +80,16 @@ export default function Index({ blogs }: BlogType) {
   };
 
   const handlePageChange = (page: number) => {
-    router.get(route("blogs.index"), { page }, { preserveScroll: true });
+    router.get(
+      route("blogs.index"),
+      { page },
+      {
+        preserveScroll: false,
+        onSuccess: () => {
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        },
+      }
+    );
   };
 
   const handleSearch = (query: string) => {
@@ -132,6 +141,7 @@ export default function Index({ blogs }: BlogType) {
                 perPage={blogs.per_page}
                 onPageChange={handlePageChange}
                 totalOnPage={totalOnPage}
+                showTotal={true}
               />
             </div>
           </div>
