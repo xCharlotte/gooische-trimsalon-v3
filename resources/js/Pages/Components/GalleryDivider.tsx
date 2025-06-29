@@ -1,13 +1,13 @@
 export default function GalleryDivider() {
   const images = [
-    "images/groomed-animals/hond-1.jpg",
-    "images/groomed-animals/hond-5.jpg",
-    "images/groomed-animals/hond-2.jpg",
-    "images/groomed-animals/kat-2.jpg",
-    "images/groomed-animals/hond-3.jpg",
-    "images/groomed-animals/kat-1.jpg",
-    "images/groomed-animals/hond-6.jpg",
-    "images/groomed-animals/hond-7.jpg",
+    "/images/groomed-animals/hond-1.jpg",
+    "/images/groomed-animals/hond-5.jpg",
+    "/images/groomed-animals/hond-2.jpg",
+    "/images/groomed-animals/kat-2.jpg",
+    "/images/groomed-animals/hond-3.jpg",
+    "/images/groomed-animals/kat-1.jpg",
+    "/images/groomed-animals/hond-6.jpg",
+    "/images/groomed-animals/hond-7.jpg",
   ];
 
   return (
