@@ -25,7 +25,7 @@ export default function Index({
       <Hero
         title="Afspraak maken"
         imageUrl="images/afspraak.png"
-        imagePositionClass="lg:bg-[center_top_-14rem]"
+        imagePositionClass="lg:bg-[center_top_-12rem]"
       />
       <div className="flex flex-row justify-center w-full bg-secondary py-2">
         <span className="text-white uppercase text center font-semibold text-sm">

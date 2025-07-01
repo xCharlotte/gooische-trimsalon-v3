@@ -12,7 +12,7 @@ export default function Index() {
       <Hero
         title="Tarieven"
         imageUrl="images/pricing-hero.jpg"
-        imagePositionClass="lg:bg-[center_top_-22rem]"
+        imagePositionClass="lg:bg-[center_top_-20rem]"
       />
 
       <section className="py-8 md:py-14 lg:py-28 px-4 sm:px-6 lg:px-8">
