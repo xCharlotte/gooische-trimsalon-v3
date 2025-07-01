@@ -24,6 +24,18 @@ Route::get('/', function () {
     return Inertia::render('Homepage');
 });
 
+Route::get('/algemene-voorwaarden', function () {
+    return Inertia::render('TermsAndConditions');
+});
+
+Route::get('/cookies', function () {
+    return Inertia::render('Cookies');
+});
+
+Route::get('/privacyverklaring', function () {
+    return Inertia::render('PrivacyStatement');
+});
+
 Route::get('/afspraak', [AppointmentController::class, 'index'])->name('appointment.index');
 Route::post('/afspraak', [AppointmentController::class, 'store'])->name('appointment.post');
 
