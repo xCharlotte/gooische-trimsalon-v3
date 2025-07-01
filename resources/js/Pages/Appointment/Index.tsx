@@ -29,8 +29,11 @@ export default function Index({
       />
       <div className="flex flex-row justify-center w-full bg-secondary py-2">
         <span className="text-white uppercase text center font-semibold text-sm">
-          <u>Let op:</u> Voor honden met een pluk vacht en honden boven de 30 KG
-          geldt een klantenstop.
+          <u>
+            <b>Let op:</b>
+          </u>{" "}
+          Voor honden met een pluk vacht en honden boven de <b>30 KG</b> geldt
+          een klantenstop.
         </span>
       </div>
       <StepForm
