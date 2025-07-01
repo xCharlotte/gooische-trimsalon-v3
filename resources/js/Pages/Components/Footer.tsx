@@ -1,4 +1,5 @@
 import { Link } from "@inertiajs/react";
+import { Mail, Phone } from "lucide-react";
 import { FaFacebookF, FaInstagram } from "react-icons/fa";
 
 export default function Footer() {
@@ -10,27 +11,31 @@ export default function Footer() {
           <div className="flex flex-col justify-between h-full">
             <div className="space-y-2">
               <h2 className="font-semibold text-base">Gooische Trimsalon</h2>
-              <p>Van Linschotenlaan 242</p>
-              <p>1212 GA Hilversum</p>
-              <p className="mt-2">
-                <a
-                  href="tel:+31623349398"
-                  className="hover:underline focus-visible:outline focus:outline-2 focus-visible:outline-primary"
-                >
-                  +31 6 23349398
-                </a>
-              </p>
-              <p>
-                <a
-                  href="mailto:info@gooisetrimsalon.nl"
-                  className="hover:underline focus-visible:outline focus:outline-2 focus:outline-primary"
-                >
-                  info@gooischetrimsalon.nl
-                </a>
-              </p>
-              <div className="mt-6 text-sm text-gray-600 space-y-1">
-                <p>BTW-nummer: 88646476B02</p>
-                <p>KvK-nummer: 77062965</p>
+              <div className="flex flex-col space-y-5">
+                <div className="flex flex-col">
+                  <p className="hover:underline">
+                    <Mail className="inline mr-1 w-3 h-3" />
+                    <a
+                      href="mailto:info@gooisetrimsalon.nl"
+                      className="focus-visible:outline focus:outline-2 focus:outline-primary"
+                    >
+                      info@gooischetrimsalon.nl
+                    </a>
+                  </p>
+                  <p className="mt-2 hover:underline">
+                    <Phone className="inline mr-1 w-3 h-3" />
+                    <a
+                      href="tel:+31623349398"
+                      className="focus-visible:outline focus:outline-2 focus-visible:outline-primary"
+                    >
+                      +31 6 23349398
+                    </a>
+                  </p>
+                </div>
+                <div className="mt-6 text-sm text-gray-600 space-y-1">
+                  <p>BTW-nummer: 88646476B02</p>
+                  <p>KvK-nummer: 77062965</p>
+                </div>
               </div>
             </div>
 
@@ -87,6 +92,12 @@ export default function Footer() {
               className="hover:underline hover:text-primary transition"
             >
               Algemene voorwaarden
+            </Link>
+            <Link
+              href="/privacyverklaring"
+              className="hover:underline hover:text-primary transition"
+            >
+              Privacy verklaring
             </Link>
             <Link
               href="/cookies"
