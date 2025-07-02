@@ -31,4 +31,7 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    'postcode_api' => [
+        'key' => env('POSTCODE_API_KEY'),
+    ],
 ];
