@@ -51,6 +51,7 @@ export default function Create() {
     const formData = new FormData();
 
     for (const key in values) {
+      // @ts-ignore
       formData.append(key, values[key]);
     }
 

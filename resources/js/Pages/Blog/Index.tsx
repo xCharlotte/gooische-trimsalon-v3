@@ -9,6 +9,7 @@ import Pagination from "@/Components/UI/Pagination";
 export type BlogData = {
   id: number;
   title: string;
+  slug: string;
   content: string;
   image: string;
   category: string;
@@ -22,7 +23,7 @@ export type BlogType = {
     last_page: number;
     per_page: number;
     total: number;
-  }[];
+  };
 };
 
 export default function Index({ blogs }: BlogType) {
