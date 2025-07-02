@@ -6,6 +6,8 @@ import { useForm } from "react-hook-form";
 import { formValidationSchema } from "./hooks/formValidationSchema";
 import { FormData } from "@/types/formData";
 import Checkbox from "@/Components/Forms/Checkbox";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 export type ClientFormProps = {
   onPrevious: () => void;
@@ -25,12 +27,46 @@ export default function ClientForm({
   const {
     register,
     handleSubmit,
+    watch,
+    setValue,
     formState: { errors },
   } = useForm({
     // @ts-ignore
     resolver: zodResolver(clientFormSchema),
     defaultValues: formData.clientDetails,
   });
+  // Used to toggle manual address input
+  const [manual, setManual] = useState(false);
+
+  const postalCode = watch("postal_code");
+  const houseNumber = watch("house_number");
+
+  useEffect(() => {
+    const fetchAddress = async () => {
+      if (postalCode && houseNumber) {
+        try {
+          const response = await axios.get("/api/postcode", {
+            params: {
+              postcode: postalCode,
+              number: houseNumber,
+            },
+          });
+
+          const { street, city } = response.data;
+
+          if (street && city) {
+            setValue("street", street);
+            setValue("city", city);
+          }
+        } catch (error) {
+          setValue("street", "");
+          setValue("city", "");
+        }
+      }
+    };
+
+    fetchAddress();
+  }, [postalCode, houseNumber, setValue]);
 
   const onSubmitHandler = (data: any) => {
     const mergedData = {
@@ -108,17 +144,20 @@ export default function ClientForm({
 
       <div className="flex flex-row gap-x-4">
         <div className="flex flex-col w-3/5 gap-y-2">
-          <InputLabel htmlFor="street" className="text-gray-700 font-semibold">
-            Straatnaam
+          <InputLabel
+            htmlFor="postal_code"
+            className="text-gray-700 font-semibold"
+          >
+            Postcode
           </InputLabel>
           <TextInput
-            id="street"
-            placeholder="Adres"
+            id="postal_code"
+            placeholder="Postcode"
             className="border p-3 rounded-lg w-full focus:ring-2 focus:ring-primary"
-            {...register("street")}
+            {...register("postal_code")}
           />
-          {errors.street && (
-            <p className="text-red-500">{errors.street.message}</p>
+          {errors.postal_code && (
+            <p className="text-red-500">{errors.postal_code.message}</p>
           )}
         </div>
         <div className="flex flex-col w-1/5 gap-y-2">
@@ -138,7 +177,7 @@ export default function ClientForm({
             <p className="text-red-500">{errors.house_number.message}</p>
           )}
         </div>
-        <div className="flex flex-col w-1/5 gap-y-2">
+        <div className="flex flex-col w-2/5 gap-y-2">
           <InputLabel
             htmlFor="house_number_suffix"
             className="text-gray-700 font-semibold"
@@ -155,35 +194,45 @@ export default function ClientForm({
       </div>
 
       <div className="flex flex-row gap-x-4">
-        <div className="flex flex-col w-full gap-y-2">
-          <InputLabel
-            htmlFor="postal_code"
-            className="text-gray-700 font-semibold"
-          >
-            Postcode
+        <div className="flex flex-col w-1/2 gap-y-2">
+          <InputLabel htmlFor="street" className="text-gray-700 font-semibold">
+            Straatnaam
           </InputLabel>
           <TextInput
-            id="postal_code"
-            placeholder="Postcode"
-            className="border p-3 rounded-lg w-full focus:ring-2 focus:ring-primary"
-            {...register("postal_code")}
+            id="street"
+            placeholder="Adres"
+            className={`border p-3 rounded-lg w-full focus:ring-2 focus:ring-primary ${
+              manual ? "" : "bg-gray-100 cursor-not-allowed"
+            }`}
+            disabled={!manual}
+            {...register("street")}
           />
-          {errors.postal_code && (
-            <p className="text-red-500">{errors.postal_code.message}</p>
+          {errors.street && (
+            <p className="text-red-500">{errors.street.message}</p>
           )}
         </div>
-        <div className="flex flex-col w-full gap-y-2">
+        <div className="flex flex-col w-1/2 gap-y-2">
           <InputLabel htmlFor="city" className="text-gray-700 font-semibold">
             Woonplaats
           </InputLabel>
           <TextInput
             id="city"
             placeholder="Woonplaats"
-            className="border p-3 rounded-lg w-full focus:ring-2 focus:ring-primary"
+            className={`border p-3 rounded-lg w-full focus:ring-2 focus:ring-primary ${
+              manual ? "" : "bg-gray-100 cursor-not-allowed"
+            }`}
+            disabled={!manual}
             {...register("city")}
           />
           {errors.city && <p className="text-red-500">{errors.city.message}</p>}
         </div>
+      </div>
+
+      <div className="mt-4">
+        <label className="inline-flex items-center">
+          <Checkbox checked={manual} onChange={() => setManual(!manual)} />
+          <span className="ml-2">Adres handmatig invullen</span>
+        </label>
       </div>
 
       <div className="space-y-4">
