@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreAppointmentRequest;
+use App\Mail\AppointmentConfirmationAdmin;
+use App\Mail\AppointmentConfirmationClient;
 use App\Models\Animal;
 use App\Models\Appointment;
 use App\Models\Client;
@@ -13,6 +15,7 @@ use App\Models\Species;
 use App\Services\MomentAvailableService;
 use App\Services\PostCodeService;
 use DB;
+use Illuminate\Support\Facades\Mail;
 use Inertia\Inertia;
 
 class AppointmentController extends Controller
@@ -86,14 +89,18 @@ class AppointmentController extends Controller
                 ]);
     
                 // Now the appointment can be made
-                Appointment::create([
+                $appointment = Appointment::create([
                     'date' => $request->date,
                     'moment' => $request->moment,
                     'client_id' => $client->id,
                     'animal_id' => $animal->id,
                     'species_groom_option_id' => $speciesGroomOption->id,
                 ]);
+
+                Mail::to($client->email)->send(new AppointmentConfirmationClient($appointment, $animal, $client, $speciesGroomOption));
+                Mail::to('info@gooischetrimsalon.nl')->send(new AppointmentConfirmationAdmin($appointment, $animal, $client, $speciesGroomOption));
             });
+
     
             return redirect()->route('appointment.index')
                 ->with('success', 'Een bevestiging is verstuurd naar uw e-mail');
