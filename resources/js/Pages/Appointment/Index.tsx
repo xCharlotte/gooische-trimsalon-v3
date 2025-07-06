@@ -5,12 +5,12 @@ import { Head } from "@inertiajs/react";
 import StepForm from "@/Pages/Appointment/StepForm/StepForm";
 import GalleryDivider from "../Components/GalleryDivider";
 
-interface AppointmentProps {
+export type AppointmentProps = {
   species: { id: number; name: string }[];
   groomOptions: { id: number; name: string }[];
   closedDays: { id: number; date: string }[];
   momentsByDate: any;
-}
+};
 
 export default function Index({
   species,

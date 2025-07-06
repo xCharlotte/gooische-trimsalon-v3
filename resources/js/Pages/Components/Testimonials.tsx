@@ -1,12 +1,12 @@
 import { FaQuoteLeft } from "react-icons/fa";
 
-interface Testimonial {
+export type Testimonial = {
   id: number;
   name: string;
   breed: string;
   text: string;
   avatarUrl?: string;
-}
+};
 
 const testimonials: Testimonial[] = [
   {
