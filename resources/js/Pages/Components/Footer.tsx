@@ -41,15 +41,17 @@ export default function Footer() {
 
             <div className="mt-6 flex space-x-4 text-xl text-gray-600">
               <a
-                href="#"
+                href="https://www.facebook.com/gooischvoedingscentrum"
                 aria-label="Facebook"
+                target="_blank"
                 className="hover:text-primary transition"
               >
                 <FaFacebookF />
               </a>
               <a
-                href="#"
+                href="https://www.instagram.com/gooischetrimsalon"
                 aria-label="Instagram"
+                target="_blank"
                 className="hover:text-primary transition"
               >
                 <FaInstagram />
