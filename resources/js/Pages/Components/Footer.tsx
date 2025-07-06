@@ -1,8 +1,22 @@
-import { Link } from "@inertiajs/react";
+import { Link, usePage } from "@inertiajs/react";
 import { Mail, Phone } from "lucide-react";
 import { FaFacebookF, FaInstagram } from "react-icons/fa";
 
+export type NewsItem = {
+  id: number;
+  title: string;
+  slug: string;
+};
+
+export type FooterProps = {
+  latestNews?: NewsItem[];
+};
+
 export default function Footer() {
+  const { latestNews } = usePage<FooterProps>().props;
+
+  console.log("Latest News:", latestNews);
+
   return (
     <>
       <footer className="text-gray-700 px-6 py-10 md:px-12 lg:px-24">
@@ -63,9 +77,20 @@ export default function Footer() {
           <div>
             <h2 className="font-semibold text-base mb-3">Laatste Nieuws</h2>
             <ul className="space-y-2">
-              <li>Nieuwe openingstijden vanaf volgende maand</li>
-              <li>Hoe u uw hond thuis kunt verzorgen</li>
-              <li>Tips voor de winterverzorging van uw huisdier</li>
+              {latestNews && latestNews.length > 0 ? (
+                latestNews.map((item) => (
+                  <li key={item.id}>
+                    <a
+                      href={`/nieuws/${item.slug}`}
+                      className="hover:underline hover:text-primary transition"
+                    >
+                      {item.title}
+                    </a>
+                  </li>
+                ))
+              ) : (
+                <li>Geen nieuws op dit moment</li>
+              )}
             </ul>
           </div>
 
