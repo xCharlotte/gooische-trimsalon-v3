@@ -1,12 +1,13 @@
 <x-mail::message>
-# Introduction
+Beste {{ $contact['name'] }}, <br>
 
-The body of your message.
+Bedankt voor uw bericht. Ik zal zo spoedig mogelijk contact met u opnemen. 
 
-<x-mail::button :url="''">
-Button Text
-</x-mail::button>
+Met vriendelijke groet,<br>
+Marja de Ridder<br>
 
-Thanks,<br>
-{{ config('app.name') }}
+{{ config('app.name') }}<br>
+Van Linschotenlaan 242<br>
+1212 GA Hilversum<br>
++31 623349398
 </x-mail::message>

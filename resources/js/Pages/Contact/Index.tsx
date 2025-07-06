@@ -1,10 +1,56 @@
-import { Head } from "@inertiajs/react";
+import { Head, router } from "@inertiajs/react";
+import InputLabel from "@/Components/Forms/InputLabel";
+import TextInput from "@/Components/Forms/TextInput";
 import Navbar from "../Components/Navbar";
 import Hero from "../Components/Hero";
 import Footer from "../Components/Footer";
 import GalleryDivider from "../Components/GalleryDivider";
+import Swal from "sweetalert2";
+import TextArea from "@/Components/Forms/TextArea";
+import { useForm, Controller } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { contactFormSchema } from "./hooks/contactFormValidationSchema";
+import { z } from "zod";
+
+type ContactFormData = z.infer<typeof contactFormSchema>;
 
 export default function Contact() {
+  const {
+    control,
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm<ContactFormData>({
+    resolver: zodResolver(contactFormSchema),
+  });
+
+  const onSubmit = async (data: ContactFormData) => {
+    try {
+      await router.post(route("contact.send"), data, {
+        preserveScroll: true,
+        onSuccess: () => {
+          Swal.fire({
+            title: "Succes!",
+            text: "Bedankt voor je bericht! We nemen zo snel mogelijk contact met je op.",
+            icon: "success",
+            confirmButtonText: "OK",
+          }).then(() => reset());
+        },
+        onError: () => {
+          Swal.fire({
+            title: "Fout!",
+            text: "Er ging iets mis, probeer het opnieuw.",
+            icon: "error",
+            confirmButtonText: "OK",
+          });
+        },
+      });
+    } catch (e) {
+      console.error("Post request failed", e);
+    }
+  };
+
   return (
     <div className="flex flex-col min-h-screen">
       <Head title="Contact" />
@@ -64,64 +110,106 @@ export default function Contact() {
             </ul>
           </div>
 
-          <form className="space-y-6 bg-white p-6 rounded-2xl shadow-md">
-            {/* hidden input is used to prevent spam bots from submitting the form */}
+          <form
+            onSubmit={handleSubmit(onSubmit)}
+            className="space-y-6 bg-white p-6 rounded-2xl shadow-md"
+          >
+            {/* Honeypot veld (onzichtbaar) */}
             <div className="hidden">
-              <label htmlFor="company"></label>
-              <input
-                type="text"
-                name="company"
+              <InputLabel htmlFor="company" />
+              <TextInput
                 id="company"
                 autoComplete="off"
                 tabIndex={-1}
+                {...register("company")}
               />
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700">
+              <InputLabel
+                htmlFor="name"
+                className="text-gray-700 font-semibold"
+              >
                 Naam *
-              </label>
-              <input
-                type="text"
-                name="name"
-                className="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:ring-primary focus:border-primary"
-                required
+              </InputLabel>
+              <TextInput
+                id="name"
+                className="border p-3 rounded-lg w-full focus:ring-2 focus:ring-primary"
+                {...register("name")}
               />
+              {errors.name && (
+                <p className="text-red-500 text-sm mt-1">
+                  {errors.name.message}
+                </p>
+              )}
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700">
+              <InputLabel
+                htmlFor="email"
+                className="text-gray-700 font-semibold"
+              >
                 E-mailadres *
-              </label>
-              <input
+              </InputLabel>
+              <TextInput
+                id="email"
                 type="email"
-                name="email"
-                className="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:ring-primary focus:border-primary"
-                required
+                className="border p-3 rounded-lg w-full focus:ring-2 focus:ring-primary"
+                {...register("email")}
               />
+              {errors.email && (
+                <p className="text-red-500 text-sm mt-1">
+                  {errors.email.message}
+                </p>
+              )}
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700">
+              <InputLabel
+                htmlFor="phone"
+                className="text-gray-700 font-semibold"
+              >
                 Telefoonnummer *
-              </label>
-              <input
-                type="tel"
-                name="phone"
-                className="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:ring-primary focus:border-primary"
+              </InputLabel>
+              <TextInput
+                id="phone"
+                className="border p-3 rounded-lg w-full focus:ring-2 focus:ring-primary"
+                {...register("phone")}
               />
+              {errors.phone && (
+                <p className="text-red-500 text-sm mt-1">
+                  {errors.phone.message}
+                </p>
+              )}
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700">
+              <InputLabel
+                htmlFor="contactMessage"
+                className="text-gray-700 font-semibold"
+              >
                 Bericht *
-              </label>
-              <textarea
-                name="message"
-                rows={4}
-                className="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:ring-primary focus:border-primary"
-                required
-              ></textarea>
+              </InputLabel>
+
+              {/* Use Controller because React Hook Form can't properly handle custom controlled components like textarea with Zod validation otherwise. */}
+              <Controller
+                name="contactMessage"
+                control={control}
+                defaultValue=""
+                render={({ field }) => (
+                  <TextArea
+                    id="contactMessage"
+                    rows={4}
+                    className="border p-3 rounded-lg w-full focus:ring-2 focus:ring-primary"
+                    {...field}
+                  />
+                )}
+              />
+              {errors.contactMessage && (
+                <p className="text-red-500 text-sm mt-1">
+                  {errors.contactMessage.message}
+                </p>
+              )}
             </div>
 
             <div>

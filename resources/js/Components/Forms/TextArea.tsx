@@ -29,11 +29,23 @@ export default forwardRef(function TextArea(
   return (
     <textarea
       {...props}
+      onChange={(e) => {
+        props.onChange?.(e);
+      }}
+      value={props.value ?? ""}
       className={
         "border-gray-300 focus:border-primary focus:ring-primary rounded-md shadow-sm " +
         className
       }
-      ref={localRef}
+      ref={(el) => {
+        localRef.current = el; // Save in localRef
+        if (typeof ref === "function") {
+          ref(el); // Support callback refs
+        } else if (ref) {
+          (ref as React.MutableRefObject<HTMLTextAreaElement | null>).current =
+            el;
+        }
+      }}
     />
   );
 });

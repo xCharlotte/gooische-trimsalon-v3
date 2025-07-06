@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\GroomOptionController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\SpeciesController;
 use App\Http\Controllers\AppointmentController;
+use App\Http\Controllers\ContactController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -49,6 +50,8 @@ Route::get('tarieven', function () {
 Route::get('contact', function () {
     return Inertia::render('Contact/Index');
 });
+
+Route::post('/contact', [ContactController::class, 'send'])->name('contact.send');
 
 Route::get('/dashboard', function () {
     return Inertia::render('Admin/Dashboard');

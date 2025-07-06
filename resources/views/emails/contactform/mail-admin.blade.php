@@ -1,12 +1,12 @@
 <x-mail::message>
-# Introduction
+# Nieuw bericht via contactformulier
 
-The body of your message.
+**Naam:** {{ $contact['name'] }}  
+**E-mail:** {{ $contact['email'] }}  
+**Telefoon:** {{ $contact['phone'] }}  
 
-<x-mail::button :url="''">
-Button Text
-</x-mail::button>
+**Bericht:**  
+{{ $contact['contactMessage'] }}
 
-Thanks,<br>
 {{ config('app.name') }}
 </x-mail::message>
