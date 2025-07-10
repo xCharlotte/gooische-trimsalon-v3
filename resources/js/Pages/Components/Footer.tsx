@@ -15,8 +15,6 @@ export type FooterProps = {
 export default function Footer() {
   const { latestNews } = usePage<FooterProps>().props;
 
-  console.log("Latest News:", latestNews);
-
   return (
     <>
       <footer className="text-gray-700 px-6 py-10 md:px-12 lg:px-24">

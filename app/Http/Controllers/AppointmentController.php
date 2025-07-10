@@ -101,7 +101,6 @@ class AppointmentController extends Controller
                 Mail::to('info@gooischetrimsalon.nl')->send(new AppointmentConfirmationAdmin($appointment, $animal, $client, $speciesGroomOption));
             });
 
-    
             return redirect()->route('appointment.index')
                 ->with('success', 'Een bevestiging is verstuurd naar uw e-mail');
     

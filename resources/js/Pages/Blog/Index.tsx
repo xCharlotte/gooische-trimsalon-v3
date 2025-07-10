@@ -38,7 +38,6 @@ export default function Index({ blogs }: BlogType) {
     );
   };
 
-  console.log("Blogs data:", blogs);
   return (
     <>
       <Head title="Nieuws" />
