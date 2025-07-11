@@ -20,7 +20,9 @@ class BlogController extends Controller
         ->when($search, function ($query, $search) {
             $query->where('title', 'like', "%{$search}%")
             ->orWhere('category', 'like', "%{$search}%");
-        })->paginate(10);
+        })
+        ->orderBy('created_at', 'desc')
+        ->paginate(10);
 
         return Inertia::render('Admin/Blog/Index', [
             'blogs' => $blogs,
@@ -48,20 +50,24 @@ class BlogController extends Controller
             'image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
         ]);
 
-        $imageName = time() . '.' . $request->image->extension();
-        $request->image->move(public_path('images'), $imageName);
+        $imageName = null;
+        
+        if ($request->hasFile('image')) {
+            $imageName = time() . '.' . $request->image->extension();
+            $request->image->move(public_path('images'), $imageName);
+        }
 
         $blog = new Blog([
             'title' => $request->title,
             'slug' => $request->slug,
             'category' => $request->category,
             'content' => $request->content,
-            'image' => '/images/' . $imageName,
+            'image' => $imageName ? '/images/' . $imageName : null,
         ]);
 
         $blog->save();
 
-        return redirect()->route('blogs.index');
+        return redirect()->route('blogs.index')->withSuccess('Blog added successfully.');
     }
 
     /**

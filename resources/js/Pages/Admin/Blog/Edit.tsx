@@ -18,7 +18,7 @@ export type BlogType = {
 };
 
 export default function Edit({ blog }: BlogType) {
-  const [values, setValues] = useState({
+  const [formValue, setFormValue] = useState({
     title: blog.title || "",
     category: blog.category || "",
     content: blog.content || "",
@@ -30,54 +30,58 @@ export default function Edit({ blog }: BlogType) {
   const [imagePreview, setImagePreview] = useState<string | null>(null);
 
   useEffect(() => {
-    if (values.title) {
-      const slug = values.title
+    if (formValue.title) {
+      const slug = formValue.title
         .toLowerCase()
         .trim()
         .replace(/[^a-z0-9\s-]/g, "")
         .replace(/\s+/g, "-");
-      setValues((prev) => ({ ...prev, slug }));
+      setFormValue((prev) => ({ ...prev, slug }));
     }
-  }, [values.title]);
+  }, [formValue.title]);
 
   useEffect(() => {
-    if (!values.image) {
+    if (!formValue.image) {
       setImagePreview(null);
       return;
     }
 
-    if (values.image instanceof File) {
-      const url = URL.createObjectURL(values.image);
+    if (formValue.image instanceof File) {
+      const url = URL.createObjectURL(formValue.image);
       setImagePreview(url);
-      return () => URL.revokeObjectURL(url);
-    }
 
-    setImagePreview(values.image);
-  }, [values.image]);
-
-  function handleChange(e: any, key?: string) {
-    if (key) {
-      setValues({ ...values, [key]: e });
+      return () => {
+        URL.revokeObjectURL(url);
+      };
     } else {
-      const key = e.target.id;
-      const value = e.target.value;
-      setValues({ ...values, [key]: value });
+      setImagePreview(formValue.image as string);
+    }
+  }, [formValue.image]);
+
+  function handleChange(
+    e: React.ChangeEvent<HTMLInputElement> | string,
+    key?: string
+  ) {
+    // TextEditor sends content directly, so no event is passed. Therefore we check if key is provided.
+    if (key) {
+      setFormValue({ ...formValue, [key]: e });
+    } else {
+      // For TextInput, we get the event and extract the id and value.
+      const event = e as React.ChangeEvent<HTMLInputElement>;
+      const key = event.target.id;
+      const value = event.target.value;
+      setFormValue({ ...formValue, [key]: value });
     }
   }
 
-  function handleImageChange(e: any) {
-    const file = e.target.files[0];
-
-    if (file) {
-      setValues({ ...values, image: file });
-    } else {
-      setValues({ ...values, image: null });
-    }
+  function handleImageChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0] || null;
+    setFormValue((prev) => ({ ...prev, image: file }));
   }
 
   function handleOnSubmit(e: any) {
     e.preventDefault();
-    const { image, ...rest } = values;
+    const { image, ...rest } = formValue;
     const formData = new FormData();
     formData.append("_method", "PUT");
 
@@ -98,7 +102,7 @@ export default function Edit({ blog }: BlogType) {
         setErrors(errors);
         ToastError(
           "Error!",
-          "Er is iets misgegaan bij het bijwerken van het blogbericht."
+          "Er is iets misgegaan. Check de errors of neem anders contact op met Charlotte!"
         );
       },
     });
@@ -139,7 +143,8 @@ export default function Edit({ blog }: BlogType) {
                 </label>
                 <TextInput
                   id="title"
-                  value={values.title}
+                  name="title"
+                  value={formValue.title}
                   onChange={handleChange}
                   className="w-full"
                 />
@@ -154,7 +159,8 @@ export default function Edit({ blog }: BlogType) {
                 </label>
                 <TextInput
                   id="slug"
-                  value={values.slug}
+                  name="slug"
+                  value={formValue.slug}
                   onChange={handleChange}
                   className="w-full"
                 />
@@ -169,7 +175,8 @@ export default function Edit({ blog }: BlogType) {
                 </label>
                 <TextInput
                   id="category"
-                  value={values.category}
+                  name="category"
+                  value={formValue.category}
                   onChange={handleChange}
                   className="w-full"
                 />
@@ -184,7 +191,7 @@ export default function Edit({ blog }: BlogType) {
                 </label>
                 <TextEditor
                   id="content"
-                  value={values.content}
+                  value={formValue.content}
                   onChange={(content) => handleChange(content, "content")}
                 />
               </div>

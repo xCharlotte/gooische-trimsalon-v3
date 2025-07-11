@@ -7,7 +7,7 @@ import TextEditor from "@/Components/Forms/TextEditor";
 import { ToastError, ToastSuccess } from "@/Components/Notify/Toast";
 
 export default function Create() {
-  const [values, setValues] = useState({
+  const [formValue, setFormValue] = useState({
     title: "",
     category: "",
     content: "",
@@ -15,33 +15,34 @@ export default function Create() {
     image: null,
   });
 
+  const [errors, setErrors] = useState<Record<string, string>>({});
   const [imagePreview, setImagePreview] = useState<string | null>(null);
 
   useEffect(() => {
-    if (values.title) {
-      const slug = values.title
+    if (formValue.title) {
+      const slug = formValue.title
         .toLowerCase()
         .trim()
         .replace(/[^a-z0-9\s-]/g, "")
         .replace(/\s+/g, "-");
-      setValues((prev) => ({ ...prev, slug }));
+      setFormValue((prev) => ({ ...prev, slug }));
     }
-  }, [values.title]);
+  }, [formValue.title]);
 
   function handleChange(e: any, key?: string) {
     if (key) {
-      setValues({ ...values, [key]: e });
+      setFormValue({ ...formValue, [key]: e });
     } else {
       const key = e.target.id;
       const value = e.target.value;
-      setValues({ ...values, [key]: value });
+      setFormValue({ ...formValue, [key]: value });
     }
   }
 
   function handleImageChange(e: any) {
     const file = e.target.files[0];
     if (file) {
-      setValues({ ...values, image: file });
+      setFormValue({ ...formValue, image: file });
       setImagePreview(URL.createObjectURL(file)); // Create a temporary preview URL
     }
   }
@@ -49,25 +50,29 @@ export default function Create() {
   function handleOnSubmit(e: any) {
     e.preventDefault();
     const formData = new FormData();
+    formData.append("title", formValue.title);
+    formData.append("slug", formValue.slug);
+    formData.append("category", formValue.category);
+    formData.append("content", formValue.content);
 
-    for (const key in values) {
-      // @ts-ignore
-      formData.append(key, values[key]);
+    if (formValue.image) {
+      formData.append("image", formValue.image);
     }
 
-    router.post("/admin/blogs", formData),
-      {
-        onSuccess: () => {
-          ToastSuccess("Blog bericht aangemaakt!");
-          router.visit(route("blogs.index"));
-        },
-        onError: () => {
-          ToastError(
-            "Error!",
-            "Er is iets mis gegaan. Neem contact op met de admin!"
-          );
-        },
-      };
+    router.post("/admin/blogs", formData, {
+      onSuccess: () => {
+        setErrors({});
+        ToastSuccess("Blog bericht aangemaakt!");
+        router.visit(route("blogs.index"));
+      },
+      onError: (errors) => {
+        setErrors(errors);
+        ToastError(
+          "Error!",
+          "Er is iets misgegaan. Check de errors of neem anders contact op met Charlotte!"
+        );
+      },
+    });
   }
 
   return (
@@ -83,6 +88,18 @@ export default function Create() {
               Vul de onderstaande velden in om een nieuw artikel aan te maken.
             </p>
 
+            {Object.keys(errors).length > 0 && (
+              <div className="mb-4 p-4 border border-red-400 bg-red-100 text-red-700 rounded">
+                <ul className="list-disc list-inside">
+                  {Object.entries(errors).map(([field, message]) => (
+                    <li key={field}>
+                      <strong>{field}:</strong> {message}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+
             <form onSubmit={handleOnSubmit} className="space-y-5">
               <div>
                 <label
@@ -93,7 +110,8 @@ export default function Create() {
                 </label>
                 <TextInput
                   id="title"
-                  value={values.title}
+                  name="title"
+                  value={formValue.title}
                   onChange={handleChange}
                   className="w-full"
                 />
@@ -108,7 +126,8 @@ export default function Create() {
                 </label>
                 <TextInput
                   id="slug"
-                  value={values.slug}
+                  name="slug"
+                  value={formValue.slug}
                   onChange={handleChange}
                   className="w-full"
                 />
@@ -123,7 +142,8 @@ export default function Create() {
                 </label>
                 <TextInput
                   id="category"
-                  value={values.category}
+                  name="category"
+                  value={formValue.category}
                   onChange={handleChange}
                   className="w-full"
                 />
@@ -138,7 +158,7 @@ export default function Create() {
                 </label>
                 <TextEditor
                   id="content"
-                  value={values.content}
+                  value={formValue.content}
                   onChange={(content) => handleChange(content, "content")}
                 />
               </div>
