@@ -62,8 +62,6 @@ export default function DatePickerForm({
     ...fullyBookedDates,
   ];
 
-  console.log("Disabled Dates:", disabledDates);
-
   const isMomentDisabled = (moment: string) => {
     const unavailableMoments = momentsByDate[formData.date] || [];
     return unavailableMoments.includes(moment);
