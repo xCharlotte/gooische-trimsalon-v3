@@ -18,7 +18,7 @@ export const clientFormSchema = z.object({
     .string()
     .min(1, "Postcode is verplicht")
     .regex(
-      /^\d{4}[A-Za-z]{2}$/,
+      /^\d{4}\s?[A-Za-z]{2}$/,
       "Postcode is ongeldig. Gebruik het formaat 1234AB."
     ),
   city: z.string().min(2, "Woonplaats is verplicht"),

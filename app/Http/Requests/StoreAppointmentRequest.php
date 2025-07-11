@@ -17,7 +17,7 @@ class StoreAppointmentRequest extends FormRequest
             'clientDetails.street' => 'required|string|max:255',
             'clientDetails.house_number' => 'required|string|max:10',
             'clientDetails.house_number_suffix' => 'nullable|string|max:10',
-            'clientDetails.postal_code' => 'required|string|regex:/^[1-9][0-9]{3}[A-Z]{2}$/', 
+            'clientDetails.postal_code' => 'required|string|regex:/^\d{4}\s?[A-Za-z]{2}$/',
             'clientDetails.city' => 'required|string|max:255',
             'clientDetails.email' => 'required|email|max:255',
             'clientDetails.phone' => 'required|string|regex:/^\+?[0-9\s\-\(\)]{7,20}$/',
