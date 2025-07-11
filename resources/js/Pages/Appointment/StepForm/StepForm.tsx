@@ -35,8 +35,9 @@ export default function StepForm({
       preserveScroll: true,
       onSuccess: () => {
         Swal.fire({
-          title: "Succes!",
-          text: "Je afspraak is succesvol aangemaakt!",
+          title: "Bedankt voor je afspraak!",
+          html: `Er is een bevestigingsmail verstuurd naar het opgegeven e-mailadres. 
+            <br><br><span style="font-size:0.8em; color:gray;">(Check ook je spamfolder.)</span>`,
           icon: "success",
           confirmButtonText: "OK",
         }).then(() => {
