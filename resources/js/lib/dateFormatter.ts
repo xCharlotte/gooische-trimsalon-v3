@@ -13,3 +13,16 @@ export const formatDateToDMY = (dateString: string): string => {
   const year = date.getFullYear();
   return `${day}-${month}-${year}`;
 };
+
+// Show the date in long format in Dutch (NL)
+// Example: "maandag 1 januari 2024"
+export const formatDateToLongNL = (dateString: string): string => {
+  const date = new Date(dateString);
+  const options: Intl.DateTimeFormatOptions = {
+    weekday: "long",
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  };
+  return date.toLocaleDateString("nl-NL", options);
+};

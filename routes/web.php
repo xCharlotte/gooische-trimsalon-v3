@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\Admin\ClosedDayController;
 use App\Http\Controllers\Admin\GroomOptionController;
@@ -53,11 +54,13 @@ Route::get('contact', function () {
 
 Route::post('/contact', [ContactController::class, 'send'])->name('contact.send');
 
-Route::get('/dashboard', function () {
-    return Inertia::render('Admin/Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/dashboard', [DashboardController::class, 'index'])
+    ->middleware(['auth', 'verified'])
+    ->name('dashboard');
 
 Route::middleware('auth')->prefix('admin')->group(function () {
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
     Route::resource('/blogs', \App\Http\Controllers\Admin\BlogController::class);
     Route::resource('/appointments', \App\Http\Controllers\Admin\AppointmentController::class);
     Route::resource('/species', SpeciesController::class)->only(['index', 'store', 'destroy']);
