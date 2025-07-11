@@ -38,6 +38,16 @@ export default function DatePickerForm({
   }) => {
     return Object.entries(momentsByDate)
       .filter(([date, moments]) => {
+        // Get the days of the week
+        const dayOfWeek = new Date(date).getDay();
+
+        // Check is day of the week is Saturday
+        if (dayOfWeek === 6) {
+          // Saturday has only one moment availablem, and therefore this day is fully booked
+          return moments.includes("10:00 - 12:00");
+        }
+
+        // else check for the other days which have two moments available
         return (
           moments.includes("10:00 - 12:00") && moments.includes("19:00 - 20:00")
         );
@@ -51,6 +61,8 @@ export default function DatePickerForm({
     ...closedDays.map((item) => item.date),
     ...fullyBookedDates,
   ];
+
+  console.log("Disabled Dates:", disabledDates);
 
   const isMomentDisabled = (moment: string) => {
     const unavailableMoments = momentsByDate[formData.date] || [];
