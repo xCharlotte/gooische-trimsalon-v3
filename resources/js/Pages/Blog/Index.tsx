@@ -38,6 +38,10 @@ export default function Index({ blogs }: BlogType) {
     );
   };
 
+  function stripTags(html: string) {
+    return html.replace(/<[^>]*>?/gm, "");
+  }
+
   return (
     <>
       <Head title="Nieuws" />
@@ -58,7 +62,7 @@ export default function Index({ blogs }: BlogType) {
                   <Card
                     key={blog.id}
                     title={blog.title}
-                    text={blog.content}
+                    text={`${stripTags(blog.content).substring(0, 100)}...`}
                     image={blog.image}
                     category={blog.category}
                     createdAt={blog.created_at}

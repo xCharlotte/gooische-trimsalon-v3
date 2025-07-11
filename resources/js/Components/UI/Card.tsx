@@ -23,7 +23,7 @@ export default function Card({
   return (
     <Link href={url}>
       <div
-        className={`bg-white shadow rounded-lg overflow-hidden border border-gray-200 ${className}`}
+        className={`bg-white shadow rounded-lg overflow-hidden border border-gray-200 flex flex-col h-full ${className}`}
       >
         <figure className="aspect-[364/224] overflow-hidden w-full">
           {image && (
@@ -34,7 +34,7 @@ export default function Card({
             />
           )}
         </figure>
-        <div className="p-4">
+        <div className="p-4 flex flex-col flex-1">
           {category && (
             <span className="text-sm text-gray-500 mb-2 block">{category}</span>
           )}
@@ -48,7 +48,10 @@ export default function Card({
               })}
             </time>
           )}
-          <div dangerouslySetInnerHTML={{ __html: text }} />
+          <div className="flex-1">
+            <div dangerouslySetInnerHTML={{ __html: text }} />
+          </div>
+
           <a
             href="#"
             className="text-primary hover:text-primary-dark mt-4 inline-block"
