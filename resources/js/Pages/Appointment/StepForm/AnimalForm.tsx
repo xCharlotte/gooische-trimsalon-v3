@@ -69,10 +69,12 @@ export default function AnimalForm({
   return (
     <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
       <div className="flex flex-col items-center space-y-2">
-        <h2 className="text-2xl uppercase font-bold text-gray-700">
+        <h2 className="text-lg sm:text-2xl uppercase font-bold text-gray-700">
           Huisdier gegevens
         </h2>
-        <p className="text-gray-700">Vertel ons meer over je huisdier?</p>
+        <p className="text-sm sm:text-base text-gray-700">
+          Vertel ons meer over je huisdier?
+        </p>
       </div>
 
       <div className="space-y-2">

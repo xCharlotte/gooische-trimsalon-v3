@@ -81,13 +81,15 @@ export default function ClientForm({
   return (
     <form onSubmit={handleSubmit(onSubmitHandler)} className="space-y-6">
       <div className="flex flex-col items-center space-y-2">
-        <h2 className="text-2xl uppercase font-bold text-gray-700">
+        <h2 className="text-lg sm:text-2xl uppercase font-bold text-gray-700">
           Contactgegevens
         </h2>
-        <p className="text-gray-700">Waar kan ik je bereiken?</p>
+        <p className="text-sm sm:text-base text-gray-700">
+          Waar kan ik je bereiken?
+        </p>
       </div>
 
-      <div className="flex flex-row gap-4">
+      <div className="flex flex-col sm:flex-row gap-4">
         <div className="flex flex-col w-full gap-y-2">
           <InputLabel
             htmlFor="first_name"
@@ -142,8 +144,8 @@ export default function ClientForm({
         </div>
       </div>
 
-      <div className="flex flex-row gap-x-4">
-        <div className="flex flex-col w-3/5 gap-y-2">
+      <div className="flex flex-col sm:flex-row gap-x-4">
+        <div className="flex flex-col w-full sm:w-3/5 gap-y-2">
           <InputLabel
             htmlFor="postal_code"
             className="text-gray-700 font-semibold"
@@ -160,7 +162,7 @@ export default function ClientForm({
             <p className="text-red-500">{errors.postal_code.message}</p>
           )}
         </div>
-        <div className="flex flex-col w-1/5 gap-y-2">
+        <div className="flex flex-col w-full sm:w-1/5 gap-y-2">
           <InputLabel
             htmlFor="house_number"
             className="text-gray-700 font-semibold"
@@ -177,7 +179,7 @@ export default function ClientForm({
             <p className="text-red-500">{errors.house_number.message}</p>
           )}
         </div>
-        <div className="flex flex-col w-2/5 gap-y-2">
+        <div className="flex flex-col w-full sm:w-2/5 gap-y-2">
           <InputLabel
             htmlFor="house_number_suffix"
             className="text-gray-700 font-semibold"
@@ -193,8 +195,8 @@ export default function ClientForm({
         </div>
       </div>
 
-      <div className="flex flex-row gap-x-4">
-        <div className="flex flex-col w-1/2 gap-y-2">
+      <div className="flex flex-col sm:flex-row gap-x-4">
+        <div className="flex flex-col w-full sm:w-1/2 gap-y-2">
           <InputLabel htmlFor="street" className="text-gray-700 font-semibold">
             Straatnaam
           </InputLabel>
@@ -211,7 +213,7 @@ export default function ClientForm({
             <p className="text-red-500">{errors.street.message}</p>
           )}
         </div>
-        <div className="flex flex-col w-1/2 gap-y-2">
+        <div className="flex flex-col w-full sm:w-1/2 gap-y-2">
           <InputLabel htmlFor="city" className="text-gray-700 font-semibold">
             Woonplaats
           </InputLabel>

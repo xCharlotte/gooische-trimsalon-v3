@@ -85,10 +85,12 @@ export default function DatePickerForm({
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
       <div className="flex flex-col items-center space-y-2">
-        <h2 className="text-2xl uppercase font-bold text-gray-700">
+        <h2 className="text-lg sm:text-2xl uppercase font-bold text-gray-700">
           Datum & Tijdstip
         </h2>
-        <p className="text-gray-700">Wanneer wil je langskomen?</p>
+        <p className="text-sm sm:text-base text-center text-gray-700">
+          Wanneer wil je langskomen?
+        </p>
       </div>
 
       <Flatpicker

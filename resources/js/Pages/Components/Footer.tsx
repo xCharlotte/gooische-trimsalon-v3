@@ -107,26 +107,26 @@ export default function Footer() {
       {/* All rights reserver and terms & condition links */}
       <div className="border-t border-gray-200 text-sm text-gray-600 px-6 md:px-12 lg:px-24 py-4">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between md:items-center gap-2 md:gap-0">
-          <div>
+          <div className="text-sm order-2 md:order-1">
             © {new Date().getFullYear()} Gooische Trimsalon. Alle rechten
             voorbehouden.
           </div>
-          <div className="flex space-x-4">
+          <div className="flex flex-col sm:flex-row sm:items-center gap-4 order-1 md:order-2">
             <Link
               href="/algemene-voorwaarden"
-              className="hover:underline hover:text-primary transition"
+              className="text-sm hover:underline hover:text-primary transition"
             >
               Algemene voorwaarden
             </Link>
             <Link
               href="/privacyverklaring"
-              className="hover:underline hover:text-primary transition"
+              className="!m-0 text-sm hover:underline hover:text-primary transition"
             >
               Privacy verklaring
             </Link>
             <Link
               href="/cookies"
-              className="hover:underline hover:text-primary transition"
+              className="!m-0 text-sm hover:underline hover:text-primary transition"
             >
               Cookies
             </Link>

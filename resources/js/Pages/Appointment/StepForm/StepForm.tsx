@@ -160,7 +160,9 @@ export default function StepForm({
                     </div>
 
                     {/* Label */}
-                    <p className="mt-2 text-sm text-gray-900">{item.label}</p>
+                    <p className="mt-2 text-xs sm:text-sm text-gray-900">
+                      {item.label}
+                    </p>
                   </li>
                 );
               })}
@@ -168,8 +170,8 @@ export default function StepForm({
           </nav>
         </div>
         <div className="flex items-center justify-center p-6 w-full pb-20">
-          <div className="bg-white shadow-lg rounded-2xl w-full max-w-4xl p-8">
-            <div className="p-4">{renderStepForm()}</div>
+          <div className="bg-white shadow-lg rounded-2xl w-full max-w-4xl p-4 sm:p-8">
+            <div className="p-0 sm:p-4">{renderStepForm()}</div>
           </div>
         </div>
       </div>

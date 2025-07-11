@@ -7,7 +7,7 @@ export default function Navbar() {
 
   return (
     <nav className="bg-white py-4 shadow-md fixed w-full z-50">
-      <div className="max-w-7xl mx-auto px-4 md:px-0 flex justify-between items-center">
+      <div className="max-w-3xl lg:max-w-7xl mx-auto px-4 md:px-0 flex justify-between items-center">
         {/* Logo + Naam */}
         <a href="/" className="flex items-center">
           <ApplicationLogo className="w-10 h-10 md:w-12 md:h-12 lg:w-16 lg:h-16" />

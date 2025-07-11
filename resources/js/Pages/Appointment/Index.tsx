@@ -29,7 +29,7 @@ export default function Index({
         }
       >
         <div className="flex flex-row justify-center w-full bg-secondary py-2 z-10">
-          <span className="text-white uppercase text center font-semibold text-sm">
+          <span className="text-white uppercase text center font-semibold text-xs sm:text-sm px-4">
             <u>
               <b>Let op:</b>
             </u>{" "}
@@ -43,7 +43,7 @@ export default function Index({
           closedDays={closedDays}
           momentsByDate={momentsByDate}
         />
-        <div className="flex flex-row justify-center -mt-20 py-16">
+        <div className="flex flex-row justify-center text-center text-sm sm:text-base -mt-20 py-16 px-4 sm:px-0">
           <p>
             Als er nog plaats is, gelieve een afspraak maken 1 dag van tevoren.
           </p>

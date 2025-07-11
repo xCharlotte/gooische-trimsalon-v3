@@ -28,7 +28,7 @@ export default function Hero({
 
       <div className="relative max-w-5xl w-full mx-auto px-4">
         <div className="w-full md:w-1/2 lg:w-1/2 text-left text-white">
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6 drop-shadow-lg">
+          <h1 className="text-2xl md:text-5xl lg:text-6xl text-center sm:text-left font-bold leading-tight mb-6 drop-shadow-lg">
             {title}
           </h1>
           <p className="mb-8 text-lg md:text-xl drop-shadow-md">{subtitle}</p>
